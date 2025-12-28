@@ -1,0 +1,239 @@
+@import "tailwindcss";
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"); */
+
+@theme {
+  /* Colors - using oklch for better color manipulation in v4 */
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(220 20% 10%);
+
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(220 20% 10%);
+
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(220 20% 10%);
+
+  --color-primary: hsl(174 72% 45%);
+  --color-primary-glow: hsl(174 80% 55%);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  --color-secondary: hsl(220 14% 96%);
+  --color-secondary-foreground: hsl(220 20% 10%);
+
+  --color-muted: hsl(220 14% 96%);
+  --color-muted-foreground: hsl(220 10% 46%);
+
+  --color-accent: hsl(174 60% 92%);
+  --color-accent-foreground: hsl(174 72% 30%);
+
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-border: hsl(220 14% 90%);
+  --color-input: hsl(220 14% 90%);
+  --color-ring: hsl(174 72% 45%);
+
+  /* Sidebar colors */
+  --color-sidebar-background: hsl(0 0% 98%);
+  --color-sidebar-foreground: hsl(240 5.3% 26.1%);
+  --color-sidebar-primary: hsl(240 5.9% 10%);
+  --color-sidebar-primary-foreground: hsl(0 0% 98%);
+  --color-sidebar-accent: hsl(240 4.8% 95.9%);
+  --color-sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --color-sidebar-border: hsl(220 13% 91%);
+  --color-sidebar-ring: hsl(174 72% 45%);
+
+  /* Radius */
+  --radius: 0.75rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Font families */
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Outfit", sans-serif;
+
+  /* Custom animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-in: fadeIn 0.6s ease-out forwards;
+  --animate-slide-up: slideUp 0.6s ease-out forwards;
+  --animate-slide-in-right: slideInRight 0.8s ease-out forwards;
+  --animate-pulse-glow: pulseGlow 2s ease-in-out infinite;
+
+  /* Keyframes */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%,
+    100% {
+      box-shadow: 0 0 20px hsl(174 72% 45% / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(174 72% 45% / 0.5);
+    }
+  }
+}
+
+/* Custom CSS properties for gradients and shadows (not part of @theme) */
+:root {
+  --gradient-primary: linear-gradient(
+    135deg,
+    hsl(174, 72%, 45%) 0%,
+    hsl(190, 80%, 50%) 100%
+  );
+  --gradient-hero: linear-gradient(
+    180deg,
+    hsl(174, 60%, 97%) 0%,
+    hsl(0, 0%, 100%) 100%
+  );
+  --gradient-cta: linear-gradient(
+    135deg,
+    hsl(174, 72%, 40%) 0%,
+    hsl(190, 75%, 45%) 100%
+  );
+  --shadow-soft: 0 4px 24px -4px hsl(174 72% 45% / 0.15);
+  --shadow-glow: 0 8px 40px -8px hsl(174 72% 45% / 0.25);
+  --shadow-card: 0 2px 16px -2px hsl(220 20% 10% / 0.08);
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-background: hsl(220 25% 6%);
+  --color-foreground: hsl(210 40% 98%);
+
+  --color-card: hsl(220 25% 8%);
+  --color-card-foreground: hsl(210 40% 98%);
+
+  --color-popover: hsl(220 25% 8%);
+  --color-popover-foreground: hsl(210 40% 98%);
+
+  --color-primary: hsl(174 72% 50%);
+  --color-primary-glow: hsl(174 80% 60%);
+  --color-primary-foreground: hsl(220 25% 6%);
+
+  --color-secondary: hsl(220 20% 14%);
+  --color-secondary-foreground: hsl(210 40% 98%);
+
+  --color-muted: hsl(220 20% 14%);
+  --color-muted-foreground: hsl(215 20% 65%);
+
+  --color-accent: hsl(174 50% 15%);
+  --color-accent-foreground: hsl(174 72% 60%);
+
+  --color-destructive: hsl(0 62% 30%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+
+  --color-border: hsl(220 20% 18%);
+  --color-input: hsl(220 20% 18%);
+  --color-ring: hsl(174 72% 50%);
+
+  --color-sidebar-background: hsl(220 25% 8%);
+  --color-sidebar-foreground: hsl(240 4.8% 95.9%);
+  --color-sidebar-primary: hsl(174 72% 50%);
+  --color-sidebar-primary-foreground: hsl(0 0% 100%);
+  --color-sidebar-accent: hsl(220 20% 12%);
+  --color-sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --color-sidebar-border: hsl(220 20% 15%);
+  --color-sidebar-ring: hsl(174 72% 50%);
+}
+
+/* Base layer styles */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom utilities using @utility directive (v4 syntax) */
+@utility text-gradient {
+  background-image: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-primary {
+  background-image: var(--gradient-primary);
+}
+
+@utility bg-gradient-hero {
+  background-image: var(--gradient-hero);
+}
+
+@utility bg-gradient-cta {
+  background-image: var(--gradient-cta);
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}

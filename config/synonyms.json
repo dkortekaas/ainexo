@@ -1,0 +1,36 @@
+{
+  "nl": {
+    "prijs": ["kosten", "tarief", "prijzen", "bedrag", "betaling"],
+    "werkt": ["functioneert", "werking", "functionaliteit", "gebruik"],
+    "integratie": ["koppeling", "verbinding", "samenwerking", "combinatie"],
+    "contact": ["bereikbaar", "telefoon", "email", "adres", "telefoonnummer"],
+    "openingstijden": ["open", "uren", "tijd", "geopend", "openingstijd"],
+    "betalen": ["betaling", "factuur", "rekening", "kosten", "betaalmethode"],
+    "installatie": ["installeren", "setup", "configuratie", "opzetten"],
+    "ondersteuning": ["support", "hulp", "assistentie", "service", "helpdesk"],
+    "account": ["gebruiker", "profiel", "inloggen", "registreren", "aanmelden"],
+    "download": ["downloaden", "bestand", "software", "app", "applicatie"],
+    "aanmelden": ["registreren", "inschrijven", "account", "registratie"],
+    "product": ["artikel", "item", "dienst", "service"],
+    "bestellen": ["bestelling", "order", "kopen", "aanschaffen"],
+    "levering": ["bezorgen", "verzending", "transport", "leveren"],
+    "retour": ["retourneren", "terugsturen", "teruggave", "ruilen"],
+    "garantie": ["waarborg", "garantieregeling", "garantietermijn"],
+    "probleem": ["storing", "issue", "fout", "error", "defect"],
+    "oplossing": ["fix", "reparatie", "herstel", "oplossen"],
+    "vraag": ["vragen", "informatie", "info", "uitleg"],
+    "handleiding": ["instructies", "manual", "gids", "uitleg", "documentatie"]
+  },
+  "en": {
+    "price": ["cost", "rate", "pricing", "fee"],
+    "works": ["functions", "operates", "functionality"],
+    "integration": ["connection", "linking", "coupling"],
+    "contact": ["reach", "phone", "email", "address"],
+    "hours": ["opening", "time", "schedule"],
+    "payment": ["pay", "invoice", "bill", "charge"],
+    "installation": ["install", "setup", "configuration"],
+    "support": ["help", "assistance", "service"],
+    "account": ["user", "profile", "login", "register"],
+    "download": ["file", "software", "app", "application"]
+  }
+}

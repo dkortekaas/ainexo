@@ -1,0 +1,50 @@
+/* Declair Landing Page Styles */
+.landing-page {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+/* Hero gradients */
+.hero-gradient {
+  background: linear-gradient(to bottom, #eff8ff, #ffffff);
+}
+
+/* Feature cards */
+.feature-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+}
+
+/* CTA buttons */
+.cta-primary {
+  background-color: #3b82f6;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.cta-primary:hover {
+  background-color: #2563eb;
+}
+
+/* Custom Declair blue accent */
+.declair-blue-bg {
+  background-color: #3b82f6;
+}
+
+.declair-blue-text {
+  color: #3b82f6;
+}
+
+.declair-blue-border {
+  border-color: #3b82f6;
+}
+
+/* Responsive fixes for i18n */
+@media (max-width: 640px) {
+  .mobile-responsive-text {
+    font-size: 0.9rem;
+  }
+}

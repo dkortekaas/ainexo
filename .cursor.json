@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "linting": {
+    "enabled": true,
+    "eslintConfig": "./.eslintrc.json"
+  },
+  "formatting": {
+    "enabled": true,
+    "prettierConfig": "./.prettierrc"
+  },
+  "typecheck": {
+    "enabled": true,
+    "strict": true
+  },
+  "versionChecking": {
+    "packageJsonPath": "./package.json",
+    "monitorChanges": true
+  },
+  "editor": {
+    "suggestions": {
+      "documentSpecificCompletions": true,
+      "monitorDocumentsFolder": true
+    },
+    "quickActions": {
+      "goToDefinition": true,
+      "goToDocumentation": true
+    }
+  },
+  "codeSnippets": {
+    "enabled": true,
+    "snippetsPath": "./.cursor/snippets.json"
+  }
+}

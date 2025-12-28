@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widget Direct Test</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      h1 {
+        color: #333;
+      }
+      p {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Widget Direct Test</h1>
+    <p>This page directly loads the widget bundle to test if it works.</p>
+    <p>You should see a chat button in the bottom-right corner.</p>
+    <div
+      id="api-key-info"
+      style="
+        background: #f0f0f0;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 20px 0;
+      "
+    >
+      <strong>API Key:</strong> <span id="api-key-display">Loading...</span>
+    </div>
+
+    <div
+      style="
+        background: #e8f4fd;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+      "
+    >
+      <h3 style="margin: 0 0 10px 0; color: #1e40af">Widget Test Info</h3>
+      <p style="margin: 5px 0; color: #374151">
+        <strong>Font:</strong> <span id="font-display">Loading...</span>
+      </p>
+      <p style="margin: 5px 0; color: #374151">
+        <strong>Name:</strong> <span id="name-display">Loading...</span>
+      </p>
+      <p style="margin: 5px 0; color: #374151">
+        <strong>Avatar:</strong> <span id="avatar-display">Loading...</span>
+      </p>
+      <p style="margin: 5px 0; color: #374151">
+        <strong>Position:</strong> <span id="position-display">Loading...</span>
+      </p>
+    </div>
+
+    <script>
+      console.log("Loading widget bundle directly...");
+
+      // Get API key from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const apiKey = urlParams.get("apiKey") || "cbk_test_123456789";
+
+      console.log("Using API key:", apiKey);
+
+      // Display API key in the page
+      document.getElementById("api-key-display").textContent = apiKey;
+
+      // Fetch widget configuration to display info
+      async function loadWidgetConfig() {
+        try {
+          const response = await fetch(
+            `${window.location.origin}/api/chatbot/public-config`,
+            {
+              headers: {
+                "X-Chatbot-API-Key": apiKey,
+              },
+            }
+          );
+
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success && data.config) {
+              const config = data.config;
+
+              // Display configuration info
+              document.getElementById("font-display").textContent =
+                config.fontFamily || "Default";
+              document.getElementById("name-display").textContent =
+                config.name || "Unknown";
+              document.getElementById("avatar-display").textContent =
+                config.avatar || "Default";
+              document.getElementById("position-display").textContent =
+                config.position || "bottom-right";
+            }
+          }
+        } catch (error) {
+          console.warn("Failed to load widget config:", error);
+          document.getElementById("font-display").textContent =
+            "Error loading config";
+        }
+      }
+
+      // Load widget configuration
+      loadWidgetConfig();
+
+      // Load the widget bundle directly
+      const script = document.createElement("script");
+      script.src = "/widget/widget-bundle.iife.js";
+      script.onload = function () {
+        console.log("Widget bundle loaded");
+        console.log(
+          "Init function available:",
+          typeof window.initChatbotWidget
+        );
+
+        if (typeof window.initChatbotWidget === "function") {
+          // Initialize widget with the provided API key
+          window.initChatbotWidget({
+            apiKey: apiKey,
+            apiUrl: window.location.origin,
+          });
+          console.log("Widget initialized with API key:", apiKey);
+        } else {
+          console.error("Init function not found");
+        }
+      };
+      script.onerror = function () {
+        console.error("Failed to load widget bundle");
+      };
+      document.head.appendChild(script);
+    </script>
+  </body>
+</html>

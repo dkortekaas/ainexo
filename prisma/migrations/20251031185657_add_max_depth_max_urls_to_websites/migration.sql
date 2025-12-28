@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "websites" ADD COLUMN     "maxDepth" INTEGER NOT NULL DEFAULT 3,
+ADD COLUMN     "maxUrls" INTEGER NOT NULL DEFAULT 50;

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widget Test Page</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      h1 {
+        color: #333;
+      }
+      p {
+        color: #666;
+      }
+      .test-section {
+        margin: 30px 0;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Chatbot Widget Test Page</h1>
+    <p>This page is used to test the chatbot widget integration.</p>
+    <p>Click the button in the bottom-right corner to open the chatbot.</p>
+
+    <div class="test-section">
+      <h2>Test Configuration</h2>
+      <p>This widget is configured with:</p>
+      <ul>
+        <li>API Key: cbk_test_123456789 (placeholder)</li>
+        <li>Primary Color: #FF6B6B</li>
+        <li>Position: bottom-right</li>
+        <li>Custom welcome message</li>
+      </ul>
+      <p>
+        <strong>Note:</strong> To test with a real API key, create a chatbot in
+        the admin panel and use its API key.
+      </p>
+    </div>
+
+    <div class="test-section">
+      <h2>Features to Test</h2>
+      <ul>
+        <li>Widget toggle button appears</li>
+        <li>Chat window opens and closes</li>
+        <li>Messages can be sent and received</li>
+        <li>Typing indicator works</li>
+        <li>Sources are displayed</li>
+        <li>Mobile responsiveness</li>
+        <li>Session persistence</li>
+      </ul>
+    </div>
+
+    <!-- Widget -->
+    <script
+      src="http://localhost:3000/widget/loader.js"
+      data-chatbot-id="8ae4530d-03fe-4128-9e91-47bc9d66c599"
+    ></script>
+
+    <script>
+      // Debug script
+      console.log("Test page loaded");
+      console.log(
+        "Widget script should load from:",
+        "http://localhost:3000/widget/loader.js"
+      );
+
+      // Check if widget loaded
+      setTimeout(() => {
+        console.log("Widget loaded check:", window.chatbotWidgetLoaded);
+        console.log(
+          "Init function available:",
+          typeof window.initChatbotWidget
+        );
+      }, 2000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2285 @@
+{
+  "common": {
+    "success": "Éxito",
+    "deleting": "Eliminando...",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saveChanges": "Guardar cambios",
+    "saving": "Guardando...",
+    "loading": "Cargando...",
+    "disabling": "Desactivando...",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Añadir",
+    "remove": "Quitar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "ok": "OK",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "export": "Exportar",
+    "import": "Importar",
+    "download": "Descargar",
+    "upload": "Subir",
+    "refresh": "Actualizar",
+    "retry": "Reintentar",
+    "continue": "Continuar",
+    "finish": "Finalizar",
+    "skip": "Omitir",
+    "required": "Obligatorio",
+    "optional": "Opcional",
+    "exporting": "Exportando...",
+    "exportAsCsv": "Como CSV",
+    "exportAsJson": "Como JSON",
+    "all": "Todos",
+    "rated": "Calificado",
+    "unrated": "Sin calificar",
+    "empty": "Vacío",
+    "time": "Tiempo",
+    "today": "Hoy",
+    "week": "Semana",
+    "month": "Mes",
+    "year": "Año",
+    "duration": "Duración",
+    "fast": "Rápido",
+    "medium": "Medio",
+    "slow": "Lento",
+    "clearFilters": "Limpiar filtros",
+    "messages": "mensajes",
+    "tokens": "tokens",
+    "avg": "Prom",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "user": "Usuario",
+    "selectRole": "Seleccionar rol",
+    "assistant": "Asistente",
+    "system": "Sistema",
+    "confidence": "Confianza",
+    "relevant": "Relevante",
+    "created": "Creado",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "actions": "Acciones",
+    "preview": "Vista previa",
+    "sortBy": "Ordenar por",
+    "createdDate": "Fecha de creación",
+    "createdAt": "Creado",
+    "updatedAt": "Actualizado",
+    "results": "resultados",
+    "noResults": "Sin resultados",
+    "noSearchResults": "No se encontraron resultados",
+    "showing": "Mostrando",
+    "of": "de",
+    "searchPlaceholder": "Buscar...",
+    "item": "Elemento",
+    "unnamed": "Sin nombre",
+    "toggleTheme": "Cambiar tema",
+    "openMenu": "Abrir menú",
+    "navigation": {
+      "dashboard": "Panel",
+      "knowledgeBase": "Base de conocimientos",
+      "conversations": "Conversaciones",
+      "assistants": "Asistentes",
+      "notifications": "Notificaciones",
+      "billing": "Facturación",
+      "subscription": "Suscripción",
+      "users": "Usuarios",
+      "invitations": "Invitaciones",
+      "admin": "Administrador",
+      "menu": "Menú",
+      "logout": "Cerrar sesión"
+    },
+    "status": "Estado",
+    "statuses": {
+      "loading": "Cargando...",
+      "processing": "Procesando...",
+      "active": "Activo",
+      "pending": "Pendiente",
+      "cancelled": "Cancelado",
+      "accepted": "Aceptado",
+      "expired": "Caducado",
+      "redirecting": "Redirigiendo..."
+    },
+    "sending": "Enviando...",
+    "verifying": "Verificando...",
+    "verify": "Verificar",
+    "noChanges": "Sin cambios",
+    "test": "Probar",
+    "view": "Ver",
+    "scrapeNow": "Extraer ahora",
+    "viewContent": "Ver contenido",
+    "updating": "Actualizando...",
+    "update": "Actualizar",
+    "yesterday": "Ayer",
+    "daysAgo": "hace días",
+    "weeksAgo": "hace semanas",
+    "monthsAgo": "hace meses",
+    "yearsAgo": "hace años",
+    "never": "Nunca",
+    "duplicate": "Duplicar",
+    "settings": "Configuración",
+    "uploading": "Subiendo...",
+    "role": "Rol",
+    "roles": {
+      "user": "Usuario",
+      "admin": "Administrador",
+      "superuser": "Superusuario"
+    },
+    "email": "Correo electrónico",
+    "sentBy": "Enviado por",
+    "sentAt": "Enviado el"
+  },
+  "error": {
+    "title": "Error",
+    "description": "Ha ocurrido un error. Por favor, inténtelo de nuevo.",
+    "tryAgain": "Intentar de nuevo",
+    "backToDashboard": "Volver al panel",
+    "errorReference": "Referencia de error",
+    "emailInvalid": "Por favor, introduzca una dirección de correo electrónico válida",
+    "passwordInvalid": "La contraseña debe tener al menos 6 caracteres",
+    "passwordTooLong": "La contraseña debe tener menos de 128 caracteres",
+    "nameRequired": "El nombre es obligatorio",
+    "nameTooLong": "El nombre debe tener menos de 100 caracteres",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "companyRequired": "El nombre de la empresa es obligatorio",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "invalidEmail": "Por favor, introduzca una dirección de correo electrónico válida",
+    "currentPasswordRequired": "La contraseña actual es obligatoria",
+    "passwordRequired": "La contraseña es obligatoria",
+    "somethingWentWrong": "Algo salió mal",
+    "unknownError": "Ha ocurrido un error desconocido",
+    "networkError": "Error de red",
+    "serverError": "Error del servidor",
+    "validationError": "Error de validación",
+    "unauthorized": "Acceso no autorizado",
+    "forbidden": "Acceso prohibido",
+    "notFound": "Recurso no encontrado",
+    "timeout": "Tiempo de espera agotado",
+    "invalidCredentials": "Correo electrónico o contraseña inválidos",
+    "rateLimit": "Demasiados intentos de inicio de sesión. Por favor, inténtelo más tarde.",
+    "generic": "Ha ocurrido un error. Por favor, inténtelo de nuevo.",
+    "botDetected": "Bot detectado. Por favor, inténtelo de nuevo.",
+    "invalidLink": "Enlace de restablecimiento inválido o caducado",
+    "twoFactorSetupError": "Error al configurar la autenticación de dos factores",
+    "verificationFailed": "Error en la verificación",
+    "failedToDisable2FA": "Error al desactivar la autenticación de dos factores",
+    "recoveryCodesCopyFailed": "Error al copiar los códigos de recuperación",
+    "failedToFetchFAQs": "Error al obtener las preguntas frecuentes",
+    "failedToLoadFAQs": "Error al cargar las preguntas frecuentes",
+    "failedToDuplicateFAQ": "Error al duplicar la pregunta frecuente",
+    "failedToDeleteFAQ": "Error al eliminar la pregunta frecuente",
+    "failedToUpdateFAQ": "Error al actualizar la pregunta frecuente",
+    "failedToLoadFiles": "Error al cargar los archivos",
+    "failedToDeleteFile": "Error al eliminar el archivo",
+    "failedToDownloadFile": "Error al descargar el archivo",
+    "failedToUpdateFile": "Error al actualizar el archivo",
+    "failedToLoadWebsites": "Error al cargar los sitios web",
+    "failedToLoadSubmissions": "Error al cargar las solicitudes",
+    "failedToDeleteWebsite": "Error al eliminar el sitio web",
+    "failedToStartScraping": "Error al iniciar la extracción",
+    "failedToSaveFAQ": "Error al guardar la pregunta frecuente",
+    "failedToUploadFile": "Error al subir el archivo",
+    "fileTooLarge": "Archivo demasiado grande",
+    "fileTooLargeDescription": "El tamaño del archivo supera el límite máximo permitido",
+    "fileTypeNotSupported": "Tipo de archivo no soportado",
+    "fileTypeNotSupportedDescription": "Este tipo de archivo no está soportado. Por favor, suba un tipo de archivo soportado.",
+    "anErrorOccurred": "Ha ocurrido un error",
+    "noAssistantSelected": "No se ha seleccionado ningún asistente",
+    "urlAlreadyExists": "La URL ya existe",
+    "urlAlreadyExistsDescription": "Esta URL ya ha sido añadida a su base de conocimientos",
+    "invalidOrExpiredInvitation": "Invitación inválida o caducada",
+    "emailInUse": "La dirección de correo electrónico ya está en uso",
+    "couldNotFetchUserData": "No se pudieron obtener los datos del usuario",
+    "errorFetchingUserData": "Error al obtener los datos del usuario",
+    "errorChangingEmail": "Error al cambiar el correo electrónico",
+    "roleRequired": "El rol es obligatorio",
+    "errorUpdatingMember": "Error al actualizar el miembro",
+    "failedToLoadMembers": "Error al cargar los miembros",
+    "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+    "firstNameRequired": "El nombre es obligatorio",
+    "firstNameTooLong": "El nombre debe tener menos de 50 caracteres",
+    "lastNameTooLong": "El apellido debe tener menos de 50 caracteres",
+    "newPasswordRequired": "La nueva contraseña es obligatoria",
+    "passwordsDoNotMatch": "Las contraseñas no coinciden",
+    "confirmPasswordRequired": "La confirmación de contraseña es obligatoria",
+    "assistantNameRequired": "El nombre del asistente es obligatorio",
+    "passwordComplexity": "La contraseña debe contener al menos una letra mayúscula, una minúscula y un número",
+    "assistantLimitReached": "Límite de asistentes alcanzado",
+    "assistantLimitReachedDescription": "Has alcanzado el número máximo de asistentes para tu suscripción. Por favor actualiza tu plan para crear más asistentes.",
+    "knowledgebase": {
+      "noAssistantSelected": "No se ha seleccionado ningún asistente"
+    },
+    "emailNotVerified": "Correo electrónico no verificado",
+    "emailNotVerifiedDescription": "Su correo electrónico no está verificado. Por favor, verifique su correo electrónico para verificar su cuenta.",
+    "invalidImageFile": "Solo se permiten archivos de imagen",
+    "errorUploadingAvatar": "Error al subir la foto de perfil",
+    "errorRemovingAvatar": "Error al eliminar la foto de perfil"
+  },
+  "success": {
+    "actionButton": "Botón de acción añadido con éxito",
+    "userUpdated": "Usuario actualizado con éxito",
+    "createCompanySuccess": "Empresa creada con éxito",
+    "profileUpdated": "Perfil actualizado con éxito",
+    "passwordChanged": "Contraseña cambiada con éxito",
+    "emailChanged": "Correo electrónico cambiado con éxito",
+    "settingsSaved": "Configuración guardada con éxito",
+    "dataExported": "Datos exportados con éxito",
+    "dataImported": "Datos importados con éxito",
+    "forgotPassword": "Enlace de restablecimiento enviado a su correo electrónico",
+    "resetPassword": "Contraseña restablecida con éxito",
+    "emailVerified": "Dirección de correo electrónico verificada con éxito",
+    "recoveryCodesCopied": "Códigos de recuperación copiados al portapapeles",
+    "codeCopied": "Código copiado al portapapeles",
+    "twoFactorSetupSuccess": "Autenticación de dos factores habilitada con éxito",
+    "twoFactorSetupSuccessDescription": "Su cuenta ahora está protegida con autenticación de dos factores",
+    "twoFactorEnabled": "Autenticación de dos factores habilitada con éxito",
+    "twoFactorDisabled": "Autenticación de dos factores deshabilitada con éxito",
+    "faqDuplicatedSuccessfully": "Pregunta frecuente duplicada con éxito",
+    "faqDeletedSuccessfully": "Pregunta frecuente eliminada con éxito",
+    "faqUpdatedSuccessfully": "Pregunta frecuente actualizada con éxito",
+    "fileDeletedSuccessfully": "Archivo eliminado con éxito",
+    "fileUpdatedSuccessfully": "Archivo actualizado con éxito",
+    "websiteDeletedSuccessfully": "Sitio web eliminado con éxito",
+    "scrapingStarted": "Extracción iniciada",
+    "scrapingStartedSuccessfully": "Extracción iniciada con éxito",
+    "faqAddedSuccessfully": "Pregunta frecuente añadida con éxito",
+    "fileUploadedSuccessfully": "Archivo subido con éxito",
+    "websiteAddedSuccessfully": "Sitio web añadido con éxito",
+    "websiteUpdatedSuccessfully": "Sitio web actualizado con éxito",
+    "createUserSuccess": "Usuario creado con éxito",
+    "assistantUpdatedSuccessfully": "Asistente actualizado con éxito",
+    "assistantDuplicatedDescription": "Asistente duplicado con éxito",
+    "assistantDeletedDescription": "Asistente eliminado con éxito",
+    "assistantCreatedSuccessfully": "Asistente creado con éxito",
+    "avatarUploaded": "Foto de perfil subida con éxito",
+    "avatarRemoved": "Foto de perfil eliminada con éxito",
+    "personalDetailsSaved": "Detalles personales guardados con éxito",
+    "errorSavingPersonalDetails": "Error al guardar los detalles personales"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que busca no existe.",
+    "backToPortal": "Volver al portal"
+  },
+  "metadata": {
+    "title": "Ainexo",
+    "description": "Ainexo AI Chat Support",
+    "keywords": "Ainexo AI Chat Support, AI Chat Support, Chat Support, AI Chat, Chat, AI, Ainexo, Ainexo AI, Ainexo AI Chat, Ainexo AI Chat Support",
+    "twitter": {
+      "title": "Ainexo AI Chat Support",
+      "description": "Ainexo AI Chat Support",
+      "keywords": "Ainexo AI Chat Support, AI Chat Support, Chat Support, AI Chat, Chat, AI, Ainexo, Ainexo AI, Ainexo AI Chat, Ainexo AI Chat Support"
+    },
+    "og": {
+      "title": "Ainexo AI Chat Support",
+      "description": "Ainexo AI Chat Support",
+      "keywords": "Ainexo AI Chat Support, AI Chat Support, Chat Support, AI Chat, Chat, AI, Ainexo, Ainexo AI, Ainexo AI Chat, Ainexo AI Chat Support"
+    }
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "register": "Registrarse",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "companyName": "Nombre de la empresa",
+    "confirmPassword": "Confirmar contraseña",
+    "rememberMe": "Recordarme",
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "resetPassword": "Restablecer contraseña",
+    "changePassword": "Cambiar contraseña",
+    "currentPassword": "Contraseña actual",
+    "newPassword": "Nueva contraseña",
+    "confirmNewPassword": "Confirmar nueva contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "showPassword": "Mostrar contraseña",
+    "loginForm": {
+      "title": "Formulario de inicio de sesión",
+      "loginButton": "Iniciar sesión",
+      "orRegister": "o",
+      "registerButton": "Crear cuenta"
+    },
+    "registerForm": {
+      "title": "Crear cuenta",
+      "registerButton": "Crear cuenta",
+      "alreadyAccount": "¿Ya tiene una cuenta?",
+      "loginButton": "Iniciar sesión",
+      "twoFactorSetupTitle": "Proteja su cuenta con autenticación de dos factores",
+      "skip2FA": "Omitir por ahora"
+    },
+    "registrationSuccess": "¡Registro exitoso! Por favor, verifique su correo electrónico para validar su cuenta.",
+    "passwordStrength": {
+      "label": "Fortaleza de la contraseña",
+      "weak": "Débil",
+      "medium": "Medio",
+      "strong": "Fuerte"
+    },
+    "twoFactorVerification": {
+      "title": "Autenticación de dos factores",
+      "emailRecoveryTitle": "Ingrese el código de recuperación que fue enviado a su correo electrónico",
+      "emailRecoverySent": "Se ha enviado un código de recuperación a su correo electrónico. También revise su carpeta de spam. El código es válido por 15 minutos.",
+      "recoveryTitle": "Código de recuperación",
+      "useAuthenticator": "Usar autenticador",
+      "useRecoveryCode": "Usar código de recuperación",
+      "noAccessTitle": " ¿Sin acceso al autenticador Y códigos de respaldo?",
+      "requestEmailRecovery": "Solicitar un código de recuperación por correo electrónico",
+      "backToAuthenticator": "Volver al código del autenticador"
+    },
+    "forgotPasswordForm": {
+      "title": "Olvidó su contraseña",
+      "submitButton": "Enviar enlace de restablecimiento",
+      "orLogin": "o",
+      "backToLogin": "Volver al inicio de sesión"
+    },
+    "resetPasswordForm": {
+      "title": "Restablecer contraseña",
+      "forgotPassword": "¿Olvidó su contraseña?",
+      "submitButton": "Restablecer contraseña",
+      "backToLogin": "Volver al inicio de sesión"
+    },
+    "verifyEmail": {
+      "title": "Verificar dirección de correo electrónico",
+      "description": "Por favor espere mientras verificamos su dirección de correo electrónico...",
+      "verifying": "Verificando su correo electrónico...",
+      "success": "¡Su correo electrónico ha sido verificado con éxito!",
+      "error": "Error en la verificación",
+      "redirecting": "Redirigiendo a la página de inicio de sesión...",
+      "backToLogin": "Volver al inicio de sesión"
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "profile": "Perfil",
+    "account": "Cuenta",
+    "security": "Seguridad",
+    "notifications": "Notificaciones",
+    "language": "Idioma",
+    "languageSettings": "Configuración de idioma",
+    "languageDescription": "Elija su idioma preferido para la interfaz",
+    "selectLanguage": "Seleccionar un idioma",
+    "languageUpdated": "Idioma actualizado con éxito",
+    "languageUpdateError": "Error al actualizar la preferencia de idioma",
+    "widgetManagement": "Gestión de widgets",
+    "widgetManagementDescription": "Gestione la configuración y apariencia de su widget de chatbot",
+    "installAssistantOnWebsite": "Instalar asistente en el sitio web",
+    "installAssistantOnWebsiteDescription": "Copie y pegue este código en su sitio web para mostrar el asistente",
+    "copied": "¡Copiado!",
+    "copyCode": "Copiar código",
+    "enableDisableAssistant": "Activar/Desactivar asistente",
+    "enableDisableAssistantDescription": "Controle si el asistente es visible para los visitantes del sitio web",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "assistantActiveAndVisibleOnWebsite": "El asistente está activo y visible en su sitio web",
+    "assistantHiddenFromVisitors": "El asistente está oculto para los visitantes",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "assistantDisabled": "Asistente deshabilitado",
+    "assistantDisabledDescription": "El asistente está actualmente deshabilitado y no es visible para los visitantes",
+    "widgetPreview": "Vista previa del widget",
+    "widgetPreviewDescription": "Vista previa de cómo aparecerá su asistente en diferentes dispositivos",
+    "desktop": "Escritorio",
+    "bottomRightCorner": "Esquina inferior derecha",
+    "tablet": "Tableta",
+    "responsivePositioning": "Posicionamiento responsive",
+    "mobile": "Móvil",
+    "fullScreenOverlay": "Superposición de pantalla completa",
+    "deleteAssistant": "Eliminar asistente",
+    "deleteAssistantDescription": "Eliminar permanentemente este asistente y todos sus datos",
+    "yesDeleteIt": "Sí, eliminarlo",
+    "thisActionCannotBeUndone": "Esta acción no se puede deshacer",
+    "allConversationsSettingsAndDataAssociatedWithThisAssistantWillBePermanentlyDeleted": "Todas las conversaciones, configuraciones y datos asociados con este asistente serán eliminados permanentemente",
+    "assistantName": "Nombre del asistente",
+    "assistantSubtitle": "Subtítulo del asistente",
+    "chatBubble": "Burbuja de chat",
+    "robot": "Robot",
+    "assistant": "Asistente",
+    "support": "Soporte",
+    "help": "Ayuda",
+    "error": "Error",
+    "noAssistantSelected": "No se ha seleccionado ningún asistente",
+    "settingsSavedSuccessfully": "Configuración guardada con éxito",
+    "failedToSaveSettings": "Error al guardar la configuración",
+    "fontFamily": "Familia de fuentes",
+    "fontFamilyDescription": "Elija la familia de fuentes para su asistente",
+    "selectFontFamily": "Seleccionar familia de fuentes",
+    "preview": "Vista previa",
+    "fontPreviewDescription": "Así es como se verá su asistente con la fuente {fontFamily}",
+    "avatarAndAssistantIcons": "Avatar e iconos del asistente",
+    "avatarAndAssistantIconsDescription": "Personalice la apariencia de su asistente",
+    "avatar": "Avatar",
+    "welcomeMessage": "Mensaje de bienvenida",
+    "placeholderText": "Texto del marcador de posición",
+    "availableIntegrations": "Integraciones disponibles",
+    "availableIntegrationsDescription": "Conecte su asistente con servicios externos",
+    "configured": "Configurado",
+    "notConfigured": "No configurado",
+    "settings": "Configuración",
+    "configure": "Configurar",
+    "smtpHost": "Host SMTP",
+    "smtpPort": "Puerto SMTP",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "slackWebhookURL": "URL de Webhook de Slack",
+    "defaultChannel": "Canal por defecto",
+    "setupInstructions": "Instrucciones de instalación",
+    "googleAnalyticsTrackingID": "ID de seguimiento de Google Analytics",
+    "zapierWebhookURL": "URL de Webhook de Zapier",
+    "needHelp": "¿Necesita ayuda?",
+    "needHelpDescription": "Obtenga soporte y documentación para integraciones",
+    "documentation": "Documentación",
+    "contactSupport": "Contactar soporte",
+    "contactForms": "Formularios de contacto",
+    "contactFormsDescription": "Gestione los formularios de contacto para su asistente",
+    "submissions": "Solicitudes",
+    "formSubmissions": "Solicitudes de formularios",
+    "noSubmissionsFound": "No se encontraron solicitudes",
+    "formFields": "Campos del formulario",
+    "deleteForm": "Eliminar formulario",
+    "deleteFormDescription": "¿Está seguro de que desea eliminar este formulario?",
+    "actionButtons": "Botones de acción",
+    "actionButtonsDescription": "Gestione los botones de acción para su asistente",
+    "noActionButtons": "No hay botones de acción configurados",
+    "button": "Botón",
+    "question": "Pregunta",
+    "priority": "Prioridad",
+    "editActionButton": "Editar botón de acción",
+    "addActionButton": "Añadir botón de acción",
+    "actionButtonSettings": "Configuración del botón de acción",
+    "buttonText": "Texto del botón",
+    "enterButtonText": "Introducir texto del botón",
+    "enterAssociatedQuestion": "Introducir pregunta asociada",
+    "enterPriority": "Introducir prioridad",
+    "deleteActionButton": "Eliminar botón de acción",
+    "deleteActionButtonDescription": "¿Está seguro de que desea eliminar este botón de acción?",
+    "lookAndFeel": "Apariencia",
+    "personality": "Personalidad",
+    "forms": "Formularios",
+    "integrations": "Integraciones",
+    "widget": "Widget",
+    "success": "Éxito",
+    "allChangesSavedSuccessfully": "Todos los cambios guardados con éxito",
+    "failedToSaveChanges": "Error al guardar los cambios",
+    "secureAccount": "Proteja su cuenta",
+    "twoFactorSetupDescription": "Añada una capa adicional de seguridad a su cuenta",
+    "enable2FA": "Activar 2FA",
+    "scanQRCode": "Escanear código QR",
+    "scanQRCodeDescription": "Use su aplicación de autenticación para escanear este código QR",
+    "qrCodeAlt": "Código QR para la configuración de autenticación de dos factores",
+    "scanQRCodeManual": "¿No puede escanear? Introduzca este código manualmente:",
+    "verifySetup": "Verificar configuración",
+    "verifySetupDescription": "Introduzca el código de verificación de su aplicación de autenticación",
+    "saveRecoveryCodes": "Guardar códigos de recuperación",
+    "recoveryCodesDescription": "Guarde estos códigos de recuperación en un lugar seguro. Puede usarlos para acceder a su cuenta si pierde su dispositivo.",
+    "copyRecoveryCodes": "Copiar códigos de recuperación",
+    "downloadRecoveryCodes": "Descargar códigos de recuperación",
+    "backToSettings": "Volver a la configuración",
+    "newForm": "Nuevo formulario",
+    "editForm": "Editar formulario",
+    "formNotFound": "Formulario no encontrado",
+    "loadFailed": "Error al cargar el formulario",
+    "newField": "Nuevo campo",
+    "enterValue": "Introducir valor",
+    "created": "Creado",
+    "formCreated": "Formulario creado con éxito",
+    "saved": "Guardado",
+    "formUpdated": "Formulario actualizado con éxito",
+    "createForm": "Crear formulario",
+    "formName": "Nombre del formulario",
+    "redirectUrl": "URL de redirección",
+    "description": "Descripción",
+    "describeThePurposeOfThisForm": "Describa el propósito de este formulario",
+    "addField": "Añadir campo",
+    "fieldName": "Nombre del campo",
+    "fieldType": "Tipo de campo",
+    "text": "Texto",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "textarea": "Área de texto",
+    "select": "Seleccionar",
+    "placeholder": "Marcador de posición",
+    "requiredField": "Campo obligatorio",
+    "saveForm": "Guardar formulario",
+    "chatbotSettings": "Configuración del chatbot",
+    "chatbotSettingsDescription": "Configure la configuración y apariencia de su chatbot",
+    "profileSettings": "Configuración del perfil",
+    "profileSettingsDescription": "Gestione su información personal y preferencias",
+    "name": "Nombre",
+    "emailCannotBeChanged": "El correo electrónico no se puede cambiar",
+    "department": "Departamento",
+    "profileUpdatedDescription": "Su perfil ha sido actualizado con éxito",
+    "noChanges": "Sin cambios",
+    "avatarDescription": "Elija el avatar para su asistente",
+    "assistantIcon": "Icono del asistente",
+    "assistantIconDescription": "Elija el icono para su asistente"
+  },
+  "languageSelector": {
+    "dutch": "Neerlandés",
+    "english": "Inglés",
+    "german": "Alemán",
+    "french": "Francés",
+    "spanish": "Español",
+    "selectLanguage": "Seleccionar idioma",
+    "languageChanged": "Idioma cambiado",
+    "languageChangedDescription": "Idioma de la interfaz cambiado a {language}"
+  },
+  "hero": {
+    "title": "Conoce Ainexo – Tu",
+    "aiAssistant": "Asistente IA",
+    "description": "Desde chat hasta correo electrónico y llamadas, Ainexo ayuda a tu negocio a responder más rápido e inteligentemente.",
+    "getStartedForFree": "¡Comienza gratis!",
+    "watchDemo": "Ver demostración",
+    "noCreditCardRequired": "No se requiere tarjeta de crédito. Tu asistente IA estará en vivo en minutos."
+  },
+  "howItWorks": {
+    "howAinexoWorks": "Cómo funciona Ainexo",
+    "step1Title": "Sube tu contenido",
+    "step1Description": "Sube PDFs, documentos Word o agrega URLs. Soporta manuales, FAQ y más.",
+    "step2Title": "La IA aprende de tu contenido",
+    "step2Description": "La tecnología avanzada GPT-4 procesa tus documentos y aprende toda la información importante.",
+    "step3Title": "Integra en 1 minuto",
+    "step3Description": "Copia una línea de código y pégala en tu sitio web. El chatbot está en vivo instantáneamente.",
+    "step4Title": "Mejora continuamente",
+    "step4Description": "Visualiza conversaciones, evalúa respuestas y refina para obtener mejores resultados."
+  },
+  "cta": {
+    "title": "¿Listo para hacer tu negocio",
+    "subtitle": "más inteligente?",
+    "description": "Tu asistente IA nunca duerme (pero tampoco necesita café)",
+    "cta": "Comienza gratis",
+    "noCreditCardRequired": "No se requiere tarjeta de crédito. Tu asistente IA estará en vivo en minutos."
+  },
+  "features": {
+    "title": "Todo lo que necesita para un soporte al cliente moderno",
+    "subtitle": "Funciones potentes diseñadas para ayudarle a brindar un servicio al cliente excepcional",
+    "items": {
+      "0": {
+        "title": "Disponibilidad 24/7",
+        "description": "Su asistente IA nunca duerme, proporcionando respuestas instantáneas a las consultas de los clientes en todo momento."
+      },
+      "1": {
+        "title": "Base de conocimientos inteligente",
+        "description": "Aprenda automáticamente de sus documentos, preguntas frecuentes y contenido del sitio web para proporcionar respuestas precisas."
+      },
+      "2": {
+        "title": "Análisis e información",
+        "description": "Rastree el rendimiento de las conversaciones, la satisfacción del cliente e identifique áreas de mejora."
+      },
+      "3": {
+        "title": "Seguro y compatible",
+        "description": "Seguridad de nivel empresarial con cumplimiento GDPR y protección de datos incorporada."
+      },
+      "4": {
+        "title": "Integración fácil",
+        "description": "Integre perfectamente con su sitio web existente, CRM y herramientas de soporte."
+      },
+      "5": {
+        "title": "Precios flexibles",
+        "description": "Elija el plan que se adapte a las necesidades de su negocio con precios transparentes y escalables."
+      }
+    }
+  },
+  "benefits": {
+    "title": "Beneficios de usar Ainexo",
+    "description": "Beneficios de usar Ainexo"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "subtitle": "Todo lo que necesita saber sobre nuestra plataforma de soporte al cliente con IA",
+    "question_1": "¿Qué tan rápido puedo empezar?",
+    "answer_1": "Puede tener su asistente IA funcionando en menos de 10 minutos. Simplemente suba su contenido, personalice la apariencia e integre el widget en su sitio web.",
+    "question_2": "¿Qué tipos de contenido puede aprender la IA?",
+    "answer_2": "Nuestra IA puede aprender de PDFs, documentos de Word, páginas web, preguntas frecuentes e incluso tickets de soporte existentes. Soporta múltiples idiomas y formatos.",
+    "question_3": "¿Mis datos están seguros?",
+    "answer_3": "Sí, utilizamos seguridad de nivel empresarial con cifrado de extremo a extremo. Cumplimos con GDPR y sus datos nunca se comparten con terceros.",
+    "question_4": "¿Puedo personalizar la apariencia del chatbot?",
+    "answer_4": "¡Absolutamente! Puede personalizar colores, fuentes, mensajes e incluso añadir el logotipo de su empresa para que coincida perfectamente con su marca.",
+    "question_5": "¿Qué pasa si la IA no conoce una respuesta?",
+    "answer_5": "Cuando la IA no tiene una respuesta, puede transferir sin problemas la conversación a un agente humano o recopilar información de contacto para seguimiento.",
+    "question_6": "¿Ofrecen soporte y capacitación?",
+    "answer_6": "Sí, proporcionamos incorporación completa, materiales de capacitación y soporte dedicado para ayudarle a aprovechar al máximo su asistente IA."
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Bienvenido de nuevo",
+    "overview": "Resumen",
+    "conversations": {
+      "title": "Conversaciones",
+      "subtitle": "Total de conversaciones en este período",
+      "count": "cantidad"
+    },
+    "knowledgeSources": {
+      "title": "Fuentes de conocimiento",
+      "subtitle": "Fuentes de conocimiento por tipo",
+      "noData": "No hay datos disponibles",
+      "files": "Archivos",
+      "websites": "Sitios web",
+      "faqs": "Preguntas frecuentes",
+      "answers": "respuestas"
+    },
+    "totalUsers": "Total de usuarios"
+  },
+  "website": {
+    "notFound": "No encontrado",
+    "notFoundDescription": "Página no encontrada",
+    "more": "Más",
+    "scrapeNow": "Extraer ahora",
+    "scraping": "Extrayendo...",
+    "pageScraped": "Página extraída",
+    "lastSync": "Última sincronización",
+    "syncInterval": "Intervalo de sincronización",
+    "pagesScraped": "Páginas extraídas",
+    "syncStatus": "Estado de sincronización",
+    "runNow": "Ejecutar ahora",
+    "scrapedContent": "Contenido extraído",
+    "scrapedLinks": "Enlaces extraídos",
+    "foundLinks": "Enlaces encontrados",
+    "individualPages": "Páginas individuales",
+    "linksFound": "Enlaces encontrados"
+  },
+  "websites": {
+    "title": "Sitios web",
+    "description": "Ver y gestionar todos sus sitios web",
+    "subtitle": "Total de sitios web en este período",
+    "empty": "Aún no hay sitios web",
+    "loading": "Cargando sitios web..."
+  },
+  "conversations": {
+    "title": "Conversaciones",
+    "description": "Ver y gestionar todas sus conversaciones con clientes",
+    "subtitle": "Total de conversaciones en este período",
+    "empty": "Aún no hay conversaciones",
+    "loading": "Cargando conversaciones...",
+    "export": "Exportar",
+    "exporting": "Exportando...",
+    "exportAsCsv": "Como CSV",
+    "exportAsJson": "Como JSON",
+    "active": "Activo",
+    "completed": "Completado",
+    "unknown": "Desconocido",
+    "messages": "mensajes",
+    "sessionId": "ID de sesión",
+    "ipAddress": "Dirección IP",
+    "startedAt": "Iniciado el",
+    "lastActivity": "Última actividad",
+    "noSessionsFound": "No se encontraron sesiones de conversación",
+    "noSessionsFoundDescription": "No hay sesiones de conversación para mostrar para este asistente.",
+    "conversationSession": "Sesión de conversación",
+    "tokens": "tokens",
+    "avg": "Prom",
+    "user": "Usuario",
+    "assistant": "Asistente",
+    "confidence": "Confianza",
+    "relevant": "Relevante",
+    "stats": {
+      "total": "Total",
+      "active": "Activo",
+      "completed": "Completado",
+      "empty": "Vacío",
+      "totalMessages": "Total de mensajes",
+      "avgMessagesPerSession": "Prom mensajes/sesión"
+    },
+    "ms": "ms",
+    "source": "Fuente",
+    "answer": "Respuesta",
+    "sources": "Fuentes",
+    "model": "Modelo",
+    "noConversationsFound": "No se encontraron conversaciones",
+    "noConversationsFoundDescription": "No hay conversaciones para mostrar para este asistente.",
+    "noData": "No hay datos disponibles",
+    "count": "cantidad"
+  },
+  "admin": {
+    "title": "Panel de administración",
+    "users": "Usuarios",
+    "companies": "Empresas",
+    "subscriptions": "Suscripciones",
+    "plans": "Planes",
+    "addUser": "Añadir usuario",
+    "addCompany": "Añadir empresa",
+    "addPlan": "Añadir plan",
+    "editUser": "Editar usuario",
+    "deleteUser": "Eliminar usuario",
+    "userDetails": "Detalles del usuario",
+    "companyDetails": "Detalles de la empresa",
+    "planDetails": "Detalles del plan",
+    "userFields": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "role": "Rol"
+    },
+    "companyFields": {
+      "name": "Nombre de la empresa",
+      "vatNumber": "Número de IVA",
+      "address": "Dirección",
+      "zipCode": "Código postal",
+      "city": "Ciudad",
+      "country": "País"
+    }
+  },
+  "assistants": {
+    "title": "Asistentes",
+    "professional": "Profesional",
+    "friendly": "Amigable",
+    "casual": "Informal",
+    "formal": "Formal",
+    "nl": "Neerlandés",
+    "en": "Inglés",
+    "de": "Alemán",
+    "fr": "Francés",
+    "bottom-right": "Abajo a la derecha",
+    "bottom-left": "Abajo a la izquierda",
+    "top-right": "Arriba a la derecha",
+    "top-left": "Arriba a la izquierda",
+    "fontFamily": "Familia de fuentes",
+    "avatar": "Avatar",
+    "avatarDescription": "Elija el avatar para su asistente",
+    "assistantIcon": "Icono del asistente",
+    "assistantIconDescription": "Elija el icono para su asistente",
+    "assistantNameRequired": "El nombre del asistente es obligatorio",
+    "assistantCreatedSuccessfully": "Asistente creado con éxito",
+    "failedToCreateAssistant": "Error al crear el asistente",
+    "createAssistant": "Crear asistente",
+    "embedCode": "Código de integración",
+    "embedCodeDescription": "Copie y pegue este código en el HTML de su sitio web, justo antes de la etiqueta de cierre &lt;/body&gt;.",
+    "copied": "¡Copiado!",
+    "copy": "Copiar",
+    "installationInstructions": "Instrucciones de instalación",
+    "step1Title": "Copiar el código de integración",
+    "step1Description": "Use el botón de copiar arriba para copiar el código.",
+    "step2Title": "Pegar en su sitio web",
+    "step2Description": "Añada el código a cada página donde desee mostrar el chatbot, justo antes de &lt;/body&gt;.",
+    "step3Title": "Probar el chatbot",
+    "step3Description": "Visite su sitio web para verificar si el chatbot funciona correctamente.",
+    "nameRequired": "El nombre es obligatorio",
+    "welcomeMessageRequired": "El mensaje de bienvenida es obligatorio",
+    "placeholderRequired": "El marcador de posición es obligatorio",
+    "invalidColor": "Color inválido",
+    "settingsSaved": "Configuración guardada",
+    "settingsSaveFailed": "Error al guardar la configuración",
+    "basicSettings": "Configuración básica",
+    "botName": "Nombre del bot",
+    "welcomeMessage": "Mensaje de bienvenida",
+    "placeholderText": "Texto del marcador de posición",
+    "colors": "Colores",
+    "primaryColor": "Color primario",
+    "secondaryColor": "Color secundario",
+    "behavior": "Comportamiento",
+    "tone": "Tono",
+    "temperature": "Temperatura",
+    "temperatureDescription": "Valor más bajo = más determinista, valor más alto = más creativo",
+    "maxResponseLength": "Longitud máxima de respuesta",
+    "maxResponseLengthDescription": "Número máximo de caracteres en una respuesta",
+    "fallbackMessage": "Mensaje de respaldo",
+    "fallbackMessagePlaceholder": "Mensaje cuando el bot no puede proporcionar una respuesta",
+    "saveSettings": "Guardar configuración",
+    "preview": "Vista previa",
+    "previewDescription": "Así es como se verá su chatbot en su sitio web:",
+    "chooseColor": "Elegir un color",
+    "orEnterHexCode": "O introducir código hexadecimal",
+    "editAssistant": "Editar asistente",
+    "configureYourAISettings": "Configure la configuración de su asistente IA",
+    "basicInformation": "Información básica",
+    "lookAndFeel": "Apariencia",
+    "personality": "Personalidad",
+    "actionButtons": "Botones de acción",
+    "forms": "Formularios",
+    "integrations": "Integraciones",
+    "widget": "Widget",
+    "personalityPrompts": "Prompts de personalidad",
+    "personalityPromptsDescription": "Configure instrucciones para guiar los objetivos y comportamiento de su asistente",
+    "mainPrompt": "Prompt principal",
+    "mainPromptInstructions": "Defina el comportamiento principal y la personalidad de su asistente",
+    "enterMainPrompt": "Introduzca sus instrucciones de prompt principal...",
+    "resetToDefault": "Restablecer por defecto",
+    "snippetExamples": "Ejemplos de fragmentos",
+    "insert": "Insertar",
+    "personalitySettingsSaved": "Configuración de personalidad guardada con éxito",
+    "failedToSavePersonalitySettings": "Error al guardar la configuración de personalidad",
+    "configureTheBasicSettingsForYourAssistant": "Configure la configuración básica para su asistente",
+    "enterAssistantName": "Introducir nombre del asistente",
+    "enterAssistantDescription": "Introducir descripción del asistente",
+    "configureTheMessagesYourAssistantWillUse": "Configure los mensajes que usará su asistente",
+    "enterWelcomeMessage": "Introducir mensaje de bienvenida",
+    "enterPlaceholderText": "Introducir texto del marcador de posición",
+    "enterFallbackMessage": "Introducir mensaje de respaldo",
+    "aiSettings": "Configuración de IA",
+    "configureTheAIBehaviorAndResponses": "Configure el comportamiento y respuestas de la IA",
+    "securityAndAccess": "Seguridad y acceso",
+    "configureSecuritySettingsAndAccessControl": "Configure la configuración de seguridad y el control de acceso",
+    "rateLimit": "Límite de velocidad",
+    "allowedDomains": "Dominios permitidos",
+    "enterDomain": "Introducir dominio",
+    "controlTheAvailabilityOfYourAssistant": "Controle la disponibilidad de su asistente",
+    "showBranding": "Mostrar marca",
+    "displayYourBrandingInTheChatWidget": "Muestre su marca en el widget de chat",
+    "configureYourNewAIAssistant": "Configure su nuevo asistente IA",
+    "customizeTheAppearanceOfYourAssistant": "Personalice la apariencia de su asistente",
+    "position": "Posición",
+    "enterAssistantSubtitle": "Introducir subtítulo del asistente",
+    "assistantDuplicatedDescription": "Asistente duplicado con éxito",
+    "failedToDuplicateAssistant": "Error al duplicar el asistente",
+    "assistantDeletedDescription": "Asistente eliminado con éxito",
+    "failedToDeleteAssistant": "Error al eliminar el asistente",
+    "aiAssistants": "Asistentes IA",
+    "aiAssistantsDescription": "Gestione sus asistentes IA y su configuración",
+    "noAssistantsYet": "Aún no hay asistentes",
+    "noAssistantsYetDescription": "Aún no ha creado ningún asistente. Cree su primer asistente para comenzar.",
+    "createYourFirstAssistant": "Cree su primer asistente",
+    "created": "Creado",
+    "knowledge": "Conocimiento",
+    "deleteAssistant": "Eliminar asistente",
+    "deleteAssistantDescription": "¿Está seguro de que desea eliminar este asistente? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "saveChanges": "Guardar cambios",
+    "saving": "Guardando",
+    "error": "Error",
+    "success": "Éxito",
+    "name": "Nombre",
+    "description": "Descripción",
+    "language": "Idioma",
+    "messages": "Mensajes",
+    "assistantName": "Nombre del asistente",
+    "assistantSubtitle": "Subtítulo del asistente",
+    "chatBubble": "Burbuja de chat",
+    "robot": "Robot",
+    "assistant": "Asistente",
+    "support": "Soporte",
+    "help": "Ayuda",
+    "edit": "Editar",
+    "settings": "Configuración",
+    "delete": "Eliminar",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "enableOrDisableTheAssistant": "Activar o desactivar el asistente",
+    "assistantIsActive": "El asistente está activo y responde a los mensajes",
+    "assistantIsInactive": "El asistente está inactivo y no responde a los mensajes",
+    "failedToLoadAssistant": "Error al cargar el asistente",
+    "assistantNotFound": "Asistente no encontrado",
+    "backToAssistants": "Volver a asistentes",
+    "requestsPerMinute": "solicitudes por minuto",
+    "typeYourQuestionHere": "Escriba su pregunta aquí",
+    "helloHowCanIHelpYouToday": "¡Hola! ¿Cómo puedo ayudarle hoy?",
+    "iHaveAQuestionAboutYourProduct": "Tengo una pregunta sobre su producto",
+    "ofCourseWhatWouldYouLikeToKnow": "¡Por supuesto! ¿Qué le gustaría saber?",
+    "aiAssistant": "Asistente IA",
+    "createNewAssistant": "Crear nuevo asistente",
+    "manageAssistants": "Gestionar asistentes",
+    "status": "Estado"
+  },
+  "team": {
+    "title": "Gestión de equipo",
+    "members": "Miembros",
+    "inviteMember": "Invitar miembro",
+    "editMember": "Editar miembro",
+    "removeMember": "Quitar miembro",
+    "memberDetails": "Detalles del miembro",
+    "invitations": "Invitaciones",
+    "pendingInvitations": "Invitaciones pendientes",
+    "noInvitations": "No hay invitaciones",
+    "noInvitationsDescription": "No se encontraron invitaciones"
+  },
+  "account": {
+    "title": "Configuración de cuenta",
+    "tabs": {
+      "personalDetails": "Detalles personales",
+      "emailSettings": "Configuración de correo electrónico",
+      "changePassword": "Cambiar contraseña",
+      "twoFactor": "Autenticación de dos factores",
+      "subscription": "Suscripción",
+      "team": "Equipo",
+      "deleteAccount": "Eliminar cuenta"
+    },
+    "pendingInvitations": "Invitaciones pendientes",
+    "pending": "Pendiente",
+    "cancelInvitation": "Cancelar invitación",
+    "personalDetails": "Detalles personales",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "confirmNewPassword": "Confirmar nueva contraseña",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "profilePicture": "Foto de perfil",
+    "changeAvatar": "Cambiar",
+    "removeAvatar": "Eliminar",
+    "changePassword": "Cambiar contraseña",
+    "emailSettings": "Configuración de correo electrónico",
+    "newEmail": "Nuevo correo electrónico",
+    "currentPassword": "Contraseña actual",
+    "changeEmail": "Cambiar correo electrónico",
+    "myAccount": "Mi cuenta",
+    "twoFactorAuthentication": "Autenticación de dos factores",
+    "twoFactorEnabled": "La autenticación de dos factores está habilitada",
+    "twoFactorEnabledDescription": "Su cuenta está protegida con autenticación de dos factores. Necesitará introducir un código de su aplicación de autenticación al iniciar sesión.",
+    "twoFactorDisabled": "La autenticación de dos factores está deshabilitada",
+    "twoFactorDescription": "Añada una capa adicional de seguridad a su cuenta habilitando la autenticación de dos factores. Necesitará una aplicación de autenticación (como Google Authenticator) para configurar esto.",
+    "enable2FA": "Habilitar autenticación de dos factores",
+    "disable2FA": "Deshabilitar autenticación de dos factores",
+    "confirmDisable2FA": "¿Deshabilitar autenticación de dos factores?",
+    "confirmDisable2FADescription": "Por favor, introduzca su contraseña actual para confirmar la deshabilitación de la autenticación de dos factores. Esto eliminará la capa adicional de seguridad de su cuenta.",
+    "enterPassword": "Introduzca su contraseña",
+    "inviteMember": "Invitar miembro",
+    "inviteMemberDescription": "Invitar un miembro a su equipo",
+    "invitationSent": "Invitación enviada",
+    "invitationSentDescription": "Invitación enviada a {email}",
+    "sendInvitation": "Enviar invitación",
+    "team": {
+      "title": "Equipo",
+      "invite": "Invitar miembro",
+      "invitations": "Invitaciones",
+      "memberDeleted": "Miembro eliminado con éxito",
+      "noMembersFound": "No se encontraron miembros",
+      "noMembersDescription": "Aún no se han añadido miembros del equipo",
+      "members": "Miembros",
+      "totalMembers": "total miembros",
+      "user": "Usuario",
+      "registered": "Registrado",
+      "lastLogin": "Último inicio de sesión",
+      "memberUpdated": "Miembro actualizado con éxito",
+      "editMember": "Editar miembro",
+      "editMemberDescription": "Editar los detalles del miembro",
+      "activeDescription": "Miembro activo"
+    },
+    "subscriptions": {
+      "title": "Suscripciones",
+      "description": "Gestione sus suscripciones",
+      "loadingSubscriptionData": "Cargando datos de suscripción...",
+      "currentPlan": "Plan actual",
+      "currentSubscription": "Suscripción actual",
+      "trialPeriodActive": "Período de prueba activo",
+      "trialPeriodEnds": "El período de prueba termina",
+      "trialDetails": "Detalles del período de prueba",
+      "started": "Iniciado",
+      "expires": "Expira",
+      "daysRemaining": "Días restantes",
+      "price": "Precio",
+      "conversationsPerMonth": "Conversaciones por mes",
+      "manageSubscription": "Gestionar suscripción",
+      "availablePlans": "Planes disponibles",
+      "chatbots": "Chatbots",
+      "failedToOpenSubscriptionManagement": "Error al abrir la gestión de suscripciones",
+      "upgrade": "Actualizar",
+      "downgrade": "Degradar",
+      "cancel": "Cancelar",
+      "renew": "Renovar",
+      "trial": "Prueba",
+      "trialPeriod": "Período de prueba",
+      "trialPeriodExpired": "Período de prueba expirado",
+      "trialPeriodExpiredDescription": "Su período de prueba ha expirado. Por favor, actualice a un plan de pago para continuar usando el chatbot."
+    },
+    "deleteAccount": {
+      "title": "Eliminar cuenta",
+      "description": "Cuando elimine su cuenta, todos los datos se eliminarán permanentemente. Esta acción no se puede deshacer.",
+      "warning": "Advertencia: Esto no se puede deshacer",
+      "warningDescription": "La eliminación de su cuenta es permanente. Todos los datos, incluidos sus asistentes, conversaciones y configuraciones se eliminarán permanentemente.",
+      "whatWillBeDeleted": "¿Qué se eliminará?",
+      "deletedItems": {
+        "profile": "Sus datos de perfil e información de cuenta",
+        "assistants": "Todos los asistentes de IA y sus configuraciones",
+        "conversations": "Todas las conversaciones y mensajes",
+        "settings": "Todas sus configuraciones y preferencias",
+        "subscription": "Su suscripción será cancelada"
+      },
+      "reason": "Motivo de la eliminación",
+      "reasonPlaceholder": "Opcional: díganos por qué se va",
+      "confirmationLabel": "Escriba DELETE para confirmar",
+      "confirmationHint": "Escriba la palabra DELETE (en mayúsculas) para confirmar",
+      "confirmationRequired": "Se requiere confirmación",
+      "confirmationMustBeDelete": "Debe escribir DELETE para confirmar",
+      "deleteButton": "Eliminar cuenta permanentemente",
+      "deleting": "Eliminando cuenta...",
+      "finalConfirmation": "Confirmación final",
+      "finalConfirmationDescription": "¿Está seguro de que desea eliminar su cuenta? Esta acción no se puede deshacer y todos los datos se eliminarán permanentemente.",
+      "confirmDelete": "Sí, eliminar cuenta",
+      "accountDeletedSuccess": "Su cuenta ha sido eliminada con éxito. Se cerrará su sesión.",
+      "errorDeletingAccount": "Ocurrió un error al eliminar su cuenta"
+    },
+    "error": {
+      "title": "Algo salió mal",
+      "description": "Encontramos un error al cargar la configuración de su cuenta. Por favor, inténtelo de nuevo.",
+      "tryAgain": "Intentar de nuevo",
+      "backToDashboard": "Volver al panel",
+      "errorReference": "Referencia de error"
+    }
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "description": "Gestione sus notificaciones",
+    "markAsRead": "Marcar como leído",
+    "markAllAsRead": "Marcar todo como leído",
+    "noNotifications": "No hay notificaciones",
+    "newNotification": "Nueva notificación",
+    "new": "Nuevo",
+    "notificationDeleted": "Notificación eliminada",
+    "errorDeletingNotification": "Error al eliminar la notificación"
+  },
+  "forms": {
+    "validation": {
+      "required": "Este campo es obligatorio",
+      "email": "Por favor, introduzca una dirección de correo electrónico válida",
+      "phone": "Por favor, introduzca un número de teléfono válido",
+      "minLength": "Debe tener al menos {min} caracteres",
+      "maxLength": "No debe tener más de {max} caracteres",
+      "passwordMatch": "Las contraseñas deben coincidir"
+    }
+  },
+  "navigation": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "conversations": "Conversaciones",
+    "assistants": "Asistentes",
+    "knowledgebase": "Base de conocimientos",
+    "settings": "Configuración",
+    "account": "Cuenta",
+    "admin": "Administrador",
+    "team": "Equipo",
+    "notifications": "Notificaciones",
+    "export": "Exportar",
+    "subscription": "Suscripción",
+    "users": "Usuarios",
+    "invitations": "Invitaciones",
+    "menu": "Menú",
+    "logout": "Cerrar sesión",
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "processing": "Procesando"
+    },
+    "roles": {
+      "user": "Usuario",
+      "admin": "Administrador",
+      "superuser": "Superusuario"
+    },
+    "openMenu": "Abrir menú"
+  },
+  "billing": {
+    "title": "Facturación",
+    "currentPlan": "Plan actual",
+    "availablePlans": "Planes disponibles",
+    "invoices": "Facturas",
+    "paymentMethod": "Método de pago",
+    "billingDetails": "Detalles de facturación",
+    "noInvoices": "No se encontraron facturas",
+    "noPaymentMethod": "No se ha añadido método de pago",
+    "addPaymentMethod": "Añadir método de pago",
+    "updatePaymentMethod": "Actualizar método de pago",
+    "manageSubscription": "Gestionar suscripción",
+    "upgrade": "Mejorar",
+    "price": "Precio",
+    "assistants": "Asistentes",
+    "conversationsPerMonth": "Conversaciones por mes",
+    "unlimited": "Ilimitado",
+    "planDetails": "Detalles del plan",
+    "noPlan": "Sin plan activo",
+    "trial": "Prueba",
+    "trialPeriod": "Período de prueba",
+    "trialActive": "Prueba activa",
+    "trialExpired": "Prueba expirada",
+    "trialActiveDescription": "{days} días restantes",
+    "trialExpiredDescription": "Su período de prueba ha expirado. Actualice a un plan de pago para continuar.",
+    "canceled": "Cancelado",
+    "expires": "Expira",
+    "companyName": "Nombre de empresa",
+    "billingEmail": "Email de facturación",
+    "vatNumber": "Número de IVA",
+    "street": "Calle",
+    "city": "Ciudad",
+    "zip": "Código postal",
+    "state": "Provincia",
+    "country": "País",
+    "address": "Dirección",
+    "companyNamePlaceholder": "Nombre de empresa",
+    "billingEmailPlaceholder": "facturacion@empresa.es",
+    "vatNumberPlaceholder": "ES12345678A",
+    "streetPlaceholder": "Calle Principal 123",
+    "cityPlaceholder": "Madrid",
+    "zipPlaceholder": "28001",
+    "statePlaceholder": "Madrid",
+    "countryPlaceholder": "España",
+    "billingDetailsSaved": "Detalles de facturación guardados",
+    "failedToSaveBillingDetails": "Error al guardar los detalles de facturación",
+    "failedToFetchBillingData": "Error al obtener datos de facturación",
+    "failedToLoadBillingData": "No se pueden cargar los datos de facturación",
+    "failedToCreateSubscription": "Error al crear la suscripción",
+    "failedToOpenPortal": "Error al abrir el portal del cliente",
+    "noSubscription": "No se encontró suscripción",
+    "noSubscriptionDescription": "Aún no tienes una suscripción activa. Por favor elige un plan para actualizar.",
+    "syncSubscription": "Sincronizar suscripción",
+    "syncing": "Sincronizando...",
+    "subscriptionSynced": "Suscripción sincronizada con éxito",
+    "failedToSyncSubscription": "Error al sincronizar la suscripción",
+    "active": "Activo",
+    "syncOnlyForPaidPlans": "La sincronización solo está disponible para suscripciones de pago",
+    "incompleteDetails": "Detalles de facturación incompletos",
+    "incompleteDetailsDescription": "Por favor completa tus detalles de facturación para una facturación precisa",
+    "completeNow": "Completar ahora"
+  },
+  "subscription": {
+    "title": "Suscripción",
+    "currentPlan": "Plan actual",
+    "upgrade": "Actualizar",
+    "downgrade": "Degradar",
+    "cancel": "Cancelar",
+    "renew": "Renovar",
+    "expires": "Expira",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "trial": "Prueba",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "lifetime": "De por vida",
+    "noValidSubscription": "No se encontró suscripción válida",
+    "upgradeSubscription": "Actualizar suscripción",
+    "upgradeDetails": {
+      "currentPlan": "Plan actual",
+      "monthly": "mes",
+      "yearly": "año",
+      "processing": "Procesando",
+      "select": "Seleccionar"
+    }
+  },
+  "knowledgebase": {
+    "title": "Base de conocimientos",
+    "description": "Gestione sus fuentes de conocimiento para el asistente IA",
+    "tabs": {
+      "websites": "Sitios web",
+      "faqs": "Preguntas frecuentes",
+      "bestanden": "Archivos"
+    },
+    "websites": "Sitios web",
+    "faqs": "Preguntas frecuentes",
+    "files": "Archivos",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "daysAgo": "hace días",
+    "weeksAgo": "hace semanas",
+    "monthsAgo": "hace meses",
+    "yearsAgo": "hace años",
+    "never": "Nunca",
+    "configureWebsite": "Configurar sitio web",
+    "updateWebsiteConfiguration": "Actualizar configuración del sitio web y opciones de extracción",
+    "maxDepthDescription": "Número máximo de páginas a extraer",
+    "maxUrlsDescription": "Número máximo de URL a extraer",
+    "noAssistantSelected": "No se ha seleccionado ningún asistente",
+    "noAssistantSelectedDescription": "Por favor, seleccione un asistente para gestionar las fuentes de conocimiento",
+    "faqsDescription": "Gestione las preguntas frecuentes para su asistente IA",
+    "filesDescription": "Suba y gestione documentos para su asistente IA",
+    "websitesDescription": "Añada sitios web para extraer contenido para su asistente IA",
+    "question": "Pregunta",
+    "answer": "Respuesta",
+    "enabled": "Habilitado",
+    "modified": "Modificado",
+    "name": "Nombre",
+    "size": "Tamaño",
+    "processing": "Procesando",
+    "completed": "Completado",
+    "pending": "Pendiente",
+    "syncing": "Sincronizando",
+    "url": "URL",
+    "pages": "Páginas",
+    "syncSpeed": "Velocidad de sincronización",
+    "syncInterval": "Intervalo de sincronización",
+    "lastSync": "Última sincronización",
+    "status": "Estado",
+    "actions": "Acciones",
+    "loadingFAQs": "Cargando preguntas frecuentes...",
+    "noFAQsAdded": "Aún no se han añadido preguntas frecuentes",
+    "loadingFiles": "Cargando archivos...",
+    "noFilesUploaded": "Aún no se han subido archivos",
+    "loadingWebsites": "Cargando sitios web...",
+    "noWebsitesAdded": "Aún no se han añadido sitios web",
+    "noSyncLogsYet": "Aún no hay registros de sincronización",
+    "noWebpagesYet": "Aún no hay páginas web",
+    "deleteFAQ": "Eliminar pregunta frecuente",
+    "deleteFAQDescription": "¿Está seguro de que desea eliminar esta pregunta frecuente? Esta acción no se puede deshacer.",
+    "deleteFile": "Eliminar archivo",
+    "deleteFileDescription": "¿Está seguro de que desea eliminar este archivo? Esta acción no se puede deshacer.",
+    "deleteWebsite": "Eliminar sitio web",
+    "deleteWebsiteDescription": "¿Está seguro de que desea eliminar este sitio web? Esta acción no se puede deshacer.",
+    "editFAQ": "Editar pregunta frecuente",
+    "addFAQ": "Añadir pregunta frecuente",
+    "updateFAQInformation": "Actualizar información de la pregunta frecuente",
+    "addFAQInformation": "Añadir información de la pregunta frecuente",
+    "questionPlaceholder": "Introduzca su pregunta aquí",
+    "answerPlaceholder": "Introduzca la respuesta aquí",
+    "order": "Orden",
+    "orderDescription": "Establezca el orden de visualización para esta pregunta frecuente (los números más bajos aparecen primero)",
+    "faqPreview": "Vista previa de FAQ",
+    "faqPreviewDescription": "Vista previa de la pregunta frecuente tal como se mostrará",
+    "addFirstFAQ": "Agregue su primera pregunta frecuente para comenzar",
+    "editFile": "Editar archivo",
+    "updateFileInformation": "Actualizar información del archivo",
+    "briefDescription": "Breve descripción del contenido del archivo",
+    "editWebsite": "Editar sitio web",
+    "addWebsite": "Añadir sitio web",
+    "updateWebsiteInformation": "Actualizar información del sitio web",
+    "addWebsiteInformation": "Añadir información del sitio web",
+    "websiteName": "Nombre del sitio web",
+    "selectSyncInterval": "Seleccionar intervalo de sincronización",
+    "daily": "Diario",
+    "weekly": "Semanal",
+    "monthly": "Mensual",
+    "uploadFile": "Subir archivo",
+    "uploadFileDescription": "Suba un archivo para añadirlo a su base de conocimientos",
+    "file": "Archivo",
+    "clickToUpload": "Haga clic para subir",
+    "orDragAndDrop": "o arrastre y suelte",
+    "allowedTypes": "Tipos permitidos: PDF, DOC, DOCX, TXT, MD",
+    "overview": "Resumen",
+    "webpages": "Páginas web",
+    "sync-logs": "Registros de sincronización",
+    "statusDetails": {
+      "completed": "Completado",
+      "pending": "Pendiente",
+      "syncing": "Sincronizando",
+      "error": "Error"
+    },
+    "websiteNotFound": "Sitio web no encontrado",
+    "websiteConfiguration": "Configuración del sitio web",
+    "configure": "Configurar",
+    "maxDepth": "Profundidad máxima",
+    "maxUrls": "URL máximas",
+    "syncSchedule": "Programa de sincronización",
+    "syncStatus": "Estado de sincronización",
+    "runNow": "Ejecutar ahora",
+    "pendingUrls": "URL pendientes",
+    "visitedUrls": "URL visitadas",
+    "startedAt": "Iniciado el",
+    "duration": "Duración",
+    "path": "Ruta",
+    "downloadedAt": "Descargado el",
+    "fileNotFound": "Archivo no encontrado",
+    "content": "Contenido",
+    "fileInformation": "Información del archivo",
+    "fileName": "Nombre del archivo",
+    "mimeType": "Tipo MIME",
+    "uploadedAt": "Subido el",
+    "processingStatus": "Estado del procesamiento",
+    "lastUpdated": "Última actualización",
+    "wordCount": "Recuento de palabras",
+    "chunks": "Fragmentos",
+    "embeddings": "Incrustaciones",
+    "fileContent": "Contenido del archivo",
+    "words": "palabras",
+    "noContentAvailable": "No hay contenido disponible",
+    "error": {
+      "title": "Algo salió mal",
+      "description": "Encontramos un error al cargar su base de conocimientos. Por favor, inténtelo de nuevo.",
+      "tryAgain": "Intentar de nuevo",
+      "backToDashboard": "Volver al panel",
+      "errorReference": "Referencia de error"
+    }
+  },
+  "status": {
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "pending": "Pendiente",
+    "completed": "Completado",
+    "failed": "Fallido",
+    "cancelled": "Cancelado",
+    "processing": "Procesando",
+    "draft": "Borrador",
+    "published": "Publicado"
+  },
+  "time": {
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "thisWeek": "Esta semana",
+    "lastWeek": "Semana pasada",
+    "thisMonth": "Este mes",
+    "lastMonth": "Mes pasado",
+    "thisYear": "Este año",
+    "lastYear": "Año pasado",
+    "last7Days": "Últimos 7 días",
+    "last30Days": "Últimos 30 días"
+  },
+  "actions": {
+    "verify": "Verificar",
+    "verifying": "Verificando...",
+    "loading": "Cargando...",
+    "create": "Crear",
+    "cancel": "Cancelar",
+    "update": "Actualizar"
+  },
+  "userMenu": {
+    "myAccount": "Mi cuenta",
+    "team": "Equipo",
+    "changePassword": "Cambiar contraseña",
+    "logout": "Cerrar sesión"
+  },
+  "header": {
+    "home": "Inicio",
+    "features": "Funciones",
+    "pricing": "Precios",
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "tryFree": "Probar gratis",
+    "startForFree": "Empezar gratis",
+    "language": "Idioma"
+  },
+  "footer": {
+    "description": "Tu asistente de soporte de chat IA amigable",
+    "product": "Producto",
+    "features": "Funciones",
+    "pricing": "Precios",
+    "api": "API",
+    "integrations": "Integraciones",
+    "company": "Empresa",
+    "aboutUs": "Acerca de nosotros",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "legal": "Legal",
+    "privacyPolicy": "Política de privacidad",
+    "termsOfService": "Términos de servicio",
+    "documentation": "Documentación",
+    "allRightsReserved": "Todos los derechos reservados."
+  },
+  "contact": {
+    "title": "Ponerse en contacto",
+    "description": "¿Tienes una pregunta? Nos encantaría saber de ti. Envíanos un mensaje y te responderemos lo antes posible.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "message": "Mensaje",
+    "company": "Empresa",
+    "send": "Enviar",
+    "sendEmail": "Envíanos un correo electrónico",
+    "sendPhone": "Llámanos",
+    "callUs": "Llámanos",
+    "callUsDescription": "Llámanos al +31 20 123 4567",
+    "phoneDescription": "Llámanos al +31 20 123 4567",
+    "sendMessage": "Envíanos un mensaje",
+    "sendMessageDescription": "Completa el formulario a continuación y te responderemos en 24 horas.",
+    "namePlaceholder": "Tu nombre",
+    "emailPlaceholder": "Tu correo electrónico",
+    "companyPlaceholder": "El nombre de tu empresa",
+    "messagePlaceholder": "Cuéntanos cómo podemos ayudarte...",
+    "missingFields": "Campos faltantes",
+    "missingFieldsDescription": "Por favor completa todos los campos obligatorios.",
+    "messageSent": "¡Mensaje enviado!",
+    "messageSentDescription": "Te responderemos lo antes posible."
+  },
+  "pricing": {
+    "title": "Precios simples y transparentes",
+    "subtitle": "Elija el plan que se adapte a las necesidades de su negocio",
+    "popular": "Más popular",
+    "allPlansIncludeFreeUpdatesAndNoHiddenFees": "Todos los planes incluyen actualizaciones gratuitas y sin tarifas ocultas",
+    "needSomethingCustom": "¿Necesitas algo personalizado?",
+    "contactUs": "Contáctanos",
+    "comparePlans": "Compara nuestros planes y encuentra el tuyo",
+    "freeTrial": "Prueba gratuita",
+    "noCreditCardRequired": "No se requiere tarjeta de crédito",
+    "flexiblePlans": "Planes flexibles",
+    "straightforwardAndTransparent": "Directo y transparente",
+    "easyToUse": "Fácil de usar",
+    "fasterInstallation": "Instalación más rápida, interfaz amigable",
+    "personalizeToYourAudience": "Personaliza para tu audiencia",
+    "safeAndSecure": "Seguro y protegido",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "perMonth": "/mes",
+    "perYear": "/año",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfecto para pequeñas empresas que comienzan con IA",
+        "monthlyPrice": "€25",
+        "yearlyMonthPrice": "€17,50",
+        "yearlyPrice": "€300",
+        "features": [
+          "Asistente de Chat en 1 sitio web",
+          "Hasta 50 conversaciones/mes",
+          "Soporte por correo electrónico",
+          "Análisis básicos"
+        ],
+        "cta": "Iniciar prueba gratuita"
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Para empresas en crecimiento que necesitan más",
+        "monthlyPrice": "€49",
+        "yearlyMonthPrice": "€40",
+        "yearlyPrice": "€480",
+        "features": [
+          "Asistente de Chat en sitios web ilimitados",
+          "Hasta 400 conversaciones/mes",
+          "Asistente de correo electrónico incluido",
+          "Soporte prioritario",
+          "Análisis avanzados",
+          "Marca personalizada"
+        ],
+        "cta": "Iniciar prueba gratuita"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Para grandes organizaciones con necesidades complejas",
+        "monthlyPrice": "€145",
+        "yearlyMonthPrice": "€125",
+        "yearlyPrice": "€1500",
+        "features": [
+          "Asistente de Chat en sitios web ilimitados",
+          "Hasta 3.000 conversaciones/mes",
+          "Asistente de correo electrónico incluido",
+          "Soporte prioritario",
+          "Análisis avanzados",
+          "Marca personalizada"
+        ],
+        "cta": "Iniciar prueba gratuita"
+      }
+    },
+    "categories": {
+      "usageBillingPayment": "Uso, Facturación y Pago",
+      "serviceSupport": "Servicio y Soporte",
+      "insightImprovement": "Información y Mejora",
+      "applicationDataSecurity": "Aplicación y Seguridad de Datos",
+      "assistantsAddons": "Complementos de Asistentes (hoja de ruta)"
+    },
+    "features": {
+      "interactionsIncluded": "Interacciones incluidas por mes",
+      "interactionsIncludedDesc": "Una interacción es un chat que es respondido por tu Asistente IA. Los chats sin respuesta o spam no se cuentan.",
+      "additionalInteractions": "Interacciones adicionales",
+      "additionalInteractionsDesc": "Cada interacción adicional más allá del límite de tu plan será cobrada.",
+      "creditCardPayment": "Pago con tarjeta de crédito",
+      "activeAIAssistants": "Asistentes IA activos",
+      "activeAIAssistantsDesc": "Un Asistente IA activo es el que está incrustado en tu sitio web",
+      "platformIntegrations": "Integraciones de plataforma",
+      "platformIntegrationsDesc": "Tus herramientas de negocio seleccionadas pueden integrarse con tu asistente IA",
+      "functionIntegrations": "Integraciones de funciones",
+      "functionIntegrationsDesc": "Acciones que son programables y se ejecutan según la intención seleccionada de un cliente",
+      "gettingStarted": "Primeros pasos",
+      "selfService": "Autoservicio",
+      "personalisedOnboarding": "Incorporación personalizada",
+      "aivantiAssistant": "Asistente Aivanti 24/7",
+      "aivantiAssistantDesc": "Obtén soporte de un asistente IA dentro de tu interfaz de cuenta Aivanti",
+      "supportChannels": "Canales de soporte",
+      "responseTime": "Tiempo de respuesta",
+      "roadmapFeatureUpvote": "Votar por funciones de la hoja de ruta",
+      "roadmapFeatureUpvoteDesc": "Vota para poner tus funciones favoritas en la lista de nuestros desarrollos",
+      "reporting": "Informes",
+      "reportingFeatures": "Información de conocimientos, Informes de conversación, Resultados generados, Sentimiento del usuario",
+      "analytics": "Análisis",
+      "analyticsFeatures": "Enlaces rotos en el sitio web, Conocimiento duplicado, Uso de integraciones, Efectividad del código QR, UX - Uso de saludos, UX - Uso del botón rápido",
+      "caseAnalysis": "Análisis de casos",
+      "caseAnalysisFeatures": "Pregunta sin respuesta, Indicador de desagrado, Sentimiento negativo, Información personal, Descarga de información del producto, Consulta de precios",
+      "questionUnanswered": "Pregunta sin respuesta",
+      "knowledgeSourceSynch": "Sincronización de fuentes de conocimiento",
+      "knowledgeSourceSynchDesc": "Mantener tu Asistente IA actualizado y entrenado con el conocimiento más reciente",
+      "manual": "Manual",
+      "automationPossible": "Automatización posible",
+      "sso": "SSO (Google, Microsoft, Apple)",
+      "latestEnterpriseLLM": "Último LLM Enterprise",
+      "latestEnterpriseLLMDesc": "Tu Asistente IA está impulsado por la última tecnología de modelo de lenguaje Large Language Model Enterprise",
+      "applicationDataHosting": "Alojamiento de aplicación y datos",
+      "applicationDataHostingDesc": "Todos los datos están alojados por defecto en AWS en Frankfurt, Alemania. Contáctanos si buscas que tus datos estén alojados en EE. UU. o APAC.",
+      "awsEurope": "AWS / Europa",
+      "encryptionDataAtRest": "Cifrado de datos en reposo",
+      "thirdPartyIntegrationSecurity": "Seguridad de integraciones de terceros",
+      "privacyPolicyDataProtection": "Política de privacidad / Protección de datos",
+      "personalInformationDetection": "Detección de información personal",
+      "conversationTranscriptRetention": "Retención de transcripciones de conversación",
+      "analyticsDataRetention": "Retención de datos de análisis",
+      "analysisDataRetention": "Retención de datos de análisis",
+      "websiteSemanticSearch": "Búsqueda semántica del sitio web",
+      "websiteComplianceAccessibility": "Cumplimiento y accesibilidad del sitio web",
+      "liveChatWithAgents": "Chat en vivo con agentes"
+    },
+    "values": {
+      "unlimited": "Ilimitado",
+      "included": "Incluido",
+      "notIncluded": "-",
+      "bestEffort": "mejor esfuerzo",
+      "oneBusinessDay": "1 día laborable",
+      "oneMonth": "1 Mes",
+      "oneYear": "1 Año",
+      "twoYears": "2 Años"
+    },
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfecto para pequeñas empresas que están empezando",
+        "price": "€29",
+        "period": "/mes",
+        "features": [
+          "Hasta 1.000 conversaciones por mes",
+          "Asistente IA básico",
+          "Soporte por correo electrónico",
+          "Base de conocimientos estándar",
+          "Análisis básicos"
+        ],
+        "cta": "Comenzar",
+        "href": "/register"
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Ideal para empresas en crecimiento",
+        "price": "€79",
+        "period": "/mes",
+        "features": [
+          "Hasta 10.000 conversaciones por mes",
+          "Asistente IA avanzado",
+          "Soporte prioritario",
+          "Base de conocimientos avanzada",
+          "Análisis detallados",
+          "Marca personalizada",
+          "Acceso API"
+        ],
+        "cta": "Comenzar prueba gratis",
+        "href": "/register"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Para grandes organizaciones con necesidades complejas",
+        "price": "Personalizado",
+        "period": "",
+        "features": [
+          "Conversaciones ilimitadas",
+          "Entrenamiento IA personalizado",
+          "Soporte dedicado",
+          "Integraciones avanzadas",
+          "Análisis personalizados",
+          "Solución white-label",
+          "Garantía SLA"
+        ],
+        "cta": "Contactar ventas",
+        "href": "/contact"
+      }
+    }
+  },
+  "roles": {
+    "user": "Usuario",
+    "admin": "Administrador",
+    "superuser": "Superusuario"
+  },
+  "widget": {
+    "confirmReset": "¿Está seguro de que desea restablecer la conversación?"
+  },
+  "fileUpload": {
+    "cameraPermissionRequired": "Permiso de cámara requerido",
+    "cameraPermissionRequiredDescription": "Por favor, permita el acceso a la cámara en la configuración de su navegador para tomar fotos.",
+    "removeFile": "Quitar archivo",
+    "chooseMethod": "Elija un método para subir",
+    "makePhoto": "Tomar foto",
+    "gallery": "Galería",
+    "supportedFormats": "Formatos soportados: Imágenes y PDF",
+    "dragAndDrop": "Arrastre y suelte un archivo aquí",
+    "browseFiles": "Examinar archivos"
+  },
+  "mail": {
+    "rights": "Todos los derechos reservados",
+    "resetPassword": {
+      "title": "Restablecer su contraseña",
+      "description": "Ha solicitado restablecer su contraseña. Haga clic en el botón a continuación para establecer una nueva contraseña:",
+      "link": "Restablecer contraseña",
+      "ignore": "Si no realizó esta solicitud, puede ignorar este mensaje. Su contraseña permanecerá sin cambios.",
+      "expiration": "Este enlace es válido por 1 hora."
+    },
+    "verifyEmail": {
+      "title": "Verifique su dirección de correo electrónico",
+      "greeting": "Hola",
+      "description": "Gracias por registrarse. Por favor, verifique su dirección de correo electrónico haciendo clic en el botón a continuación:",
+      "button": "Verificar dirección de correo electrónico",
+      "alternative": "O copie y pegue este enlace en su navegador:",
+      "important": "Importante:",
+      "expiration": "Este enlace de verificación caduca en 24 horas. Si no ha creado una cuenta, ignore este correo electrónico.",
+      "support": "Si tiene alguna pregunta, póngase en contacto con nuestro equipo de soporte."
+    }
+  },
+  "aboutUs": {
+    "title": "Acerca de Nosotros",
+    "description": "Conozca más sobre Ainexo y nuestra misión de transformar el servicio al cliente",
+    "hero": {
+      "title": "Acerca de Ainexo",
+      "subtitle": "Creemos que cada empresa debería tener acceso a soluciones de servicio al cliente potentes e inteligentes"
+    },
+    "mission": {
+      "label": "Nuestra Misión",
+      "title": "Hacer el Servicio al Cliente Accesible para Todos",
+      "description1": "En Ainexo, nos apasiona usar la IA para ayudar a las empresas a ofrecer experiencias excepcionales al cliente. Nuestra misión es hacer que la tecnología IA avanzada sea accesible y asequible para empresas de todos los tamaños.",
+      "description2": "Entendemos que un excelente servicio al cliente no debería ser un lujo, sino un estándar. Por eso hemos creado una plataforma que es potente, fácil de usar y asequible para todos."
+    },
+    "vision": {
+      "title": "Nuestra Visión",
+      "description": "Un mundo donde cada empresa pueda proporcionar soporte al cliente inteligente 24/7 sin aumentar sus costos ni comprometer sus valores."
+    },
+    "story": {
+      "title": "Nuestra Historia",
+      "paragraph1": "Ainexo fue fundada en 2023 por un equipo de emprendedores y especialistas en IA que vieron las frustraciones que enfrentaban las pequeñas y medianas empresas con el servicio al cliente. Las soluciones tradicionales eran demasiado caras o complejas, mientras que las herramientas más simples carecían de funciones esenciales.",
+      "paragraph2": "Decidimos cerrar esta brecha creando una plataforma que combina IA de nivel empresarial con una experiencia de usuario intuitiva. Después de meses de desarrollo y pruebas con los primeros usuarios, lanzamos Ainexo al público.",
+      "paragraph3": "Hoy, Ainexo ayuda a cientos de empresas en los Países Bajos y más allá a ofrecer mejores experiencias al cliente, reducir costos y permitir que sus equipos se enfoquen en lo que más importa."
+    },
+    "values": {
+      "title": "Nuestros Valores",
+      "subtitle": "Los principios que guían nuestro trabajo",
+      "innovation": {
+        "title": "Innovación",
+        "description": "Nos mantenemos a la vanguardia adoptando las últimas tecnologías de IA y mejorando continuamente nuestra plataforma."
+      },
+      "customerFirst": {
+        "title": "El Cliente Primero",
+        "description": "Su éxito es nuestro éxito. Escuchamos sus comentarios y desarrollamos las funciones que realmente necesita."
+      },
+      "trust": {
+        "title": "Confianza y Transparencia",
+        "description": "Nos tomamos en serio la privacidad y la seguridad, y siempre somos honestos sobre lo que nuestra plataforma puede y no puede hacer."
+      },
+      "simplicity": {
+        "title": "Simplicidad",
+        "description": "La tecnología potente no tiene que ser compleja. Nos esforzamos por la simplicidad en todo lo que hacemos."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar?",
+      "subtitle": "Únase a cientos de empresas que están transformando su servicio al cliente con Ainexo",
+      "startFree": "Comenzar Gratis",
+      "contact": "Contáctenos"
+    }
+  },
+  "featuresPage": {
+    "title": "Funciones",
+    "description": "Descubra todas las funciones de Ainexo para mejorar su servicio al cliente",
+    "hero": {
+      "title": "Funciones Potentes para el Servicio al Cliente Moderno",
+      "subtitle": "Todo lo que necesita para ofrecer experiencias excepcionales al cliente, todo en una plataforma",
+      "cta": "Comenzar Gratis"
+    },
+    "mainFeatures": {
+      "title": "Funciones Principales",
+      "subtitle": "Las herramientas esenciales que hacen potente a su asistente de IA",
+      "instantAnswers": {
+        "title": "Respuestas Instantáneas",
+        "description": "Responda las preguntas de los clientes al instante con respuestas impulsadas por IA basadas en su base de conocimientos"
+      },
+      "securePrivate": {
+        "title": "Seguro y Privado",
+        "description": "Conforme con GDPR con seguridad de nivel empresarial. Sus datos permanecen siempre protegidos y privados"
+      },
+      "increaseConversions": {
+        "title": "Aumentar las Conversiones",
+        "description": "Convierta más visitantes en clientes con sugerencias inteligentes y orientación personalizada"
+      },
+      "available247": {
+        "title": "Disponible 24/7",
+        "description": "Su asistente de IA trabaja día y noche, nunca se pierde un cliente"
+      },
+      "multilingual": {
+        "title": "Multilingüe",
+        "description": "Asista a los clientes en su idioma preferido con traducción automática y fuentes de conocimiento multilingües"
+      },
+      "easyIntegration": {
+        "title": "Integración Fácil",
+        "description": "Implemente en minutos con un simple fragmento de código. No se requiere experiencia técnica"
+      }
+    },
+    "advancedFeatures": {
+      "title": "Funciones Avanzadas",
+      "subtitle": "Herramientas potentes para elevar su servicio al cliente al siguiente nivel",
+      "knowledgeBase": {
+        "title": "Base de Conocimientos Inteligente",
+        "description": "Cargue documentos, extraiga sitios web y agregue preguntas frecuentes para entrenar su IA",
+        "item1": "Cargue PDFs, documentos de Word y archivos de texto",
+        "item2": "Extracción automática de sitios web con sincronización de contenido",
+        "item3": "Preguntas frecuentes manuales con gestión de prioridades"
+      },
+      "customization": {
+        "title": "Personalización Completa",
+        "description": "Personalice cada aspecto de su chatbot para que coincida perfectamente con su marca",
+        "item1": "Personalice colores, fuentes y posicionamiento",
+        "item2": "Mensajes de bienvenida personalizados y tono de voz",
+        "item3": "Logotipos de marca y avatares"
+      },
+      "analytics": {
+        "title": "Análisis e Información",
+        "description": "Obtenga información detallada sobre conversaciones y comportamiento del cliente",
+        "item1": "Historial de conversaciones con calificaciones",
+        "item2": "Estadísticas de rendimiento y tiempos de respuesta",
+        "item3": "Identifique lagunas de conocimiento y oportunidades de mejora"
+      },
+      "conversations": {
+        "title": "Gestión de Conversaciones",
+        "description": "Realice un seguimiento y administre todas las interacciones con los clientes en un solo lugar",
+        "item1": "Historial completo de conversaciones con función de búsqueda",
+        "item2": "Estadísticas de sesión y recuento de mensajes",
+        "item3": "Exporte datos de conversación en CSV o JSON"
+      }
+    },
+    "technicalFeatures": {
+      "title": "Capacidades Técnicas",
+      "subtitle": "Tecnología de nivel empresarial bajo el capó",
+      "aiPowered": {
+        "title": "Impulsado por GPT-4",
+        "description": "Utilice la última tecnología de IA para respuestas precisas y naturales"
+      },
+      "websiteScraping": {
+        "title": "Extracción de Sitios Web",
+        "description": "Recupere automáticamente contenido de su sitio web con sincronización programada"
+      },
+      "gdprCompliant": {
+        "title": "Conforme con GDPR",
+        "description": "Diseñado pensando en la privacidad. Totalmente conforme con las regulaciones europeas"
+      },
+      "mobileResponsive": {
+        "title": "Responsive para Móviles",
+        "description": "Experiencia perfecta en escritorio, tableta y dispositivos móviles"
+      },
+      "continuousLearning": {
+        "title": "Aprendizaje Continuo",
+        "description": "Su IA mejora con el tiempo aprendiendo de las conversaciones"
+      },
+      "multiTenant": {
+        "title": "Soporte Multi-tenant",
+        "description": "Cree múltiples asistentes para diferentes sitios web o aplicaciones"
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar?",
+      "subtitle": "Comience hoy a transformar su servicio al cliente",
+      "startFree": "Comenzar Gratis",
+      "contact": "Contáctenos"
+    }
+  },
+  "privacyPolicy": {
+    "title": "Política de Privacidad",
+    "description": "Conozca cómo Ainexo recopila, utiliza y protege sus datos personales",
+    "badge": "Privacidad y Seguridad",
+    "lastUpdated": "Última actualización",
+    "intro": {
+      "paragraph1": "En Ainexo, nos tomamos en serio su privacidad. Esta política de privacidad explica cómo recopilamos, usamos, almacenamos y protegemos su información personal cuando utiliza nuestros servicios.",
+      "paragraph2": "Al utilizar nuestros servicios, usted acepta la recopilación y el uso de información de acuerdo con esta política. Si no está de acuerdo con esta política, no utilice nuestros servicios."
+    },
+    "sections": {
+      "dataCollection": {
+        "title": "¿Qué Datos Recopilamos?",
+        "intro": "Recopilamos diferentes tipos de información para proporcionarle y mejorar nuestros servicios:",
+        "personalData": "Datos personales: Nombre, dirección de correo electrónico, nombre de la empresa e información de contacto que proporciona al registrarse",
+        "usageData": "Datos de uso: Información sobre cómo utiliza nuestros servicios, incluido el historial de conversaciones, direcciones IP y tipo de navegador",
+        "technicalData": "Datos técnicos: Información sobre su dispositivo, sistema operativo y conexión de red"
+      },
+      "howWeUse": {
+        "title": "¿Cómo Utilizamos Sus Datos?",
+        "intro": "Utilizamos sus datos para diversos fines:",
+        "purpose1": "Para proporcionar y mantener nuestros servicios, incluido el entrenamiento de su asistente de IA",
+        "purpose2": "Para mejorar su experiencia de usuario y personalizar nuestros servicios",
+        "purpose3": "Para comunicarnos con usted sobre actualizaciones, soporte y mensajes de marketing",
+        "purpose4": "Para resolver problemas y proporcionar soporte técnico",
+        "purpose5": "Para prevenir fraudes y garantizar la seguridad de nuestros servicios"
+      },
+      "dataSecurity": {
+        "title": "Seguridad de los Datos",
+        "intro": "Nos tomamos en serio la seguridad de sus datos e implementamos varias medidas:",
+        "measure1": "Cifrado de datos en tránsito y en reposo con protocolos estándar de la industria",
+        "measure2": "Auditorías de seguridad regulares y pruebas de penetración",
+        "measure3": "Acceso limitado a datos personales según el principio de necesidad de conocer",
+        "measure4": "Alojamiento en servidores seguros en la UE (Frankfurt, Alemania) conforme a los requisitos de GDPR"
+      },
+      "yourRights": {
+        "title": "Sus Derechos",
+        "intro": "Bajo el GDPR, usted tiene varios derechos con respecto a sus datos personales:",
+        "right1": "Derecho de acceso: Puede solicitar una copia de sus datos personales",
+        "right2": "Derecho de rectificación: Puede solicitar la corrección de datos inexactos",
+        "right3": "Derecho de supresión: Puede solicitar la eliminación de sus datos ('derecho al olvido')",
+        "right4": "Derecho de limitación: Puede solicitar la limitación del procesamiento de sus datos",
+        "right5": "Derecho a la portabilidad: Puede solicitar recibir sus datos en un formato estructurado",
+        "right6": "Derecho de oposición: Puede oponerse al procesamiento de sus datos"
+      },
+      "cookies": {
+        "title": "Cookies y Seguimiento",
+        "intro": "Utilizamos cookies y tecnologías de seguimiento similares para mejorar su experiencia y analizar el uso de nuestros servicios.",
+        "types": "Cookies esenciales para autenticación, cookies analíticas para estadísticas de uso y cookies de preferencia para recordar su configuración"
+      },
+      "thirdParties": {
+        "title": "Compartir con Terceros",
+        "intro": "No compartimos sus datos personales con terceros, excepto en los siguientes casos:",
+        "services": "Con proveedores de servicios que nos ayudan a proporcionar nuestros servicios (por ejemplo, proveedores de alojamiento, procesadores de pago), que están contractualmente obligados a proteger sus datos"
+      },
+      "changes": {
+        "title": "Cambios en Esta Política",
+        "content": "Podemos actualizar esta política de privacidad de vez en cuando. Le notificaremos los cambios publicando la política actualizada en esta página. Le recomendamos que revise esta política regularmente para conocer las actualizaciones."
+      }
+    },
+    "contact": {
+      "title": "Contáctenos",
+      "description": "Si tiene preguntas sobre esta política de privacidad o sus datos personales, contáctenos:"
+    }
+  },
+  "termsOfService": {
+    "title": "Términos de Servicio",
+    "description": "Lea nuestros términos de servicio para el uso de Ainexo",
+    "badge": "Términos Legales",
+    "lastUpdated": "Última actualización",
+    "intro": {
+      "paragraph1": "Bienvenido a Ainexo. Estos Términos de Servicio ('Términos') rigen su uso de nuestros servicios de plataforma de chatbot de IA. Al acceder o usar nuestros servicios, usted acepta estos Términos.",
+      "paragraph2": "Si no acepta estos Términos, no debe usar nuestros servicios. Le recomendamos que lea estos Términos cuidadosamente antes de usar nuestros servicios."
+    },
+    "sections": {
+      "acceptance": {
+        "title": "Aceptación de los Términos",
+        "paragraph1": "Al crear una cuenta o usar nuestros servicios, usted confirma que ha leído, entendido y aceptado estos Términos. También acepta cumplir con todas las leyes y regulaciones aplicables.",
+        "paragraph2": "Si actúa en nombre de una organización, declara que está autorizado para vincular a esa organización a estos Términos."
+      },
+      "accountRegistration": {
+        "title": "Registro de Cuenta",
+        "paragraph1": "Para usar nuestros servicios, debe crear una cuenta y proporcionar información precisa, completa y actualizada.",
+        "paragraph2": "Usted es responsable de proteger la información de su cuenta y de todas las actividades que ocurran bajo su cuenta.",
+        "paragraph3": "Debe notificarnos inmediatamente sobre cualquier uso no autorizado de su cuenta u otras violaciones de seguridad."
+      },
+      "subscriptionBilling": {
+        "title": "Suscripción y Facturación",
+        "paragraph1": "Nuestros servicios se ofrecen en base a diferentes planes de suscripción con funciones y precios específicos.",
+        "paragraph2": "Los pagos se facturan por adelantado mensual o anualmente, dependiendo del plan que elija. Todos los montos son sin IVA, a menos que se indique lo contrario.",
+        "paragraph3": "Puede cancelar su suscripción en cualquier momento. Las cancelaciones entran en vigor al final del período de facturación actual.",
+        "paragraph4": "No ofrecemos reembolsos por períodos de suscripción parcialmente utilizados, a menos que la ley lo requiera."
+      },
+      "useOfService": {
+        "title": "Uso de los Servicios",
+        "intro": "Al usar nuestros servicios, usted acepta no:",
+        "prohibited1": "Usar los servicios para fines ilegales o en violación de estos Términos",
+        "prohibited2": "Intentar obtener acceso no autorizado a nuestros sistemas o redes",
+        "prohibited3": "Usar los servicios para distribuir contenido dañino o acosar a otros",
+        "prohibited4": "Realizar ingeniería inversa de nuestros servicios o intentar extraer el código fuente",
+        "prohibited5": "Usar los servicios para enviar spam o engañar a otros"
+      },
+      "intellectualProperty": {
+        "title": "Propiedad Intelectual",
+        "paragraph1": "Todos los derechos, títulos e intereses en y para nuestros servicios (excluyendo su contenido) siguen siendo propiedad de Ainexo y nuestros licenciantes.",
+        "paragraph2": "Usted conserva todos los derechos sobre el contenido que carga en nuestros servicios. Al cargar contenido, nos otorga una licencia para usar ese contenido para proporcionar nuestros servicios.",
+        "paragraph3": "No puede usar nuestras marcas comerciales, logotipos o nombres comerciales sin nuestro consentimiento previo por escrito."
+      },
+      "limitationLiability": {
+        "title": "Limitación de Responsabilidad",
+        "paragraph1": "Nuestros servicios se proporcionan 'tal cual' sin ninguna garantía. No garantizamos que nuestros servicios sean libres de errores, ininterrumpidos o completamente seguros.",
+        "paragraph2": "En la medida permitida por la ley, no somos responsables de daños indirectos, incidentales, especiales o consecuentes que resulten de su uso de nuestros servicios."
+      },
+      "termination": {
+        "title": "Terminación",
+        "paragraph1": "Nos reservamos el derecho de suspender o terminar su cuenta si viola estos Términos o si creemos razonablemente que está abusando de nuestros servicios.",
+        "paragraph2": "Al terminar, su acceso a nuestros servicios se interrumpirá y podemos eliminar los datos de su cuenta."
+      },
+      "dataPrivacy": {
+        "title": "Privacidad de Datos",
+        "content": "Su uso de nuestros servicios también está sujeto a nuestra Política de Privacidad, que describe cómo recopilamos, usamos y protegemos sus datos personales."
+      },
+      "changes": {
+        "title": "Cambios en los Términos",
+        "content": "Podemos actualizar estos Términos de vez en cuando. Si realizamos cambios materiales, le notificaremos por correo electrónico o mediante una notificación en nuestros servicios. Su uso continuado de nuestros servicios después de tales cambios significa que acepta los Términos actualizados."
+      },
+      "governingLaw": {
+        "title": "Ley Aplicable",
+        "content": "Estos Términos se rigen e interpretan de acuerdo con las leyes de los Países Bajos, sin tener en cuenta las disposiciones legales en conflicto."
+      }
+    },
+    "contact": {
+      "title": "Contáctenos",
+      "description": "Si tiene preguntas sobre estos Términos de Servicio, contáctenos:"
+    }
+  },
+  "closeSidebar": "Cerrar barra lateral",
+  "openSidebar": "Abrir barra lateral",
+  "pricingPage": {
+    "badge": "Precios de Agentes IA",
+    "aiAgentPricing": "Precios de Agentes IA",
+    "loading": "Cargando...",
+    "perMonth": "/mes",
+    "custom": "Personalizado",
+    "mostPopular": "Más popular",
+    "free": "Gratis",
+    "title": "Crea tu primer Agente IA",
+    "titleHighlight": "en 5 minutos",
+    "description": "Planes de precios flexibles adaptados a las necesidades de diversas industrias y tamaños de empresas.",
+    "freeTrial": {
+      "title": "Comienza tu prueba gratuita",
+      "description": "No se requiere tarjeta de crédito, gratis para siempre hasta que se agoten tus créditos",
+      "detail": "Comienza con 20 créditos de mensajes mensuales y almacena hasta 50 páginas web.",
+      "button": "Comenzar gratis"
+    },
+    "billing": {
+      "monthly": "Mensual",
+      "annual": "Anual",
+      "discount": "17% de descuento"
+    },
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfecto para sitios web pequeños",
+        "monthlyPrice": 29,
+        "yearlyPrice": 25,
+        "cta": "Comenzar gratis",
+        "highlight": null,
+        "features": [
+          "1.000 créditos de mensajes/mes",
+          "100 páginas web/agente",
+          "Cargas de archivos ilimitadas",
+          "Almacenamiento de 500k caracteres",
+          "1 Agente IA personalizable",
+          "Transferencia humana",
+          "Recopilación de leads",
+          "Sincronización mensual de datos",
+          "1 Flujo de trabajo de chat",
+          "Integraciones básicas"
+        ]
+      },
+      "basic": {
+        "name": "Basic",
+        "description": "Para empresas en crecimiento",
+        "monthlyPrice": 99,
+        "yearlyPrice": 83,
+        "cta": "Comenzar gratis",
+        "highlight": "Todo lo de Starter y",
+        "features": [
+          "5.000 créditos de mensajes/mes",
+          "1.000 páginas web/agente",
+          "Almacenamiento de 3 millones de caracteres",
+          "2 Agentes IA personalizables",
+          "2 Herramientas por agente",
+          "2 Flujos de trabajo de chat",
+          "Acceso a todos los modelos de OpenAI",
+          "Chat en vivo",
+          "Transferencia humana",
+          "Sincronización mensual de datos",
+          "3 Asientos de equipo",
+          "Integraciones CRM"
+        ]
+      },
+      "turbo": {
+        "name": "Turbo",
+        "description": "Para sitios con alto tráfico",
+        "monthlyPrice": 299,
+        "yearlyPrice": 249,
+        "cta": "Comenzar gratis",
+        "highlight": "Todo lo de Basic y",
+        "features": [
+          "15.000 créditos de mensajes/mes",
+          "2.500 páginas web/agente",
+          "Almacenamiento de 12 millones de caracteres",
+          "4 Agentes IA personalizables",
+          "3 Herramientas por agente",
+          "3 Flujos de trabajo de chat",
+          "Análisis avanzados",
+          "Sincronización semanal de datos",
+          "Recopilación avanzada de leads",
+          "5 Asientos de equipo",
+          "Chat de voz",
+          "Agente telefónico"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Para grandes organizaciones",
+        "monthlyPrice": null,
+        "yearlyPrice": null,
+        "cta": "Solicitar demostración",
+        "highlight": "Todo lo de Turbo y",
+        "features": [
+          "Mensajes ilimitados",
+          "Capacidad de almacenamiento ilimitada",
+          "Soporte prioritario",
+          "Multilingüe avanzado",
+          "Seguridad Enterprise SOC2",
+          "Integraciones personalizadas",
+          "Flujos de trabajo ilimitados",
+          "Miembros de equipo ilimitados",
+          "Agente telefónico (ilimitado)",
+          "Integraciones SSO",
+          "Integraciones CRM"
+        ]
+      }
+    },
+    "popular": "POPULAR",
+    "letsTalk": "Hablemos",
+    "addOns": {
+      "title": "Complementos",
+      "subtitle": "Créditos de mensajes adicionales",
+      "description": "Añade 1000 créditos de mensajes adicionales por una tarifa única.",
+      "price": "$15.99",
+      "note": "Disponible para compra en tu panel de control."
+    },
+    "comparison": {
+      "title": "Comparar todas las funciones",
+      "description": "Vea exactamente qué está incluido en cada plan",
+      "featuresHeader": "Funciones",
+      "custom": "Personalizado",
+      "categories": {
+        "quotasAndDataSources": {
+          "name": "Cuotas y fuentes de datos",
+          "features": {
+            "messages": {
+              "name": "Mensajes",
+              "tooltip": "Número de respuestas IA por mes"
+            },
+            "webpagesPerAgent": {
+              "name": "Páginas web por agente",
+              "tooltip": "Número de páginas web que puedes indexar"
+            },
+            "charactersPerAgent": {
+              "name": "Caracteres por agente",
+              "tooltip": "Almacenamiento total de caracteres para datos de entrenamiento"
+            },
+            "customizableAgents": {
+              "name": "Agentes personalizables",
+              "tooltip": "Número de agentes IA que puedes crear"
+            },
+            "teamMembers": {
+              "name": "Miembros del equipo",
+              "tooltip": "Número de miembros del equipo con acceso"
+            },
+            "workflows": {
+              "name": "Flujos de trabajo",
+              "tooltip": "Flujos de trabajo de respuesta automatizados"
+            },
+            "toolsPerAgent": {
+              "name": "Herramientas por agente",
+              "tooltip": "Conexiones API externas por agente"
+            }
+          }
+        },
+        "features": {
+          "name": "Funciones",
+          "features": {
+            "liveChat": {
+              "name": "Chat en vivo",
+              "tooltip": "Chat en tiempo real con visitantes"
+            },
+            "humanHandover": {
+              "name": "Transferencia humana",
+              "tooltip": "Transferir conversaciones a agentes humanos"
+            },
+            "leadCollection": {
+              "name": "Recopilación de leads",
+              "tooltip": "Capturar información de visitantes"
+            },
+            "advancedAnalytics": {
+              "name": "Análisis avanzados",
+              "tooltip": "Información detallada de conversaciones"
+            },
+            "voiceChat": {
+              "name": "Chat de voz",
+              "tooltip": "Conversaciones IA habilitadas por voz"
+            },
+            "phoneAgent": {
+              "name": "Agente telefónico",
+              "tooltip": "Manejo de llamadas telefónicas IA"
+            },
+            "crmIntegrations": {
+              "name": "Integraciones CRM",
+              "tooltip": "Conectar con tu CRM"
+            },
+            "sso": {
+              "name": "SSO",
+              "tooltip": "Soporte de inicio de sesión único"
+            }
+          }
+        },
+        "dataSync": {
+          "name": "Sincronización de datos",
+          "features": {
+            "automaticRecrawls": {
+              "name": "Reindexación automática",
+              "tooltip": "Con qué frecuencia actualizamos tu contenido indexado"
+            }
+          }
+        }
+      }
+    }
+  },
+  "howItWorksSite": {
+    "badge": "Cómo funciona",
+    "title": "Empezar en",
+    "titleHighlight": "3 pasos simples",
+    "subtitle": "No se requieren habilidades técnicas. Configura tu chatbot de IA en minutos, no en días.",
+    "steps": {
+      "step1": {
+        "title": "Conecta tus datos",
+        "description": "Sube tus documentos, conecta tu sitio web o integra con tu helpdesk existente. Ainexo indexa automáticamente todo."
+      },
+      "step2": {
+        "title": "Personaliza tu agente",
+        "description": "Define la personalidad, el tono y el comportamiento de tu chatbot. Configura saludos personalizados y configura cómo maneja diferentes tipos de consultas."
+      },
+      "step3": {
+        "title": "Implementa en todas partes",
+        "description": "Añade Ainexo a tu sitio web con un simple código de inserción. Tu agente de IA ahora está en vivo y listo para ayudar a tus clientes 24/7."
+      }
+    }
+  },
+  "ctaSite": {
+    "title": "¿Listo para transformar tu atención al cliente?",
+    "description": "Únete a miles de empresas que usan Ainexo para ofrecer experiencias excepcionales al cliente. Comienza tu prueba gratuita hoy.",
+    "startFree": "Comenzar gratis",
+    "scheduleDemo": "Programar una demostración"
+  },
+  "trustedBy": {
+    "title": "Confiado por empresas de todo el mundo"
+  },
+  "featuresSite": {
+    "badge": "Funciones",
+    "title": "Todo lo que necesitas para",
+    "titleHighlight": "potenciar",
+    "subtitle": "tu soporte",
+    "description": "Ainexo proporciona todas las herramientas que necesitas para ofrecer experiencias excepcionales al cliente a escala.",
+    "features": {
+      "trainAI": {
+        "title": "Entrena agentes de IA con tus datos",
+        "description": "Sube documentación e integra con sistemas de helpdesk. Ainexo aprende de PDFs, URLs, Zendesk y otras fuentes para proporcionar respuestas precisas.",
+        "benefits": [
+          "Entrenamiento en todos los formatos de archivo",
+          "Indexación ilimitada de sitios web",
+          "Sincronización automática de tus datos"
+        ]
+      },
+      "customizable": {
+        "title": "Totalmente personalizable para adaptarse a tu marca",
+        "description": "Personaliza el rol, el tono y el estilo de tu chatbot y escribe instrucciones personalizadas para dar a tu chatbot un comportamiento y una personalidad.",
+        "benefits": [
+          "Coincide con los colores de tu marca",
+          "Saludos personalizados",
+          "Respuestas personalizadas"
+        ]
+      },
+      "trainConversations": {
+        "title": "Entrena el chatbot con conversaciones en tiempo real",
+        "description": "¿No te gusta una respuesta que da tu chatbot? Entrena tu chatbot para aprender de sus errores informándole qué es una respuesta modelo.",
+        "benefits": [
+          "Añade correcciones sobre la marcha",
+          "Respuestas más inteligentes con el tiempo",
+          "Identificación automatizada de correcciones"
+        ]
+      },
+      "gdprCompliant": {
+        "title": "Cumplimiento GDPR y certificado SOC 2",
+        "description": "El cumplimiento de nivel empresarial garantiza que tus datos estén protegidos con estándares de seguridad de nivel empresarial.",
+        "benefits": [
+          "Cifrado de extremo a extremo",
+          "Controles de privacidad de datos",
+          "Auditorías de seguridad regulares"
+        ]
+      },
+      "fastSetup": {
+        "title": "Configuración súper rápida de 5 minutos",
+        "description": "5 minutos es todo lo que se necesita para que el chatbot se entrene en tu sitio web y archivos. Una vez hecho, puedes conversar instantáneamente con él.",
+        "benefits": [
+          "No se requiere codificación",
+          "Implementación instantánea",
+          "Integración fácil"
+        ]
+      },
+      "analytics": {
+        "title": "Panel de análisis integrado",
+        "description": "Rastrea cada métrica importante en un panel poderoso que cuantifica el ROI de tu chatbot y revela exactamente dónde optimizar.",
+        "benefits": [
+          "Seguimiento de la tasa de resolución",
+          "Resúmenes de consultas de clientes",
+          "Análisis de brechas de conocimiento"
+        ]
+      }
+    }
+  },
+  "pricingSite": {
+    "badge": "Precios",
+    "title": "Simple, transparente",
+    "titleHighlight": "precios",
+    "subtitle": "Comienza gratis, actualiza a medida que creces. Sin tarifas ocultas.",
+    "mostPopular": "Más popular",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfecto para sitios web pequeños y proyectos personales",
+        "price": "29",
+        "features": [
+          "1 agente de IA",
+          "1.000 mensajes/mes",
+          "Personalización básica",
+          "Soporte por correo electrónico",
+          "Widget del sitio web"
+        ]
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Para empresas en crecimiento con más tráfico",
+        "price": "99",
+        "features": [
+          "5 agentes de IA",
+          "10.000 mensajes/mes",
+          "Personalización completa",
+          "Soporte prioritario",
+          "Panel de análisis",
+          "Colaboración en equipo",
+          "Acceso API"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Para grandes organizaciones con necesidades específicas",
+        "price": "Personalizado",
+        "features": [
+          "Agentes de IA ilimitados",
+          "Mensajes ilimitados",
+          "Integraciones personalizadas",
+          "Soporte dedicado",
+          "Garantía SLA",
+          "Opción on-premise",
+          "Entrenamiento personalizado"
+        ]
+      }
+    },
+    "currency": "$",
+    "perMonth": "/mes",
+    "contactSales": "Contactar ventas",
+    "getStarted": "Comenzar"
+  },
+  "testimonials": {
+    "badge": "Testimonios",
+    "title": "Las empresas con servicio al cliente exitoso comienzan con",
+    "titleHighlight": "Ainexo",
+    "testimonials": {
+      "testimonial1": {
+        "quote": "Ainexo ha revolucionado nuestro soporte al cliente. Hemos reducido el tiempo de respuesta en un 80% y a nuestros clientes les encanta la ayuda instantánea.",
+        "author": "Sarah Johnson",
+        "role": "Jefa de éxito del cliente",
+        "company": "TechFlow Inc."
+      },
+      "testimonial2": {
+        "quote": "La configuración fue increíblemente fácil. En 5 minutos, teníamos un chatbot de IA que realmente entendía nuestra documentación del producto.",
+        "author": "Michael Chen",
+        "role": "Fundador y CEO",
+        "company": "StartupLab"
+      },
+      "testimonial3": {
+        "quote": "La precisión de las respuestas es impresionante. Nuestro equipo de soporte ahora puede concentrarse en problemas complejos mientras Ainexo maneja las consultas rutinarias.",
+        "author": "Emily Rodriguez",
+        "role": "Gerente de soporte",
+        "company": "CloudScale"
+      }
+    }
+  },
+  "contactPage": {
+    "badge": "Contacto",
+    "title": "¿Buscas soporte?",
+    "titleHighlight": "¿Necesitas ayuda?",
+    "description": "Envíanos un mensaje y un miembro del equipo se pondrá en contacto contigo lo antes posible."
+  },
+  "blogPage": {
+    "minRead": "min de lectura",
+    "views": "vistas"
+  },
+  "chatWidget": {
+    "agentName": "Ainexo",
+    "agentLabel": "Agente IA",
+    "messages": {
+      "welcome": "¡Bienvenido a Ainexo! ¿Cómo puedo ayudarte hoy?",
+      "userExample": "Hola, ¿puedes ayudarme a rastrear mi pedido?",
+      "agentResponse": "Por supuesto, espera un momento."
+    },
+    "cancel": "Cancelar",
+    "upgrade": "Actualizar",
+    "messagePlaceholder": "Mensaje..."
+  }
+}

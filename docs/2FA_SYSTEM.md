@@ -34,15 +34,18 @@ Het 2FA systeem biedt multi-layer beveiliging met verschillende recovery opties:
 ### 🔐 2FA Instellen
 
 #### Stap 1: Navigeer naar 2FA Setup
+
 - Ga naar **Account Settings** → **Security** → **Two-Factor Authentication**
 - Klik op **"Enable 2FA"**
 
 #### Stap 2: Scan QR Code
+
 1. Open een authenticator app (Google Authenticator, Authy, Microsoft Authenticator, 1Password)
 2. Scan de weergegeven QR code
 3. **Alternatief**: Kopieer de secret code en voer deze handmatig in
 
 **Ondersteunde Apps:**
+
 - Google Authenticator (iOS/Android)
 - Microsoft Authenticator (iOS/Android)
 - Authy (iOS/Android/Desktop)
@@ -51,10 +54,12 @@ Het 2FA systeem biedt multi-layer beveiliging met verschillende recovery opties:
 - LastPass Authenticator
 
 #### Stap 3: Verificatie
+
 1. Voer de 6-cijferige code in uit je authenticator app
 2. De code ververst elke 30 seconden
 
 #### Stap 4: Backup Codes Opslaan
+
 1. **10 backup codes** worden getoond (1 keer!)
 2. **Kopieer** ze naar een veilige locatie
 3. **Download** ze als tekstbestand
@@ -75,6 +80,7 @@ K7L8M9N0
 ```
 
 ⚠️ **Belangrijk**:
+
 - Elke backup code kan **maar 1 keer** gebruikt worden
 - Bewaar ze op een **veilige plek**
 - Deel ze **nooit** met anderen
@@ -85,21 +91,26 @@ K7L8M9N0
 ### 🔓 Inloggen met 2FA
 
 #### Optie 1: Authenticator App (Primair)
+
 1. Log in met email en wachtwoord
 2. Voer de 6-cijferige code in uit je authenticator app
 3. De code ververst elke 30 seconden
 
 #### Optie 2: Backup Code
+
 1. Klik op **"Gebruik een backup code"**
 2. Voer een van je 10 backup codes in
 3. De code wordt eenmalig gebruikt en daarna ongeldig
 
 #### Optie 3: Email Recovery (Laatste redmiddel)
+
 Als je **geen toegang** hebt tot:
+
 - ✗ Je authenticator app
 - ✗ Je backup codes
 
 Dan kun je:
+
 1. Klik op **"Vraag een herstelcode per email aan"**
 2. Je ontvangt een **8-karakter code** per email (bijv: `A1B2C3D4`)
 3. De code is **15 minuten** geldig
@@ -145,12 +156,14 @@ Admins kunnen 2FA resetten voor gebruikers **binnen hun eigen organisatie**.
 #### Hoe te Resetten?
 
 **Via Users Management:**
+
 1. Ga naar **Admin Panel** → **Users**
 2. Vind de gebruiker
 3. Klik op **"Reset 2FA"**
 4. Bevestig de actie
 
 **Via API:**
+
 ```bash
 POST /api/users/{userId}/reset-2fa
 Authorization: Bearer {admin_token}
@@ -170,10 +183,12 @@ Authorization: Bearer {admin_token}
 #### Beperkingen
 
 **Admins kunnen ALLEEN resetten voor:**
+
 - ✅ Gebruikers in hun eigen organisatie (`companyId` match)
 - ✅ Gebruikers met 2FA enabled
 
 **Admins kunnen NIET resetten voor:**
+
 - ✗ Gebruikers in andere organisaties
 - ✗ Andere admins (security policy)
 - ✗ Superusers
@@ -181,6 +196,7 @@ Authorization: Bearer {admin_token}
 #### Security Audit Log
 
 Elke 2FA reset wordt gelogd met:
+
 - Timestamp
 - Admin ID (wie reset heeft uitgevoerd)
 - User ID (wiens 2FA gereset is)
@@ -241,16 +257,19 @@ model User {
 ### 🔒 Encryptie
 
 **TOTP Secret:**
+
 - Encrypted met AES-256-GCM
 - User ID als salt
 - Opgeslagen in database
 
 **Backup Codes:**
+
 - Hashed met SHA-256
 - Stored as JSON array
 - Verified via hash comparison
 
 **Email Recovery Code:**
+
 - Generated: `crypto.randomBytes(4).toString('hex')` → 8 karakters
 - Hashed with SHA-256 before storage
 - 15 minute TTL
@@ -270,6 +289,7 @@ const isValid = authenticator.verify({
 ```
 
 **Parameters:**
+
 - Algorithm: SHA1
 - Digits: 6
 - Period: 30 seconds
@@ -282,9 +302,11 @@ const isValid = authenticator.verify({
 ### 🔧 2FA Setup
 
 #### POST `/api/auth/2fa/setup`
+
 Genereert nieuwe TOTP secret en QR code.
 
 **Request:**
+
 ```json
 {
   // Requires authenticated session
@@ -292,6 +314,7 @@ Genereert nieuwe TOTP secret en QR code.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -305,9 +328,11 @@ Genereert nieuwe TOTP secret en QR code.
 ---
 
 #### POST `/api/auth/2fa/verify`
+
 Verifieert TOTP code tijdens setup en activeert 2FA.
 
 **Request:**
+
 ```json
 {
   "token": "123456"
@@ -315,6 +340,7 @@ Verifieert TOTP code tijdens setup en activeert 2FA.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -333,9 +359,11 @@ Verifieert TOTP code tijdens setup en activeert 2FA.
 ### 🔓 Login Verificatie
 
 #### POST `/api/auth/2fa/verify-login`
+
 Verifieert 2FA code tijdens login.
 
 **Request:**
+
 ```json
 {
   "token": "123456",
@@ -348,6 +376,7 @@ Verifieert 2FA code tijdens login.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -361,9 +390,11 @@ Verifieert 2FA code tijdens login.
 ### 📧 Email Recovery
 
 #### POST `/api/auth/2fa/request-recovery`
+
 Vraagt email recovery code aan.
 
 **Request:**
+
 ```json
 {
   "email": "user@example.com"
@@ -371,6 +402,7 @@ Vraagt email recovery code aan.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -379,6 +411,7 @@ Vraagt email recovery code aan.
 ```
 
 **Email Content:**
+
 - 8-karakter code (bijv: `A1B2C3D4`)
 - 15 minuten geldig
 - Beveiligd met SHA-256 hash
@@ -389,13 +422,16 @@ Vraagt email recovery code aan.
 ### 👮 Admin Reset
 
 #### POST `/api/users/{userId}/reset-2fa`
+
 Admin reset 2FA voor gebruiker.
 
 **Requires:**
+
 - Admin role
 - Same company as target user
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -404,6 +440,7 @@ Admin reset 2FA voor gebruiker.
 ```
 
 **Side Effects:**
+
 1. User 2FA disabled
 2. Security log created
 3. Notification sent to user
@@ -473,29 +510,33 @@ Gebruiker kan niet inloggen met 2FA
 ### 🔐 Security Features
 
 #### Rate Limiting
+
 ```typescript
 // Max 5 failed 2FA attempts per 15 minuten
 const isRateLimited = await checkRateLimit(
   userId,
   "2fa_login_failed",
   15, // minutes
-  5   // max attempts
+  5 // max attempts
 );
 ```
 
 #### Brute Force Protection
+
 - Failed attempts logged
 - IP address tracking
 - Temporary lockout na 5 mislukte pogingen
 - Security events logged
 
 #### Encryption Standards
+
 - **TOTP Secret**: AES-256-GCM
 - **Backup Codes**: SHA-256 hash
 - **Email Recovery**: SHA-256 hash
 - **Database**: Encrypted at rest
 
 #### Session Security
+
 - 2FA status in JWT token
 - Session invalidated after 2FA reset
 - Separate 2FA verification step
@@ -505,19 +546,20 @@ const isRateLimited = await checkRateLimit(
 
 Gelogd in `security_audit_logs`:
 
-| Event Type | Description |
-|------------|-------------|
-| `2fa_setup_success` | User completed 2FA setup |
-| `2fa_login_success` | Successful 2FA verification |
-| `2fa_login_failed` | Failed 2FA verification |
-| `2fa_rate_limited` | Too many failed attempts |
-| `admin_reset_2fa` | Admin reset user's 2FA |
-| `2fa_recovery_used` | Backup code used |
+| Event Type           | Description                   |
+| -------------------- | ----------------------------- |
+| `2fa_setup_success`  | User completed 2FA setup      |
+| `2fa_login_success`  | Successful 2FA verification   |
+| `2fa_login_failed`   | Failed 2FA verification       |
+| `2fa_rate_limited`   | Too many failed attempts      |
+| `admin_reset_2fa`    | Admin reset user's 2FA        |
+| `2fa_recovery_used`  | Backup code used              |
 | `2fa_email_recovery` | Email recovery code requested |
 
 ### 📊 Monitoring
 
 **Metrics to Track:**
+
 - 2FA adoption rate
 - Failed verification attempts
 - Email recovery usage
@@ -525,6 +567,7 @@ Gelogd in `security_audit_logs`:
 - Average recovery codes remaining
 
 **SQL Queries:**
+
 ```sql
 -- 2FA Adoption Rate
 SELECT
@@ -553,7 +596,9 @@ WHERE event_type = '2fa_email_recovery'
 ### ❌ Veelvoorkomende Problemen
 
 #### "Invalid verification code"
+
 **Oplossingen:**
+
 1. Check tijd synchronisatie op apparaat
 2. Wacht tot nieuwe code (30 sec)
 3. Probeer vorige OF volgende code
@@ -561,24 +606,32 @@ WHERE event_type = '2fa_email_recovery'
 5. Email recovery
 
 #### "Rate limit exceeded"
+
 **Oplossing:**
+
 - Wacht 15 minuten
 - Gebruik backup code
 - Contact admin
 
 #### "No recovery codes available"
+
 **Oplossing:**
+
 - Use email recovery
 - Contact admin voor 2FA reset
 
 #### "Recovery code expired" (Email)
+
 **Oplossing:**
+
 - Code geldig voor 15 minuten
 - Vraag nieuwe code aan
 - Check spam folder
 
 #### QR Code scant niet
+
 **Oplossingen:**
+
 1. Kopieer secret code handmatig
 2. Zorg voor voldoende licht
 3. Gebruik andere camera
@@ -632,6 +685,7 @@ curl http://localhost:3000/api/auth/2fa/status \
 ## Changelog
 
 ### v1.0.0 - Initial Implementation
+
 - ✅ TOTP authentication
 - ✅ QR code setup
 - ✅ Backup codes (10)
@@ -642,6 +696,7 @@ curl http://localhost:3000/api/auth/2fa/status \
 - ✅ User notifications
 
 ### Planned Features
+
 - 🔜 Trusted devices (30-day trust)
 - 🔜 SMS recovery (optional)
 - 🔜 Hardware key support (YubiKey)
@@ -653,15 +708,18 @@ curl http://localhost:3000/api/auth/2fa/status \
 ## Support
 
 **Voor gebruikers:**
+
 - Help Center: /help
 - Email: support@aichat.com
 
 **Voor admins:**
+
 - Admin documentatie: /docs/admin
 - API documentatie: /docs/api
 
 **Voor developers:**
-- GitHub: github.com/yourorg/ai-chat
+
+- GitHub: github.com/yourorg/ainexo
 - API Reference: /docs/api/2fa
 
 ---

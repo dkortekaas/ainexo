@@ -71,7 +71,7 @@ export default async function RootLayout({
         {/* Preconnect to third-party domains for better performance */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://ai-chat-pi-blond.vercel.app" />
+        <link rel="dns-prefetch" href="https://ainexo-pi-blond.vercel.app" />
 
         {/* Preload critical images for LCP optimization */}
         <link

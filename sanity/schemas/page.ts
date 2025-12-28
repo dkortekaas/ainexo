@@ -53,7 +53,12 @@ export const page = defineType({
       fields: [
         { name: "headline", title: "Headline", type: "string" },
         { name: "subheadline", title: "Subheadline", type: "text" },
-        { name: "showBreadcrumbs", title: "Show Breadcrumbs", type: "boolean", initialValue: true },
+        {
+          name: "showBreadcrumbs",
+          title: "Show Breadcrumbs",
+          type: "boolean",
+          initialValue: true,
+        },
       ],
     }),
     // Page Sections
@@ -103,7 +108,12 @@ export const page = defineType({
           fields: [
             { name: "heading", title: "Heading", type: "string" },
             { name: "description", title: "Description", type: "text" },
-            { name: "submitButtonText", title: "Submit Button Text", type: "string", initialValue: "Send Message" },
+            {
+              name: "submitButtonText",
+              title: "Submit Button Text",
+              type: "string",
+              initialValue: "Send Message",
+            },
             { name: "successMessage", title: "Success Message", type: "text" },
             {
               name: "contactInfo",
@@ -141,10 +151,20 @@ export const page = defineType({
                 {
                   type: "object",
                   fields: [
-                    { name: "name", title: "Name", type: "string", validation: (Rule) => Rule.required() },
+                    {
+                      name: "name",
+                      title: "Name",
+                      type: "string",
+                      validation: (Rule) => Rule.required(),
+                    },
                     { name: "role", title: "Role", type: "string" },
                     { name: "bio", title: "Bio", type: "text" },
-                    { name: "image", title: "Image", type: "image", options: { hotspot: true } },
+                    {
+                      name: "image",
+                      title: "Image",
+                      type: "image",
+                      options: { hotspot: true },
+                    },
                     {
                       name: "socialLinks",
                       title: "Social Links",
@@ -186,9 +206,24 @@ export const page = defineType({
                 {
                   type: "object",
                   fields: [
-                    { name: "value", title: "Value", type: "string", validation: (Rule) => Rule.required() },
-                    { name: "label", title: "Label", type: "string", validation: (Rule) => Rule.required() },
-                    { name: "icon", title: "Icon", type: "string", description: "Lucide icon name" },
+                    {
+                      name: "value",
+                      title: "Value",
+                      type: "string",
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      name: "label",
+                      title: "Label",
+                      type: "string",
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      name: "icon",
+                      title: "Icon",
+                      type: "string",
+                      description: "Lucide icon name",
+                    },
                   ],
                 },
               ],
@@ -214,10 +249,26 @@ export const page = defineType({
           fields: [
             { name: "heading", title: "Heading", type: "string" },
             { name: "description", title: "Description", type: "text" },
-            { name: "primaryButtonText", title: "Primary Button Text", type: "string" },
-            { name: "primaryButtonLink", title: "Primary Button Link", type: "string" },
-            { name: "secondaryButtonText", title: "Secondary Button Text", type: "string" },
-            { name: "secondaryButtonLink", title: "Secondary Button Link", type: "string" },
+            {
+              name: "primaryButtonText",
+              title: "Primary Button Text",
+              type: "string",
+            },
+            {
+              name: "primaryButtonLink",
+              title: "Primary Button Link",
+              type: "string",
+            },
+            {
+              name: "secondaryButtonText",
+              title: "Secondary Button Text",
+              type: "string",
+            },
+            {
+              name: "secondaryButtonLink",
+              title: "Secondary Button Link",
+              type: "string",
+            },
           ],
           preview: {
             select: {
@@ -239,9 +290,24 @@ export const page = defineType({
       title: "SEO Settings",
       type: "object",
       fields: [
-        { name: "metaTitle", title: "Meta Title", type: "string", validation: (Rule) => Rule.max(60) },
-        { name: "metaDescription", title: "Meta Description", type: "text", validation: (Rule) => Rule.max(160) },
-        { name: "keywords", title: "Keywords", type: "array", of: [{ type: "string" }] },
+        {
+          name: "metaTitle",
+          title: "Meta Title",
+          type: "string",
+          validation: (Rule) => Rule.max(60),
+        },
+        {
+          name: "metaDescription",
+          title: "Meta Description",
+          type: "text",
+          validation: (Rule) => Rule.max(160),
+        },
+        {
+          name: "keywords",
+          title: "Keywords",
+          type: "array",
+          of: [{ type: "string" }],
+        },
       ],
     }),
   ],

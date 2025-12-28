@@ -9,6 +9,8 @@ import {
   footerResourcesMenuQuery,
   footerLegalMenuQuery,
   siteSettingsQuery,
+  privacyPolicyQuery,
+  termsOfServiceQuery,
 } from "../queries";
 import type { BlogPost } from "./types";
 import { PortableTextBlock } from "@portabletext/types";
@@ -51,12 +53,15 @@ export interface SocialMedia {
 }
 
 // Menu item types
-export interface MenuItem {
-  _id: string;
+export interface MainMenu {
+  language: string;
   name: string;
   href: string;
-  openInNewTab?: boolean;
+  openInNewTab: boolean;
 }
+
+// Alias for better semantic clarity
+export type MenuItem = MainMenu;
 
 // Site settings types
 export interface SiteSettings {
@@ -67,10 +72,59 @@ export interface SiteSettings {
   copyrightText: string;
 }
 
+// Privacy Policy types
+export interface PrivacyPolicySection {
+  _key: string;
+  title: string;
+  content: PortableTextBlock[];
+}
+
+export interface PrivacyPolicyContact {
+  title?: string;
+  description?: string;
+  email?: string;
+}
+
+export interface PrivacyPolicySEO {
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string[];
+}
+
+export interface PrivacyPolicy {
+  _id: string;
+  title: string;
+  badge?: string;
+  lastUpdatedDate?: string;
+  sections?: PrivacyPolicySection[];
+  contact?: PrivacyPolicyContact;
+  seo?: PrivacyPolicySEO;
+}
+
+// Terms and Conditions types
+export interface TermsOfServiceSection {
+  _key: string;
+  title: string;
+  content: PortableTextBlock[];
+}
+
+export interface TermsOfServiceSEO {
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string[];
+}
+
+export interface TermsOfService {
+  _id: string;
+  title: string;
+  badge?: string;
+  lastUpdatedDate?: string;
+  sections?: TermsOfServiceSection[];
+  seo?: TermsOfServiceSEO;
+}
+
 // Fetch functions
-export async function getFeatures(
-  locale: string = "nl"
-): Promise<Feature[]> {
+export async function getFeatures(locale: string = "nl"): Promise<Feature[]> {
   return client.fetch(featuresQuery, { locale }, { next: { revalidate: 60 } });
 }
 
@@ -83,13 +137,13 @@ export async function getSocialMedia(): Promise<SocialMedia[]> {
   return client.fetch(socialMediaQuery, {}, { next: { revalidate: 60 } });
 }
 
-export async function getMainMenu(locale: string = "nl"): Promise<MenuItem[]> {
+export async function getMainMenu(locale: string = "nl"): Promise<MainMenu[]> {
   return client.fetch(mainMenuQuery, { locale }, { next: { revalidate: 60 } });
 }
 
 export async function getFooterProductMenu(
   locale: string = "nl"
-): Promise<MenuItem[]> {
+): Promise<MainMenu[]> {
   return client.fetch(
     footerProductMenuQuery,
     { locale },
@@ -99,7 +153,7 @@ export async function getFooterProductMenu(
 
 export async function getFooterCompanyMenu(
   locale: string = "nl"
-): Promise<MenuItem[]> {
+): Promise<MainMenu[]> {
   return client.fetch(
     footerCompanyMenuQuery,
     { locale },
@@ -109,7 +163,7 @@ export async function getFooterCompanyMenu(
 
 export async function getFooterResourcesMenu(
   locale: string = "nl"
-): Promise<MenuItem[]> {
+): Promise<MainMenu[]> {
   return client.fetch(
     footerResourcesMenuQuery,
     { locale },
@@ -119,7 +173,7 @@ export async function getFooterResourcesMenu(
 
 export async function getFooterLegalMenu(
   locale: string = "nl"
-): Promise<MenuItem[]> {
+): Promise<MainMenu[]> {
   return client.fetch(
     footerLegalMenuQuery,
     { locale },
@@ -317,4 +371,35 @@ export async function getBlogSlugs(): Promise<
     console.error("Error fetching blog slugs:", error);
     return [];
   }
+}
+
+/**
+ * Get privacy policy for a locale
+ */
+export async function getPrivacyPolicy(
+  locale: string = "nl"
+): Promise<PrivacyPolicy | null> {
+  try {
+    return client.fetch(
+      privacyPolicyQuery,
+      { locale },
+      { next: { revalidate: 60 } }
+    );
+  } catch (error) {
+    console.error("Error fetching privacy policy:", error);
+    return null;
+  }
+}
+
+/**
+ * Get terms of service for a locale
+ */
+export async function getTermsOfService(
+  locale: string = "nl"
+): Promise<TermsOfService | null> {
+  return client.fetch(
+    termsOfServiceQuery,
+    { locale },
+    { next: { revalidate: 60 } }
+  );
 }

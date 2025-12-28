@@ -3,8 +3,10 @@ import { pagesQuery, pageQuery } from "../queries";
 
 // Types
 export interface PageHero {
+  badge?: string;
   headline?: string;
   subheadline?: string;
+  lastUpdatedDate?: string;
   showBreadcrumbs?: boolean;
 }
 

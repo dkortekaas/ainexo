@@ -1,23 +1,46 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
 import { useState } from "react";
 import Link from "next/link";
-import { type MenuItem } from "@/sanity/lib/fetch";
+import { type MainMenu } from "@/sanity/lib/fetch";
 import Logo from "@/public/ainexo-logo.png";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { LanguageSwitcher } from "@/components/site/LanguageSwitcher";
+import { useTranslations, useLocale } from "next-intl";
+import { LanguageSwitcher } from "@/components/site";
+import config from "@/config";
 
 interface HeaderClientProps {
-  navLinks: MenuItem[];
+  navLinks: MainMenu[];
+}
+
+// Helper function to ensure href has locale prefix
+function getLocalizedHref(href: string, locale: string): string {
+  // If href is external (starts with http:// or https://), return as is
+  if (href.startsWith("http://") || href.startsWith("https://")) {
+    return href;
+  }
+
+  // If href already starts with a locale, return as is
+  if (/^\/(nl|en|de|fr|es)(\/|$)/.test(href)) {
+    return href;
+  }
+
+  // If href is just "/", return "/{locale}"
+  if (href === "/") {
+    return `/${locale}`;
+  }
+
+  // Otherwise, prefix with locale
+  return `/${locale}${href.startsWith("/") ? href : `/${href}`}`;
 }
 
 export const HeaderClient = ({
   navLinks: sanityNavLinks,
 }: HeaderClientProps) => {
   const t = useTranslations("header");
+  const locale = useLocale();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -34,7 +57,7 @@ export const HeaderClient = ({
               className="object-contain"
             />
             <span className="font-display text-xl font-bold text-foreground">
-              Ainexo
+              {config.appTitle}
             </span>
           </Link>
 
@@ -43,7 +66,7 @@ export const HeaderClient = ({
             {sanityNavLinks.map((link) => (
               <Link
                 key={link.name}
-                href={link.href}
+                href={getLocalizedHref(link.href, locale)}
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
               >
                 {link.name}
@@ -82,7 +105,7 @@ export const HeaderClient = ({
               {sanityNavLinks.map((link) => (
                 <Link
                   key={link.name}
-                  href={link.href}
+                  href={getLocalizedHref(link.href, locale)}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >

@@ -87,7 +87,7 @@ async function deliverWebhook(
       [WEBHOOK_SIGNATURE_HEADER]: signature,
       [WEBHOOK_TIMESTAMP_HEADER]: timestamp.toString(),
       [WEBHOOK_EVENT_HEADER]: payload.event,
-      "User-Agent": "AI-Chat-Webhooks/1.0",
+      "User-Agent": "ainexo-Webhooks/1.0",
     };
 
     // Add custom headers if configured

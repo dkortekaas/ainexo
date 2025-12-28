@@ -536,7 +536,8 @@
     "description": "Von Chat zu E-Mail zu Anrufen, Ainexo hilft Ihrem Unternehmen schneller und intelligenter zu reagieren.",
     "getStartedForFree": "Kostenlos starten!",
     "watchDemo": "Demo ansehen",
-    "noCreditCardRequired": "Keine Kreditkarte erforderlich. Ihr KI-Assistent ist in wenigen Minuten live."
+    "noCreditCardRequired": "Keine Kreditkarte erforderlich. Ihr KI-Assistent ist in wenigen Minuten live.",
+    "lastUpdated": "Zuletzt aktualisiert"
   },
   "howItWorks": {
     "howAinexoWorks": "Wie Ainexo funktioniert",
@@ -2094,7 +2095,7 @@
     "badge": "Wie es funktioniert",
     "title": "In",
     "titleHighlight": "3 einfachen Schritten loslegen",
-    "subtitle": "Keine technischen Kenntnisse erforderlich. Richten Sie Ihren AI-Chatbot in Minuten ein, nicht in Tagen.",
+    "subtitle": "Keine technischen Kenntnisse erforderlich. Richten Sie Ihren ainexobot in Minuten ein, nicht in Tagen.",
     "steps": {
       "step1": {
         "title": "Verbinden Sie Ihre Daten",
@@ -2247,7 +2248,7 @@
         "company": "TechFlow Inc."
       },
       "testimonial2": {
-        "quote": "Die Einrichtung war unglaublich einfach. Innerhalb von 5 Minuten hatten wir einen AI-Chatbot, der tatsächlich unsere Produktdokumentation verstand.",
+        "quote": "Die Einrichtung war unglaublich einfach. Innerhalb von 5 Minuten hatten wir einen ainexobot, der tatsächlich unsere Produktdokumentation verstand.",
         "author": "Michael Chen",
         "role": "Gründer & CEO",
         "company": "StartupLab"

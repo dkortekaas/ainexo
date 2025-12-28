@@ -11,6 +11,7 @@ export { StatusIndicator } from "@/components/ui/statusIndicator";
 export { default as ConfirmationModal } from "@/components/ui/ConfirmationModal";
 export { default as RejectModal } from "@/components/ui/RejectModal";
 export { Pagination } from "@/components/ui/Pagination";
+export { TooltipProvider } from "@/components/ui/tooltip";
 
 // Shadcn UI Components
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";

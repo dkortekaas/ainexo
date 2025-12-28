@@ -39,8 +39,8 @@ export function createSanityConfig(): Config {
       documentInternationalization({
         supportedLanguages,
         schemaTypes: [
-          "menuItem",
           "siteSettings",
+          "mainMenu",
           "feature",
           "heroSection",
           "howItWorksStep",
@@ -49,6 +49,8 @@ export function createSanityConfig(): Config {
           "ctaSection",
           "landingPage",
           "page",
+          "privacyPolicy",
+          "termsOfService",
           "blogPost",
           "blogCategory",
           "blogAuthor",

@@ -1,7 +1,7 @@
 import { feature } from "./feature";
 import { chatWidget } from "./chatWidget";
 import { socialMedia } from "./socialMedia";
-import { menuItem } from "./menuItem";
+import { mainMenu } from "./mainMenu";
 import { siteSettings } from "./siteSettings";
 import { heroSection } from "./heroSection";
 import { howItWorksStep } from "./howItWorksStep";
@@ -13,6 +13,8 @@ import { blogCategory } from "./blogCategory";
 import { blogAuthor } from "./blogAuthor";
 import { landingPage } from "./landingPage";
 import { page } from "./page";
+import { privacyPolicy } from "./privacyPolicy";
+import { termsOfService } from "./termsOfService";
 import { code } from "./code";
 
 export const schemaTypes = [
@@ -20,7 +22,7 @@ export const schemaTypes = [
   feature,
   chatWidget,
   socialMedia,
-  menuItem,
+  mainMenu,
   siteSettings,
   heroSection,
   howItWorksStep,
@@ -35,6 +37,8 @@ export const schemaTypes = [
   landingPage,
   // Static Pages
   page,
+  privacyPolicy,
+  termsOfService,
   // Custom types
   code,
 ];

@@ -1,6 +1,6 @@
 import { client } from "../client";
 import {
-  heroSectionQuery,
+  homepageHeroSectionQuery,
   howItWorksQuery,
   testimonialsQuery,
   pricingPlansQuery,
@@ -8,7 +8,7 @@ import {
 } from "../queries";
 
 // Types
-export interface HeroSection {
+export interface HomepageHeroSection {
   _id: string;
   badge: string;
   headline: string;
@@ -74,11 +74,11 @@ export interface CTASection {
 }
 
 // Fetch functions
-export async function getHeroSection(
+export async function getHomepageHeroSection(
   locale: string
-): Promise<HeroSection | null> {
+): Promise<HomepageHeroSection | null> {
   return client.fetch(
-    heroSectionQuery,
+    homepageHeroSectionQuery,
     { locale },
     { next: { revalidate: 60 } }
   );

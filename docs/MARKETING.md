@@ -9,7 +9,7 @@ chatbot die accurate antwoorden geeft aan uw klanten - 24/7,
 in uw eigen huisstijl.
 
 Korte Beschrijving (LinkedIn/Website)
-Slimme AI-Chatbot op basis van uw eigen content
+Slimme ainexobot op basis van uw eigen content
 Maak in minuten een AI-gestuurde chatbot die vragen beantwoordt op basis van uw documenten, website en kennisbank. Geen technische kennis vereist. Integreer met één regel code in elke website.
 Kernvoordelen:
 
@@ -29,7 +29,7 @@ FAQ's en kennisbanken
 
 Uitgebreide Beschrijving (Landing Page)
 Breng uw kennisbank tot leven met AI
-Stop met het handmatig beantwoorden van dezelfde vragen. Laat een intelligente AI-chatbot dit voor u doen - op basis van uw eigen documenten en content.
+Stop met het handmatig beantwoorden van dezelfde vragen. Laat een intelligente ainexobot dit voor u doen - op basis van uw eigen documenten en content.
 Hoe het werkt
 
 1. Upload uw content

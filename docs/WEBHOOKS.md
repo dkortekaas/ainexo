@@ -65,20 +65,20 @@ Create an HTTP endpoint in your application that can receive POST requests:
 
 ```javascript
 // Example: Node.js/Express
-app.post('/webhooks/ai-chat', async (req, res) => {
-  const signature = req.headers['x-webhook-signature'];
-  const timestamp = req.headers['x-webhook-timestamp'];
+app.post("/webhooks/ainexo", async (req, res) => {
+  const signature = req.headers["x-webhook-signature"];
+  const timestamp = req.headers["x-webhook-timestamp"];
   const payload = req.body;
 
   // Verify signature (see Security section)
   if (!verifySignature(payload, signature, timestamp)) {
-    return res.status(401).json({ error: 'Invalid signature' });
+    return res.status(401).json({ error: "Invalid signature" });
   }
 
   // Process the webhook
-  console.log('Received event:', payload.event);
-  console.log('User:', payload.data.user);
-  console.log('Subscription:', payload.data.subscription);
+  console.log("Received event:", payload.event);
+  console.log("User:", payload.data.user);
+  console.log("Subscription:", payload.data.subscription);
 
   // Respond with 200 OK
   res.status(200).json({ received: true });
@@ -95,7 +95,7 @@ Authorization: Bearer YOUR_SESSION_TOKEN
 Content-Type: application/json
 
 {
-  "url": "https://your-domain.com/webhooks/ai-chat",
+  "url": "https://your-domain.com/webhooks/ainexo",
   "events": [
     "subscription.expiring",
     "subscription.expired",
@@ -113,9 +113,13 @@ Response will include your webhook secret:
   "success": true,
   "webhook": {
     "id": "clx...",
-    "url": "https://your-domain.com/webhooks/ai-chat",
+    "url": "https://your-domain.com/webhooks/ainexo",
     "secret": "your-webhook-secret-store-securely",
-    "events": ["subscription.expiring", "subscription.expired", "subscription.renewed"],
+    "events": [
+      "subscription.expiring",
+      "subscription.expired",
+      "subscription.renewed"
+    ],
     "isActive": true
   },
   "message": "Webhook created successfully. Store the secret securely - it will not be shown again."
@@ -137,15 +141,15 @@ Authorization: Bearer YOUR_SESSION_TOKEN
 
 ### Configuration Options
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `url` | string | Yes | Your webhook endpoint URL (must be HTTPS in production) |
-| `events` | string[] | Yes | Array of event types to subscribe to |
-| `description` | string | No | Human-readable description |
-| `isActive` | boolean | No | Enable/disable webhook (default: true) |
-| `maxRetries` | number | No | Maximum retry attempts (default: 3) |
-| `retryDelays` | number[] | No | Delay in ms for each retry (default: [1000, 5000, 30000]) |
-| `headers` | object | No | Custom headers to include in requests |
+| Field         | Type     | Required | Description                                               |
+| ------------- | -------- | -------- | --------------------------------------------------------- |
+| `url`         | string   | Yes      | Your webhook endpoint URL (must be HTTPS in production)   |
+| `events`      | string[] | Yes      | Array of event types to subscribe to                      |
+| `description` | string   | No       | Human-readable description                                |
+| `isActive`    | boolean  | No       | Enable/disable webhook (default: true)                    |
+| `maxRetries`  | number   | No       | Maximum retry attempts (default: 3)                       |
+| `retryDelays` | number[] | No       | Delay in ms for each retry (default: [1000, 5000, 30000]) |
+| `headers`     | object   | No       | Custom headers to include in requests                     |
 
 ### Example: Custom Retry Configuration
 
@@ -248,12 +252,13 @@ X-Webhook-Event: <event_type>
 #### Node.js Example
 
 ```javascript
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 function verifyWebhookSignature(payload, signature, timestamp, secret) {
   // Check timestamp freshness (prevent replay attacks)
   const now = Math.floor(Date.now() / 1000);
-  if (now - timestamp > 300) { // 5 minutes
+  if (now - timestamp > 300) {
+    // 5 minutes
     return false;
   }
 
@@ -261,9 +266,9 @@ function verifyWebhookSignature(payload, signature, timestamp, secret) {
   const payloadString = JSON.stringify(payload);
   const data = `${timestamp}.${payloadString}`;
   const expectedSignature = crypto
-    .createHmac('sha256', secret)
+    .createHmac("sha256", secret)
     .update(data)
-    .digest('hex');
+    .digest("hex");
 
   // Compare signatures (timing-safe)
   return crypto.timingSafeEqual(
@@ -273,13 +278,13 @@ function verifyWebhookSignature(payload, signature, timestamp, secret) {
 }
 
 // Usage
-app.post('/webhooks/ai-chat', (req, res) => {
-  const signature = req.headers['x-webhook-signature'];
-  const timestamp = parseInt(req.headers['x-webhook-timestamp']);
+app.post("/webhooks/ainexo", (req, res) => {
+  const signature = req.headers["x-webhook-signature"];
+  const timestamp = parseInt(req.headers["x-webhook-timestamp"]);
   const secret = process.env.WEBHOOK_SECRET;
 
   if (!verifyWebhookSignature(req.body, signature, timestamp, secret)) {
-    return res.status(401).json({ error: 'Invalid signature' });
+    return res.status(401).json({ error: "Invalid signature" });
   }
 
   // Process webhook...
@@ -314,7 +319,7 @@ def verify_webhook_signature(payload, signature, timestamp, secret):
     return hmac.compare_digest(signature, expected_signature)
 
 # Usage in Flask
-@app.route('/webhooks/ai-chat', methods=['POST'])
+@app.route('/webhooks/ainexo', methods=['POST'])
 def webhook():
     signature = request.headers.get('X-Webhook-Signature')
     timestamp = int(request.headers.get('X-Webhook-Timestamp'))
@@ -338,6 +343,7 @@ GET /api/webhooks
 Returns all configured webhooks.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -361,6 +367,7 @@ POST /api/webhooks
 ```
 
 **Request Body:**
+
 ```json
 {
   "url": "https://your-domain.com/webhooks",
@@ -383,6 +390,7 @@ PATCH /api/webhooks/{id}
 ```
 
 **Request Body:**
+
 ```json
 {
   "isActive": false,
@@ -411,6 +419,7 @@ GET /api/webhooks/{id}/deliveries?page=1&limit=50&status=FAILED
 ```
 
 **Query Parameters:**
+
 - `page` - Page number (default: 1)
 - `limit` - Results per page (max: 100, default: 50)
 - `status` - Filter by status: PENDING, SUCCESS, FAILED, RETRYING
@@ -446,7 +455,7 @@ curl -X POST https://your-app.com/api/webhooks/{webhookId}/test \
 ngrok http 3000
 
 # Use the ngrok URL for your webhook
-https://abc123.ngrok.io/webhooks/ai-chat
+https://abc123.ngrok.io/webhooks/ainexo
 ```
 
 ### 3. Mock Webhook Server
@@ -454,20 +463,20 @@ https://abc123.ngrok.io/webhooks/ai-chat
 Create a simple test server:
 
 ```javascript
-const express = require('express');
+const express = require("express");
 const app = express();
 
 app.use(express.json());
 
-app.post('/webhooks/test', (req, res) => {
-  console.log('Received webhook:');
-  console.log('Headers:', req.headers);
-  console.log('Body:', JSON.stringify(req.body, null, 2));
+app.post("/webhooks/test", (req, res) => {
+  console.log("Received webhook:");
+  console.log("Headers:", req.headers);
+  console.log("Body:", JSON.stringify(req.body, null, 2));
   res.status(200).json({ received: true });
 });
 
 app.listen(3001, () => {
-  console.log('Test webhook server running on port 3001');
+  console.log("Test webhook server running on port 3001");
 });
 ```
 
@@ -478,18 +487,18 @@ app.listen(3001, () => {
 Always respond with `200 OK` quickly (within 10 seconds). Process the webhook asynchronously:
 
 ```javascript
-app.post('/webhooks', async (req, res) => {
+app.post("/webhooks", async (req, res) => {
   // Verify signature first
   if (!verifySignature(req)) {
-    return res.status(401).json({ error: 'Invalid signature' });
+    return res.status(401).json({ error: "Invalid signature" });
   }
 
   // Respond immediately
   res.status(200).json({ received: true });
 
   // Process asynchronously
-  processWebhook(req.body).catch(err => {
-    console.error('Webhook processing error:', err);
+  processWebhook(req.body).catch((err) => {
+    console.error("Webhook processing error:", err);
   });
 });
 ```
@@ -504,7 +513,7 @@ const processedWebhooks = new Set();
 async function processWebhook(payload) {
   // Check if already processed
   if (processedWebhooks.has(payload.id)) {
-    console.log('Duplicate webhook, skipping');
+    console.log("Duplicate webhook, skipping");
     return;
   }
 
@@ -524,10 +533,10 @@ Log errors but don't fail silently:
 try {
   await processWebhook(payload);
 } catch (error) {
-  console.error('Webhook processing failed:', {
+  console.error("Webhook processing failed:", {
     webhookId: payload.id,
     event: payload.event,
-    error: error.message
+    error: error.message,
   });
   // Send alert to monitoring system
   await alertMonitoring(error);
@@ -537,6 +546,7 @@ try {
 ### 4. Monitoring
 
 Monitor webhook health:
+
 - Track delivery success rates
 - Alert on high failure rates
 - Monitor response times
@@ -547,6 +557,7 @@ Monitor webhook health:
 ### Webhooks Not Received
 
 1. **Check webhook is active**
+
    ```bash
    GET /api/webhooks/{id}
    ```
@@ -587,6 +598,7 @@ Monitor webhook health:
 ## Support
 
 For additional help:
+
 - Review delivery logs: `/api/webhooks/{id}/deliveries`
 - Check webhook stats: `/api/webhooks/stats`
 - Contact support with webhook ID and delivery ID for specific issues

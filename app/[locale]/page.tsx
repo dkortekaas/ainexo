@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import ClientLayout from "@/app/[locale]/ClientLayout";
 import config from "@/config";
-import { getHeroSection } from "@/sanity/lib/homepage";
+import { getHomepageHeroSection } from "@/sanity/lib/homepage";
 import { getChatWidget } from "@/sanity/lib/fetch";
 
 export async function generateMetadata({
@@ -61,7 +61,7 @@ export default async function Home({
   }
 
   try {
-    heroData = await getHeroSection(locale);
+    heroData = await getHomepageHeroSection(locale);
   } catch (error) {
     console.error("Error fetching hero section from Sanity:", error);
   }

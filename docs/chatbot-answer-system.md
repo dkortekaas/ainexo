@@ -2,7 +2,7 @@
 
 ## Overzicht
 
-Dit document beschrijft hoe het AI-chatbot systeem antwoorden genereert op basis van de knowledge base. Het systeem is ontworpen om alleen antwoorden te geven die gebaseerd zijn op beschikbare informatie in de database.
+Dit document beschrijft hoe het ainexobot systeem antwoorden genereert op basis van de knowledge base. Het systeem is ontworpen om alleen antwoorden te geven die gebaseerd zijn op beschikbare informatie in de database.
 
 ## Architectuur
 

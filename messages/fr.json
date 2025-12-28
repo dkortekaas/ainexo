@@ -536,7 +536,8 @@
     "description": "Du chat à l'e-mail en passant par les appels, Ainexo aide votre entreprise à répondre plus rapidement et plus intelligemment.",
     "getStartedForFree": "Commencer gratuitement !",
     "watchDemo": "Regarder la démo",
-    "noCreditCardRequired": "Aucune carte de crédit requise. Votre assistant IA est opérationnel en quelques minutes."
+    "noCreditCardRequired": "Aucune carte de crédit requise. Votre assistant IA est opérationnel en quelques minutes.",
+    "lastUpdated": "Dernière mise à jour"
   },
   "howItWorks": {
     "howAinexoWorks": "Comment fonctionne Ainexo",

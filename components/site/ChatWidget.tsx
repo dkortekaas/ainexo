@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { Send, MoreHorizontal } from "lucide-react";
 import { type ChatWidget as ChatWidgetType } from "@/sanity/lib/fetch";

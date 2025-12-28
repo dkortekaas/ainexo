@@ -57,9 +57,9 @@ export default async function RootLayout({
       timeZone="Europe/Amsterdam"
     >
       <div className="min-h-screen bg-background">
-        <Header />
+        <Header locale={locale} />
         <main>{children}</main>
-        <Footer />
+        <Footer locale={locale} />
       </div>
     </NextIntlClientProvider>
   );

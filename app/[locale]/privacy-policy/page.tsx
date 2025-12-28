@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import config from "@/config";
 import PrivacyPolicyContent from "./PrivacyPolicyContent";
+import { getPrivacyPolicy } from "@/sanity/lib/fetch";
 
 export async function generateMetadata({
   params,
@@ -11,14 +12,28 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+
+  // Try to get metadata from Sanity, fallback to translations
+  let privacyPolicy = null;
+  try {
+    privacyPolicy = await getPrivacyPolicy(locale);
+  } catch (error) {
+    console.error("Error fetching privacy policy for metadata:", error);
+  }
+
   const t = await getTranslations({ locale, namespace: "privacyPolicy" });
 
+  const title =
+    privacyPolicy?.seo?.metaTitle || privacyPolicy?.title || t("title");
+  const description = privacyPolicy?.seo?.metaDescription || t("description");
+
   return {
-    title: `${t("title")} | ${config.appTitle}`,
-    description: t("description"),
+    title: `${title} | ${config.appTitle}`,
+    description,
+    keywords: privacyPolicy?.seo?.keywords,
     openGraph: {
-      title: `${t("title")} | ${config.appTitle}`,
-      description: t("description"),
+      title: `${title} | ${config.appTitle}`,
+      description,
       url: `https://ainexo.app/${locale}/privacy-policy`,
       siteName: config.appTitle,
       images: [
@@ -34,6 +49,19 @@ export async function generateMetadata({
   };
 }
 
-export default function PrivacyPolicyPage() {
-  return <PrivacyPolicyContent />;
+export default async function PrivacyPolicyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  let privacyPolicy = null;
+  try {
+    privacyPolicy = await getPrivacyPolicy(locale);
+  } catch (error) {
+    console.error("Error fetching privacy policy:", error);
+  }
+
+  return <PrivacyPolicyContent data={privacyPolicy} />;
 }

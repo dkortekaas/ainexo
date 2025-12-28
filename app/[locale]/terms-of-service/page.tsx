@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import config from "@/config";
 import TermsOfServiceContent from "./TermsOfServiceContent";
+import { getTermsOfService } from "@/sanity/lib/fetch";
 
 export async function generateMetadata({
   params,
@@ -11,14 +12,27 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+
+  // Try to get metadata from Sanity, fallback to translations
+  let termsOfService = null;
+  try {
+    termsOfService = await getTermsOfService(locale);
+  } catch (error) {
+    console.error("Error fetching terms of service for metadata:", error);
+  }
+
   const t = await getTranslations({ locale, namespace: "termsOfService" });
 
+  const title =
+    termsOfService?.seo?.metaTitle || termsOfService?.title || t("title");
+  const description = termsOfService?.seo?.metaDescription || t("description");
+
   return {
-    title: `${t("title")} | ${config.appTitle}`,
-    description: t("description"),
+    title: `${title} | ${config.appTitle}`,
+    description: description,
     openGraph: {
-      title: `${t("title")} | ${config.appTitle}`,
-      description: t("description"),
+      title: `${title} | ${config.appTitle}`,
+      description: description,
       url: `https://ainexo.app/${locale}/terms-of-service`,
       siteName: config.appTitle,
       images: [
@@ -34,6 +48,18 @@ export async function generateMetadata({
   };
 }
 
-export default function TermsOfServicePage() {
-  return <TermsOfServiceContent />;
+export default async function TermsOfServicePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  let termsOfService = null;
+  try {
+    termsOfService = await getTermsOfService(locale);
+  } catch (error) {
+    console.error("Error fetching terms of service:", error);
+  }
+  return <TermsOfServiceContent data={termsOfService} />;
 }

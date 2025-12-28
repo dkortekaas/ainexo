@@ -15,11 +15,32 @@ import {
   getFooterResourcesMenu,
   getFooterLegalMenu,
   getSiteSettings,
-  type MenuItem,
+  type MainMenu,
   type SocialMedia,
 } from "@/sanity/lib/fetch";
 import Image from "next/image";
 import Logo from "@/public/ainexo-logo.png";
+
+// Helper function to ensure href has locale prefix
+function getLocalizedHref(href: string, locale: string): string {
+  // If href is external (starts with http:// or https://), return as is
+  if (href.startsWith("http://") || href.startsWith("https://")) {
+    return href;
+  }
+
+  // If href already starts with a locale, return as is
+  if (/^\/(nl|en|de|fr|es)(\/|$)/.test(href)) {
+    return href;
+  }
+
+  // If href is just "/", return "/{locale}"
+  if (href === "/") {
+    return `/${locale}`;
+  }
+
+  // Otherwise, prefix with locale
+  return `/${locale}${href.startsWith("/") ? href : `/${href}`}`;
+}
 
 // Icon mapping for social media
 const socialIconMap = {
@@ -65,7 +86,7 @@ const defaultSocialMedia = [
   { platform: "github", url: "#" },
 ];
 
-export const Footer = async () => {
+export const Footer = async ({ locale }: { locale: string }) => {
   let footerLinks = defaultFooterLinks;
   let socialMedia: Array<{ platform: string; url: string }> =
     defaultSocialMedia;
@@ -82,37 +103,37 @@ export const Footer = async () => {
       socialData,
       settings,
     ] = await Promise.all([
-      getFooterProductMenu(),
-      getFooterCompanyMenu(),
-      getFooterResourcesMenu(),
-      getFooterLegalMenu(),
+      getFooterProductMenu(locale),
+      getFooterCompanyMenu(locale),
+      getFooterResourcesMenu(locale),
+      getFooterLegalMenu(locale),
       getSocialMedia(),
-      getSiteSettings(),
+      getSiteSettings(locale),
     ]);
 
     if (productMenu && productMenu.length > 0) {
-      footerLinks.product = productMenu.map((item: MenuItem) => ({
+      footerLinks.product = productMenu.map((item: MainMenu) => ({
         name: item.name,
         href: item.href,
       }));
     }
 
     if (companyMenu && companyMenu.length > 0) {
-      footerLinks.company = companyMenu.map((item: MenuItem) => ({
+      footerLinks.company = companyMenu.map((item: MainMenu) => ({
         name: item.name,
         href: item.href,
       }));
     }
 
     if (resourcesMenu && resourcesMenu.length > 0) {
-      footerLinks.resources = resourcesMenu.map((item: MenuItem) => ({
+      footerLinks.resources = resourcesMenu.map((item: MainMenu) => ({
         name: item.name,
         href: item.href,
       }));
     }
 
     if (legalMenu && legalMenu.length > 0) {
-      footerLinks.legal = legalMenu.map((item: MenuItem) => ({
+      footerLinks.legal = legalMenu.map((item: MainMenu) => ({
         name: item.name,
         href: item.href,
       }));
@@ -140,7 +161,10 @@ export const Footer = async () => {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
+            <Link
+              href={getLocalizedHref("/", locale)}
+              className="flex items-center gap-2 mb-4"
+            >
               <Image src={Logo} alt="Ainexo" width={36} height={36} />
               <span className="font-display text-xl font-bold text-foreground">
                 Ainexo
@@ -177,7 +201,7 @@ export const Footer = async () => {
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
                   <Link
-                    href={link.href}
+                    href={getLocalizedHref(link.href, locale)}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}
@@ -193,7 +217,7 @@ export const Footer = async () => {
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
-                    href={link.href}
+                    href={getLocalizedHref(link.href, locale)}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}
@@ -209,7 +233,7 @@ export const Footer = async () => {
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
                   <Link
-                    href={link.href}
+                    href={getLocalizedHref(link.href, locale)}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}
@@ -225,7 +249,7 @@ export const Footer = async () => {
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
-                    href={link.href}
+                    href={getLocalizedHref(link.href, locale)}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}

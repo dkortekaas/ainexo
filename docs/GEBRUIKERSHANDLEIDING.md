@@ -165,7 +165,7 @@ Het linker menu bevat alle hoofdfuncties:
 
 ## Assistenten beheren
 
-Assistenten zijn je AI-chatbots. Je kunt meerdere assistenten aanmaken voor verschillende doeleinden.
+Assistenten zijn je ainexobots. Je kunt meerdere assistenten aanmaken voor verschillende doeleinden.
 
 ### Een nieuwe assistent aanmaken
 

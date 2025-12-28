@@ -36,7 +36,7 @@ export const socialMediaQuery = groq`*[_type == "socialMedia"] | order(order asc
 }`;
 
 // Menu items queries
-export const mainMenuQuery = groq`*[_type == "menuItem" && menuType == "main" && language == $locale] | order(order asc) {
+export const mainMenuQuery = groq`*[_type == "mainMenu" && language == $locale] | order(order asc) {
   _id,
   name,
   href,
@@ -82,6 +82,13 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings" && language == $
 
 // Hero section query
 export const heroSectionQuery = groq`*[_type == "heroSection" && language == $locale][0] {
+  _id,
+  badge,
+  headline,
+  highlightedText,
+}`;
+
+export const homepageHeroSectionQuery = groq`*[_type == "homepageHeroSection" && language == $locale][0] {
   _id,
   badge,
   headline,
@@ -306,4 +313,40 @@ export const pageQuery = groq`*[_type == "page" && slug.current == $slug && publ
     metaDescription,
     keywords
   }
+}`;
+
+// Privacy Policy query
+export const privacyPolicyQuery = groq`*[_type == "privacyPolicy" && language == $locale][0] {
+  _id,
+  title,
+  badge,
+  lastUpdatedDate,
+  sections[] {
+    _key,
+    title,
+    content
+  },
+  contact {
+    title,
+    description,
+    email
+  },
+  seo {
+    metaTitle,
+    metaDescription,
+    keywords
+  }
+}`;
+
+// Terms and Conditions query
+export const termsOfServiceQuery = groq`*[_type == "termsOfService" && language == $locale][0] {
+  _id,
+  title,
+  badge,
+  lastUpdatedDate,
+  sections[] {
+    _key,
+    title,
+    content
+  },
 }`;

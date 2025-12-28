@@ -413,7 +413,7 @@ EmbedIQ is **production-ready** with enterprise-grade infrastructure and securit
 ## 📁 Project Structure
 
 ```
-ai-chat-platform/
+ainexo-platform/
 ├── app/                    # Next.js App Router
 │   ├── (auth)/            # Authentication pages
 │   │   ├── login/         # Login page
@@ -487,7 +487,7 @@ ai-chat-platform/
 
    ```bash
    git clone <repository-url>
-   cd ai-chat-platform
+   cd ainexo-platform
    ```
 
 2. **Install dependencies**
@@ -880,6 +880,7 @@ After running the seed script, you can login with these test accounts:
 ### CMS (Content Management System)
 
 #### Pages
+
 - `GET /api/cms/pages` - List pages (superusers only)
 - `POST /api/cms/pages` - Create new page (superusers only)
 - `GET /api/cms/pages/[id]` - Get page details (superusers only)
@@ -887,6 +888,7 @@ After running the seed script, you can login with these test accounts:
 - `DELETE /api/cms/pages/[id]` - Delete page (superusers only)
 
 #### Blog
+
 - `GET /api/cms/blog` - List blog posts (superusers only)
 - `POST /api/cms/blog` - Create new blog post (superusers only)
 - `GET /api/cms/blog/[id]` - Get blog post details (superusers only)
@@ -894,6 +896,7 @@ After running the seed script, you can login with these test accounts:
 - `DELETE /api/cms/blog/[id]` - Delete blog post (superusers only)
 
 #### Media
+
 - `GET /api/cms/media` - List media files (superusers only)
 - `POST /api/cms/media` - Upload media file (superusers only)
 - `GET /api/cms/media/[id]` - Get media details with usage info (superusers only)
@@ -901,6 +904,7 @@ After running the seed script, you can login with these test accounts:
 - `DELETE /api/cms/media/[id]` - Delete media (superusers only)
 
 #### Preview & Publishing
+
 - `GET /api/cms/preview` - Enter preview mode with token
 - `DELETE /api/cms/preview` - Exit preview mode
 - `POST /api/cms/cron/publish` - Scheduled publishing cron job (requires CRON_SECRET)
@@ -1305,6 +1309,7 @@ De applicatie heeft altijd fallback content. Als Sanity niet beschikbaar is of g
 ### Sanity Production Setup
 
 Voor productie:
+
 1. Ga naar [sanity.io/manage](https://www.sanity.io/manage)
 2. Selecteer je project
 3. Ga naar API → CORS Origins

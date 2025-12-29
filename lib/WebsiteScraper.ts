@@ -78,10 +78,20 @@ export class WebsiteScraper {
       }
 
       const html = await response.text();
-      // Dynamic import to avoid ES module issues in serverless environments
-      const { JSDOM } = await import("jsdom");
-      const dom = new JSDOM(html);
-      const document = dom.window.document;
+
+      // Try to use jsdom, but fallback to simple parsing if it fails (e.g., in serverless)
+      let document: Document;
+      try {
+        // Dynamic import to avoid ES module issues in serverless environments
+        const { JSDOM } = await import("jsdom");
+        const dom = new JSDOM(html);
+        document = dom.window.document;
+      } catch (jsdomError) {
+        // Fallback: Use a simple HTML parser or regex-based extraction
+        // This is a basic fallback that works without jsdom
+        console.warn("jsdom failed, using fallback parser:", jsdomError);
+        document = this.createFallbackDocument(html);
+      }
 
       // Extract title
       const title =
@@ -133,12 +143,22 @@ export class WebsiteScraper {
     }
   }
 
-  private extractContent(document: Document): string {
+  private extractContent(document: any): string {
+    // For fallback document, use the body textContent directly
+    if (document.body && typeof document.body.textContent === "string") {
+      return document.body.textContent;
+    }
+
+    // For real DOM documents, use the original logic
     // Remove script and style elements
     const scripts = document.querySelectorAll(
       "script, style, nav, header, footer, aside"
     );
-    scripts.forEach((el) => el.remove());
+    if (scripts.forEach) {
+      scripts.forEach((el: any) => {
+        if (el.remove) el.remove();
+      });
+    }
 
     // Try to find main content areas
     const contentSelectors = [
@@ -153,7 +173,7 @@ export class WebsiteScraper {
       ".entry-content",
     ];
 
-    let contentElement: Element | null = null;
+    let contentElement: any = null;
     for (const selector of contentSelectors) {
       contentElement = document.querySelector(selector);
       if (contentElement) break;
@@ -180,12 +200,17 @@ export class WebsiteScraper {
     return text;
   }
 
-  private extractLinks(document: Document, baseUrl: string): string[] {
+  private extractLinks(document: any, baseUrl: string): string[] {
     const links: string[] = [];
     const linkElements = document.querySelectorAll("a[href]");
 
-    linkElements.forEach((link) => {
-      const href = link.getAttribute("href");
+    // Handle both real DOM NodeList and our fallback array
+    const linksArray = Array.isArray(linkElements)
+      ? linkElements
+      : Array.from(linkElements);
+
+    linksArray.forEach((link: any) => {
+      const href = link.getAttribute ? link.getAttribute("href") : link.href;
       if (!href) return;
 
       try {
@@ -207,6 +232,101 @@ export class WebsiteScraper {
       .replace(/\s+/g, " ")
       .replace(/\n\s*\n/g, "\n")
       .trim();
+  }
+
+  // Fallback document parser when jsdom is not available (e.g., in serverless)
+  private createFallbackDocument(html: string): any {
+    // Create a minimal document-like object with basic querySelector functionality
+    return {
+      querySelector: (selector: string) => {
+        // Simple regex-based extraction for common selectors
+        if (selector === "title") {
+          const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+          return titleMatch ? { textContent: titleMatch[1].trim() } : null;
+        }
+        if (selector === "h1") {
+          const h1Match = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
+          return h1Match ? { textContent: h1Match[1].trim() } : null;
+        }
+        // For other selectors, return null (will use body fallback)
+        return null;
+      },
+      querySelectorAll: (selector: string) => {
+        if (selector === "a[href]") {
+          const linkMatches = html.matchAll(
+            /<a[^>]+href=["']([^"']+)["'][^>]*>/gi
+          );
+          const links: any[] = [];
+          for (const match of linkMatches) {
+            links.push({
+              getAttribute: (attr: string) =>
+                attr === "href" ? match[1] : null,
+            });
+          }
+          return links;
+        }
+        // For script/style removal, return empty array
+        if (
+          selector.includes("script") ||
+          selector.includes("style") ||
+          selector.includes("nav") ||
+          selector.includes("header") ||
+          selector.includes("footer") ||
+          selector.includes("aside")
+        ) {
+          return [];
+        }
+        // For content selectors, return empty (will use body fallback)
+        return [];
+      },
+      body: {
+        textContent: this.extractTextFromHTML(html),
+      },
+    };
+  }
+
+  // Extract text content from HTML using regex (fallback when jsdom fails)
+  private extractTextFromHTML(html: string): string {
+    // Remove script and style tags
+    let text = html
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+      .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, "")
+      .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, "")
+      .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, "")
+      .replace(/<aside[^>]*>[\s\S]*?<\/aside>/gi, "");
+
+    // Try to extract main content areas first
+    const mainContentMatch =
+      text.match(/<main[^>]*>([\s\S]*?)<\/main>/i) ||
+      text.match(/<article[^>]*>([\s\S]*?)<\/article>/i) ||
+      text.match(
+        /<div[^>]*class=["'][^"']*content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i
+      );
+
+    if (mainContentMatch) {
+      text = mainContentMatch[1];
+    }
+
+    // Remove all HTML tags
+    text = text.replace(/<[^>]+>/g, " ");
+
+    // Decode HTML entities (basic)
+    text = text
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'");
+
+    // Clean up whitespace
+    text = text
+      .replace(/\s+/g, " ")
+      .replace(/\n\s*\n/g, "\n")
+      .trim();
+
+    return text;
   }
 
   // Utility method to extract domain from URL

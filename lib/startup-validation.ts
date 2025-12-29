@@ -98,13 +98,49 @@ const envSchema = z.object({
   // Stripe (conditional - required in production)
   STRIPE_SECRET_KEY: z
     .string()
-    .refine((key) => {
-      if (process.env.NODE_ENV === "production") {
-        return key.startsWith("sk_live_");
+    .trim()
+    .refine(
+      (key) => {
+        // Allow empty string (will be handled by optional check)
+        if (!key || key.trim().length === 0) {
+          return true;
+        }
+
+        const trimmedKey = key.trim();
+        const isProduction =
+          process.env.NODE_ENV === "production" ||
+          process.env.VERCEL_ENV === "production";
+
+        if (isProduction) {
+          return trimmedKey.startsWith("sk_live_");
+        }
+        // In development/preview, allow both test and live keys
+        return (
+          trimmedKey.startsWith("sk_test_") || trimmedKey.startsWith("sk_live_")
+        );
+      },
+      (key) => {
+        const isProduction =
+          process.env.NODE_ENV === "production" ||
+          process.env.VERCEL_ENV === "production";
+        const trimmedKey = key?.trim() || "";
+        const preview = trimmedKey.substring(
+          0,
+          Math.min(15, trimmedKey.length)
+        );
+
+        if (isProduction) {
+          return {
+            message: `STRIPE_SECRET_KEY must start with 'sk_live_' in production. Current value: "${preview}${trimmedKey.length > 15 ? "..." : ""}" (length: ${trimmedKey.length}). Please check your Vercel environment variables and ensure the key starts with 'sk_live_'.`,
+          };
+        }
+        return {
+          message: `STRIPE_SECRET_KEY must start with 'sk_test_' or 'sk_live_' in development. Current value: "${preview}${trimmedKey.length > 15 ? "..." : ""}" (length: ${trimmedKey.length})`,
+        };
       }
-      return key.startsWith("sk_test_") || key.startsWith("sk_live_");
-    }, "STRIPE_SECRET_KEY must start with 'sk_live_' in production or 'sk_test_' in development")
-    .optional(),
+    )
+    .optional()
+    .or(z.literal("")), // Allow empty string
 
   STRIPE_WEBHOOK_SECRET: z
     .string()

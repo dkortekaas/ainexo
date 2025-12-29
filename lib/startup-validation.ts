@@ -176,6 +176,28 @@ const envSchema = z.object({
   UPSTASH_REDIS_REST_URL: z.string().url().optional(),
   UPSTASH_REDIS_REST_TOKEN: z.string().optional(),
 
+  // Vercel Blob Storage (required in production)
+  BLOB_READ_WRITE_TOKEN: z
+    .string()
+    .refine(
+      (token) => {
+        // In production, token is required
+        const isProduction =
+          process.env.NODE_ENV === "production" ||
+          process.env.VERCEL_ENV === "production";
+        if (isProduction) {
+          return token && token.length > 0 && token.startsWith("vercel_blob_");
+        }
+        // In development, token is optional
+        return true;
+      },
+      {
+        message:
+          "BLOB_READ_WRITE_TOKEN is required in production and must start with 'vercel_blob_'",
+      }
+    )
+    .optional(),
+
   // Vercel (auto-populated)
   VERCEL: z.string().optional(),
   VERCEL_ENV: z.enum(["development", "preview", "production"]).optional(),
@@ -226,6 +248,13 @@ export function validateEnvironmentVariables(): EnvSchema {
       ) {
         productionErrors.push(
           "All Stripe Price IDs (STARTER, PROFESSIONAL, BUSINESS, ENTERPRISE) are required in production"
+        );
+      }
+
+      // Check Vercel Blob Storage in production
+      if (!env.BLOB_READ_WRITE_TOKEN) {
+        productionErrors.push(
+          "BLOB_READ_WRITE_TOKEN is required in production for file storage. Create a Blob store in Vercel Dashboard → Storage and add the token to environment variables."
         );
       }
 

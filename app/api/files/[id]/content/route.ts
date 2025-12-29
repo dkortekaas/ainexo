@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db as prisma } from "@/lib/db";
-import { readFile } from "fs/promises";
+import { readTextFileFromStorage, fileExists } from "@/lib/blob-storage";
 
 // GET /api/files/[id]/content - Get document content and metadata
 export async function GET(
@@ -64,9 +64,18 @@ export async function GET(
       wordCount = contentText.split(/\s+/).length;
     } else {
       // Try to read the original file if no document exists
+      // Note: In production, files are stored in Vercel Blob Storage (persistent)
+      // In development, files are in /tmp (temporary)
       try {
-        contentText = await readFile(knowledgeFile.filePath, "utf-8");
-        wordCount = contentText.split(/\s+/).length;
+        const exists = await fileExists(knowledgeFile.filePath);
+        if (exists) {
+          contentText = await readTextFileFromStorage(knowledgeFile.filePath);
+          wordCount = contentText.split(/\s+/).length;
+        } else {
+          console.warn(`File ${knowledgeFile.filePath} not found in storage`);
+          contentText =
+            "Content niet beschikbaar - bestand is verwerkt maar origineel bestand is niet meer beschikbaar";
+        }
       } catch (error) {
         console.warn("Could not read file content:", error);
         contentText = "Content niet beschikbaar";

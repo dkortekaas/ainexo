@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { unlink } from "fs/promises";
+import { deleteFile } from "@/lib/blob-storage";
 import { db } from "@/lib/db";
 
 // GET /api/files/[id] - Get a specific file
@@ -182,11 +182,11 @@ export async function DELETE(
       }
     }
 
-    // Delete file from filesystem
+    // Delete file from storage (Blob Storage in production, local /tmp in development)
     try {
-      await unlink(existingFile.filePath);
+      await deleteFile(existingFile.filePath);
     } catch (error) {
-      console.warn("Failed to delete file from filesystem:", error);
+      console.warn("Failed to delete file from storage:", error);
       // Continue with database deletion even if file deletion fails
     }
 

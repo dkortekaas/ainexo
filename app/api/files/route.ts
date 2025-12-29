@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { writeFile, mkdir, readFile } from "fs/promises";
-import { join } from "path";
-import { existsSync } from "fs";
-import { chunkTextOptimized, estimateTokenCount } from "@/lib/chunking-optimized";
+import {
+  uploadFile,
+  readFileFromStorage,
+  readTextFileFromStorage,
+  fileExists,
+} from "@/lib/blob-storage";
+import {
+  chunkTextOptimized,
+  estimateTokenCount,
+} from "@/lib/chunking-optimized";
 import { estimateTokens, EMBEDDINGS_ENABLED } from "@/lib/openai";
 import { generateBatchEmbeddings } from "@/lib/embedding-service-optimized";
 import * as mammoth from "mammoth";
@@ -184,22 +190,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create files directory if it doesn't exist
-    const filesDir = join(process.cwd(), "files");
-    if (!existsSync(filesDir)) {
-      await mkdir(filesDir, { recursive: true });
-    }
-
     // Generate unique filename - use crypto for security
     const timestamp = Date.now();
     const fileExtension = file.name.split(".").pop();
     const fileName = `${timestamp}-${randomBytes(8).toString("hex")}.${fileExtension}`;
-    const filePath = join(filesDir, fileName);
 
-    // Save file to filesystem
+    // Upload file to storage (Vercel Blob in production, local /tmp in development)
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    await writeFile(filePath, buffer);
+    const { url, path: filePath } = await uploadFile(
+      buffer,
+      fileName,
+      file.type
+    );
 
     // Save file info to database
     const knowledgeFile = await (
@@ -254,20 +257,20 @@ async function processDocumentForAI(
     let contentText = "";
 
     if (mimeType === "text/plain") {
-      contentText = await readFile(filePath, "utf-8");
+      contentText = await readTextFileFromStorage(filePath);
     } else if (mimeType === "application/json") {
-      const jsonContent = await readFile(filePath, "utf-8");
+      const jsonContent = await readTextFileFromStorage(filePath);
       const parsed = JSON.parse(jsonContent);
       contentText = JSON.stringify(parsed, null, 2);
     } else if (mimeType === "text/csv") {
-      const csvContent = await readFile(filePath, "utf-8");
+      const csvContent = await readTextFileFromStorage(filePath);
       // Convert CSV to readable text format
       const lines = csvContent.split("\n");
       contentText = lines.map((line) => line.replace(/,/g, " | ")).join("\n");
     } else if (mimeType === "application/pdf") {
       // Extract text from PDF
       try {
-        const pdfBuffer = await readFile(filePath);
+        const pdfBuffer = await readFileFromStorage(filePath);
 
         // Import pdf-parse
         const pdfModule = await import("pdf-parse");
@@ -298,7 +301,7 @@ async function processDocumentForAI(
     ) {
       // Extract text from Word documents (DOCX and DOC)
       try {
-        const wordBuffer = await readFile(filePath);
+        const wordBuffer = await readFileFromStorage(filePath);
         const result = await mammoth.extractRawText({ buffer: wordBuffer });
         contentText = result.value;
         console.log(`Extracted text from Word document: ${originalName}`);
@@ -380,9 +383,9 @@ async function processDocumentForAI(
     // New: 1500 chars chunks, 100 overlap, 200 min size = 30-50% fewer chunks!
     console.log(`📊 Starting optimized chunking for: ${originalName}`);
     const chunks = chunkTextOptimized(contentText, {
-      chunkSize: 1500,      // Increased from 1000 (30-50% fewer chunks)
-      chunkOverlap: 100,    // Reduced from 200 (50% less redundancy)
-      minChunkSize: 200,    // Filter tiny chunks
+      chunkSize: 1500, // Increased from 1000 (30-50% fewer chunks)
+      chunkOverlap: 100, // Reduced from 200 (50% less redundancy)
+      minChunkSize: 200, // Filter tiny chunks
       metadata: {
         fileId: fileId,
         documentId: document.id,
@@ -411,7 +414,9 @@ async function processDocumentForAI(
     // Generate embeddings if enabled
     if (EMBEDDINGS_ENABLED && process.env.OPENAI_API_KEY) {
       try {
-        console.log(`\n🚀 Generating optimized embeddings with cost reduction...`);
+        console.log(
+          `\n🚀 Generating optimized embeddings with cost reduction...`
+        );
         const chunkTexts = chunks.map((chunk) => sanitizeText(chunk.content));
 
         // Use optimized batch embeddings with automatic deduplication
@@ -438,14 +443,21 @@ async function processDocumentForAI(
         });
 
         // Calculate estimated cost
-        const totalTokens = chunks.reduce((sum, chunk) => sum + (chunk.tokenCount || 0), 0);
+        const totalTokens = chunks.reduce(
+          (sum, chunk) => sum + (chunk.tokenCount || 0),
+          0
+        );
         const estimatedCost = (totalTokens / 1000) * 0.00002; // text-embedding-3-small
         console.log(`\n💰 Embedding Stats:`);
         console.log(`   Chunks: ${chunks.length}`);
         console.log(`   Tokens: ${totalTokens}`);
         console.log(`   Estimated cost: $${estimatedCost.toFixed(6)}`);
-        console.log(`   (Using text-embedding-3-small - 5x cheaper than ada-002!)`);
-        console.log(`✅ Created ${chunks.length} chunks with embeddings for: ${originalName}`);
+        console.log(
+          `   (Using text-embedding-3-small - 5x cheaper than ada-002!)`
+        );
+        console.log(
+          `✅ Created ${chunks.length} chunks with embeddings for: ${originalName}`
+        );
       } catch (embeddingError) {
         console.warn(
           `Failed to create embeddings for document ${originalName}:`,
@@ -526,8 +538,14 @@ async function processDocumentForAI(
     });
 
     console.log(`Successfully processed document: ${originalName}`);
+
+    // Note: Files are stored in Vercel Blob Storage in production (persistent)
+    // or in /tmp in development (temporary, cleaned up after function execution)
   } catch (error) {
     console.error(`Error processing document ${originalName}:`, error);
+
+    // Note: Files are stored in Vercel Blob Storage in production (persistent)
+    // or in /tmp in development (temporary)
 
     // Update both document and knowledge file status to failed
     try {

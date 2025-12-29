@@ -1511,7 +1511,8 @@
     "fileContent": "File Content",
     "words": "words",
     "noContentAvailable": "No content available",
-    "error": {
+    "error": "Error",
+    "errorDetails": {
       "title": "Something went wrong",
       "description": "We encountered an error while loading your knowledge base. Please try again.",
       "tryAgain": "Try Again",

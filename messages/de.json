@@ -1274,7 +1274,8 @@
     "fileContent": "Dateiinhalt",
     "words": "Wörter",
     "noContentAvailable": "Kein Inhalt verfügbar",
-    "error": {
+    "error": "Fehler",
+    "errorDetails": {
       "title": "Etwas ist schief gelaufen",
       "description": "Beim Laden Ihrer Wissensdatenbank ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
       "tryAgain": "Erneut versuchen",

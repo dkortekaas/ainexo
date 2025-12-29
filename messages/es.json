@@ -1274,7 +1274,8 @@
     "fileContent": "Contenido del archivo",
     "words": "palabras",
     "noContentAvailable": "No hay contenido disponible",
-    "error": {
+    "error": "Error",
+    "errorDetails": {
       "title": "Algo salió mal",
       "description": "Encontramos un error al cargar su base de conocimientos. Por favor, inténtelo de nuevo.",
       "tryAgain": "Intentar de nuevo",

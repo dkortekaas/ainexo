@@ -1511,7 +1511,8 @@
     "fileContent": "Bestandsinhoud",
     "words": "woorden",
     "noContentAvailable": "Geen inhoud beschikbaar",
-    "error": {
+    "error": "Fout",
+    "errorDetails": {
       "title": "Er is iets misgegaan",
       "description": "We hebben een fout aangetroffen bij het laden van uw kennisbank. Probeer het opnieuw.",
       "tryAgain": "Opnieuw proberen",

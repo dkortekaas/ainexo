@@ -53,13 +53,6 @@ export async function GET(request: NextRequest) {
           companyId: currentUser.companyId,
         },
       },
-      include: {
-        users: {
-          select: {
-            companyId: true,
-          },
-        },
-      },
     });
 
     if (!assistant) {
@@ -87,7 +80,12 @@ export async function GET(request: NextRequest) {
 
     // Return paginated response
     return NextResponse.json(
-      createPaginatedResponse(websites, pagination.page, pagination.limit, total)
+      createPaginatedResponse(
+        websites,
+        pagination.page,
+        pagination.limit,
+        total
+      )
     );
   } catch (error) {
     console.error("Error fetching websites:", error);
@@ -100,14 +98,20 @@ export async function GET(request: NextRequest) {
 
 // POST /api/websites - Create a new website
 export async function POST(request: NextRequest) {
+  let session;
+  let assistantId: string | undefined;
+  let url: string | undefined;
+
   try {
-    const session = await getServerSession(authOptions);
+    session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await request.json();
-    const { url, name, description, syncInterval, assistantId } = body;
+    url = body.url;
+    assistantId = body.assistantId;
+    const { name, description, syncInterval } = body;
 
     if (!url) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 });
@@ -123,7 +127,9 @@ export async function POST(request: NextRequest) {
     // Validate URL format and check for SSRF
     const urlValidation = validateScrapingUrl(url);
     if (!urlValidation.valid) {
-      console.warn(`🚫 Invalid/unsafe URL rejected: ${url} - ${urlValidation.error}`);
+      console.warn(
+        `🚫 Invalid/unsafe URL rejected: ${url} - ${urlValidation.error}`
+      );
       return NextResponse.json(
         { error: urlValidation.error || "Invalid URL" },
         { status: 400 }
@@ -147,13 +153,6 @@ export async function POST(request: NextRequest) {
         id: assistantId,
         users: {
           companyId: currentUser.companyId,
-        },
-      },
-      include: {
-        users: {
-          select: {
-            companyId: true,
-          },
         },
       },
     });
@@ -202,7 +201,25 @@ export async function POST(request: NextRequest) {
     });
 
     // Start scraping automatically in the background
-    scrapeWebsiteInBackground(website.id, website.url);
+    // Use .catch() to prevent errors from crashing the request
+    scrapeWebsiteInBackground(website.id, website.url).catch((error) => {
+      console.error("Background scraping error (non-blocking):", error);
+      // Update website status to ERROR if scraping fails immediately
+      db.website
+        .update({
+          where: { id: website.id },
+          data: {
+            status: "ERROR",
+            errorMessage:
+              error instanceof Error
+                ? error.message
+                : "Failed to start scraping",
+          },
+        })
+        .catch((updateError) => {
+          console.error("Failed to update website status:", updateError);
+        });
+    });
 
     return NextResponse.json(website, { status: 201 });
   } catch (error: unknown) {
@@ -221,9 +238,23 @@ export async function POST(request: NextRequest) {
         { status: 409 }
       );
     }
-    console.error("Error creating website:", error);
+
+    // Enhanced error logging for production debugging
+    console.error("Error creating website:", {
+      error,
+      errorMessage: error instanceof Error ? error.message : "Unknown error",
+      errorStack: error instanceof Error ? error.stack : undefined,
+      assistantId: assistantId || "unknown",
+      url: url || "unknown",
+      userId: session?.user?.id || "unknown",
+    });
+
     return NextResponse.json(
-      { error: "Failed to create website" },
+      {
+        error: "Failed to create website",
+        message:
+          error instanceof Error ? error.message : "Unknown error occurred",
+      },
       { status: 500 }
     );
   }
@@ -326,8 +357,8 @@ async function scrapeWebsiteInBackground(websiteId: string, url: string) {
         const entryStatus = page.error
           ? "FAILED"
           : page.content.trim().length > 0
-          ? "SUCCESS"
-          : "SKIPPED";
+            ? "SUCCESS"
+            : "SKIPPED";
 
         if (entryStatus === "SUCCESS") successCount++;
         if (entryStatus === "FAILED") failedCount++;
@@ -336,9 +367,15 @@ async function scrapeWebsiteInBackground(websiteId: string, url: string) {
           data: {
             syncLogId: syncLog.id,
             url: page.url,
-            status: entryStatus as "SUCCESS" | "FAILED" | "SKIPPED" | "ALREADY_VISITED",
+            status: entryStatus as
+              | "SUCCESS"
+              | "FAILED"
+              | "SKIPPED"
+              | "ALREADY_VISITED",
             errorMessage: page.error,
-            contentSize: page.content ? Buffer.byteLength(page.content, "utf8") : 0,
+            contentSize: page.content
+              ? Buffer.byteLength(page.content, "utf8")
+              : 0,
             scrapedAt: new Date(),
           },
         });
@@ -390,7 +427,9 @@ async function scrapeWebsiteInBackground(websiteId: string, url: string) {
           failedCount,
           skippedCount: scrapedData.pages.length - successCount - failedCount,
           errorMessage:
-            scrapedData.errors.length > 0 ? scrapedData.errors.join("; ") : null,
+            scrapedData.errors.length > 0
+              ? scrapedData.errors.join("; ")
+              : null,
         },
       });
     }

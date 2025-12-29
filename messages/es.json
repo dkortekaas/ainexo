@@ -753,6 +753,7 @@
     "embedCodeDescription": "Copie y pegue este código en el HTML de su sitio web, justo antes de la etiqueta de cierre &lt;/body&gt;.",
     "copied": "¡Copiado!",
     "copy": "Copiar",
+    "embedCodeNotAvailable": "Código de integración no disponible",
     "installationInstructions": "Instrucciones de instalación",
     "step1Title": "Copiar el código de integración",
     "step1Description": "Use el botón de copiar arriba para copiar el código.",

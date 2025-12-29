@@ -753,6 +753,7 @@
     "embedCodeDescription": "Kopieren Sie diesen Code in das HTML Ihrer Website, direkt vor dem schließenden &lt;/body&gt;-Tag.",
     "copied": "Kopiert!",
     "copy": "Kopieren",
+    "embedCodeNotAvailable": "Einbettungscode nicht verfügbar",
     "installationInstructions": "Installationsanweisungen",
     "step1Title": "Einbettungscode kopieren",
     "step1Description": "Verwenden Sie die Kopier-Taste oben, um den Code zu kopieren.",

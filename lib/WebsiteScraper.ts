@@ -1,5 +1,3 @@
-import { JSDOM } from "jsdom";
-
 export interface ScrapedPage {
   url: string;
   title?: string;
@@ -80,6 +78,8 @@ export class WebsiteScraper {
       }
 
       const html = await response.text();
+      // Dynamic import to avoid ES module issues in serverless environments
+      const { JSDOM } = await import("jsdom");
       const dom = new JSDOM(html);
       const document = dom.window.document;
 

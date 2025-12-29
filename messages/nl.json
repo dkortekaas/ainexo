@@ -966,6 +966,7 @@
     "embedCodeDescription": "Kopieer en plak deze code in de HTML van uw website, vlak voor de sluitende &lt;/body&gt; tag.",
     "copied": "Gekopieerd!",
     "copy": "Kopiëren",
+    "embedCodeNotAvailable": "Insluitcode niet beschikbaar",
     "installationInstructions": "Installatie-instructies",
     "step1Title": "Kopieer de insluitcode",
     "step1Description": "Gebruik de kopieerknop hierboven om de code te kopiëren.",

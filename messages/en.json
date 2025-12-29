@@ -966,6 +966,7 @@
     "embedCodeDescription": "Copy and paste this code into your website's HTML, just before the closing &lt;/body&gt; tag.",
     "copied": "Copied!",
     "copy": "Copy",
+    "embedCodeNotAvailable": "Embed code not available",
     "installationInstructions": "Installation Instructions",
     "step1Title": "Copy the embed code",
     "step1Description": "Use the copy button above to copy the code.",

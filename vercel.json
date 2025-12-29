@@ -4,5 +4,8 @@
       "path": "/api/cron/subscription-notifications",
       "schedule": "0 9 * * *"
     }
-  ]
+  ],
+  "env": {
+    "NODE_OPTIONS": "--no-warnings"
+  }
 }

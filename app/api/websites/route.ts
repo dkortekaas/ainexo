@@ -70,13 +70,26 @@ export async function GET(request: NextRequest) {
     };
 
     // Get total count for pagination metadata
-    const total = await db.website.count({ where });
+    let total: number;
+    let websites: any[];
+    
+    try {
+      total = await db.website.count({ where });
+    } catch (countError) {
+      console.error("Error counting websites:", countError);
+      throw new Error(`Failed to count websites: ${countError instanceof Error ? countError.message : "Unknown error"}`);
+    }
 
-    const websites = await db.website.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      ...getPrismaOptions(pagination),
-    });
+    try {
+      websites = await db.website.findMany({
+        where,
+        orderBy: { createdAt: "desc" },
+        ...getPrismaOptions(pagination),
+      });
+    } catch (findError) {
+      console.error("Error finding websites:", findError);
+      throw new Error(`Failed to find websites: ${findError instanceof Error ? findError.message : "Unknown error"}`);
+    }
 
     // Return paginated response
     return NextResponse.json(
@@ -88,9 +101,17 @@ export async function GET(request: NextRequest) {
       )
     );
   } catch (error) {
-    console.error("Error fetching websites:", error);
+    console.error("Error fetching websites:", {
+      error,
+      errorMessage: error instanceof Error ? error.message : "Unknown error",
+      errorStack: error instanceof Error ? error.stack : undefined,
+      assistantId: request.nextUrl.searchParams.get("assistantId"),
+    });
     return NextResponse.json(
-      { error: "Failed to fetch websites" },
+      { 
+        error: "Failed to fetch websites",
+        message: error instanceof Error ? error.message : "Unknown error occurred"
+      },
       { status: 500 }
     );
   }
@@ -145,6 +166,14 @@ export async function POST(request: NextRequest) {
     if (!currentUser) {
       console.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    if (!currentUser.companyId) {
+      console.error("User has no companyId:", session.user.id);
+      return NextResponse.json(
+        { error: "User is not associated with a company" },
+        { status: 400 }
+      );
     }
 
     // Verify the assistant belongs to the company

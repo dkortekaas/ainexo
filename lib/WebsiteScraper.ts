@@ -65,19 +65,29 @@ export class WebsiteScraper {
     this.visitedUrls.add(url);
 
     try {
+      // Increased timeout to 30 seconds for slower websites
+      // Note: Vercel serverless functions have a max timeout of 10s (Hobby) or 60s (Pro)
+      const timeoutMs = 30000; // 30 seconds
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
       const response = await fetch(url, {
         headers: {
           "User-Agent":
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
         },
-        signal: AbortSignal.timeout(10000), // 10 second timeout
+        signal: controller.signal,
       });
 
       if (!response.ok) {
+        clearTimeout(timeoutId);
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
+      // Read response body
+      // Note: Large responses may take time, but the fetch timeout above should handle slow responses
       const html = await response.text();
+      clearTimeout(timeoutId);
 
       // Try to use jsdom, but fallback to simple parsing if it fails (e.g., in serverless)
       let document: Document;
@@ -131,7 +141,22 @@ export class WebsiteScraper {
         );
       }
     } catch (error) {
-      const errorMessage = `Failed to scrape ${url}: ${error instanceof Error ? error.message : "Unknown error"}`;
+      // Handle timeout errors specifically
+      let errorMessage: string;
+      if (error instanceof Error) {
+        if (
+          error.name === "AbortError" ||
+          error.message.includes("timeout") ||
+          error.message.includes("aborted")
+        ) {
+          errorMessage = `Request timeout: The website took too long to respond (${url})`;
+        } else {
+          errorMessage = `Failed to scrape ${url}: ${error.message}`;
+        }
+      } else {
+        errorMessage = `Failed to scrape ${url}: Unknown error`;
+      }
+
       result.errors.push(errorMessage);
 
       result.pages.push({

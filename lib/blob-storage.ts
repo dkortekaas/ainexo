@@ -11,11 +11,16 @@ import { join } from "path";
 import { tmpdir } from "os";
 import { existsSync, mkdir } from "fs";
 
+// Get the blob storage token (supports both AI_READ_WRITE_TOKEN and BLOB_READ_WRITE_TOKEN)
+const getBlobToken = (): string | undefined => {
+  return process.env.AI_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN;
+};
+
 // Check if we should use Blob Storage
 // Only use if token exists AND we're in production
 // Note: We check VERCEL_ENV as well because NODE_ENV might not be set correctly in Vercel
 const USE_BLOB_STORAGE =
-  !!process.env.AI_READ_WRITE_TOKEN &&
+  !!getBlobToken() &&
   (process.env.NODE_ENV === "production" ||
     process.env.VERCEL_ENV === "production");
 
@@ -33,11 +38,17 @@ export async function uploadFile(
 ): Promise<{ url: string; path: string }> {
   if (USE_BLOB_STORAGE) {
     // Use Vercel Blob Storage in production
+    const token = getBlobToken();
+    if (!token) {
+      throw new Error("Blob storage token is not configured");
+    }
+
     try {
       const blob = await put(filename, file, {
         access: "public",
         contentType,
         addRandomSuffix: true, // Prevents filename conflicts
+        token, // Explicitly pass the token
       });
 
       return {
@@ -54,11 +65,12 @@ export async function uploadFile(
         error.message.includes("store does not exist")
       ) {
         console.error(
-          "❌ Vercel Blob Store does not exist. Please:\n" +
+          "❌ Vercel Blob Store does not exist or token is invalid. Please:\n" +
             "1. Go to Vercel Dashboard → Storage\n" +
-            "2. Create a new Blob store\n" +
-            "3. Copy the AI_READ_WRITE_TOKEN\n" +
-            "4. Add it to your environment variables\n" +
+            "2. Create a new Blob store (if not already created)\n" +
+            "3. Copy the BLOB_READ_WRITE_TOKEN from the store\n" +
+            "4. Add it to your environment variables as AI_READ_WRITE_TOKEN or BLOB_READ_WRITE_TOKEN\n" +
+            "5. Make sure the token starts with 'vercel_blob_'\n" +
             "\nFalling back to local /tmp storage..."
         );
       }
@@ -104,8 +116,13 @@ export async function uploadFile(
  */
 export async function fileExists(pathOrUrl: string): Promise<boolean> {
   if (USE_BLOB_STORAGE) {
+    const token = getBlobToken();
+    if (!token) {
+      return false;
+    }
+
     try {
-      await head(pathOrUrl);
+      await head(pathOrUrl, { token });
       return true;
     } catch {
       return false;
@@ -166,8 +183,14 @@ export async function readTextFileFromStorage(
  */
 export async function deleteFile(pathOrUrl: string): Promise<void> {
   if (USE_BLOB_STORAGE) {
+    const token = getBlobToken();
+    if (!token) {
+      console.warn("Blob storage token is not configured, cannot delete file");
+      return;
+    }
+
     try {
-      await del(pathOrUrl);
+      await del(pathOrUrl, { token });
     } catch (error) {
       console.warn(
         `Failed to delete file from blob storage: ${pathOrUrl}`,

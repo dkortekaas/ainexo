@@ -3,7 +3,7 @@
 import { Mail } from "lucide-react";
 import type { PrivacyPolicy } from "@/sanity/lib/fetch";
 import { PortableTextRenderer } from "@/components/blog/PortableTextRenderer";
-import HeroSection from "@/components/site/Hero";
+import { HeroSection } from "@/components/site";
 import { formatDate } from "@/lib/utils";
 
 interface PrivacyPolicyContentProps {

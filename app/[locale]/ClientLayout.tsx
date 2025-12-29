@@ -1,16 +1,16 @@
 import {
-  HeroSection,
+  HomepageHeroSection,
   HowItWorksSection,
   CTASection,
   FeaturesSection,
   PricingSection,
   TestimonialsSection,
 } from "@/components/site";
-import type { HeroSection as HeroSectionType } from "@/sanity/lib/homepage";
+import type { HomepageHeroSection as HomepageHeroSectionType } from "@/sanity/lib/homepage";
 import type { ChatWidget } from "@/sanity/lib/fetch";
 
 interface ClientLayoutProps {
-  heroData?: HeroSectionType | null;
+  heroData?: HomepageHeroSectionType | null;
   chatWidgetConfig?: ChatWidget | null;
   locale: string;
 }
@@ -18,7 +18,7 @@ interface ClientLayoutProps {
 const Index = ({ heroData, chatWidgetConfig, locale }: ClientLayoutProps) => {
   return (
     <>
-      <HeroSection heroData={heroData} chatWidgetConfig={chatWidgetConfig} />
+      <HomepageHeroSection heroData={heroData} chatWidgetConfig={chatWidgetConfig} />
       {/* <TrustedBySection /> */}
       <FeaturesSection />
       <HowItWorksSection locale={locale} />

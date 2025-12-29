@@ -9,7 +9,7 @@ import { PricingPage as PricingPageType } from "@/types/types";
 import { isValidLanguage, Language } from "@/i18n/config";
 import { Check, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import HeroSection from "@/components/site/Hero";
+import { HeroSection } from "@/components/site";
 
 const PricingContent = () => {
   const t = useTranslations("pricingPage");

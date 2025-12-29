@@ -11,8 +11,13 @@ import { join } from "path";
 import { tmpdir } from "os";
 import { existsSync, mkdir } from "fs";
 
+// Check if we should use Blob Storage
+// Only use if token exists AND we're in production
+// Note: We check VERCEL_ENV as well because NODE_ENV might not be set correctly in Vercel
 const USE_BLOB_STORAGE =
-  process.env.BLOB_READ_WRITE_TOKEN && process.env.NODE_ENV === "production";
+  !!process.env.AI_READ_WRITE_TOKEN &&
+  (process.env.NODE_ENV === "production" ||
+    process.env.VERCEL_ENV === "production");
 
 /**
  * Upload a file to storage
@@ -28,17 +33,43 @@ export async function uploadFile(
 ): Promise<{ url: string; path: string }> {
   if (USE_BLOB_STORAGE) {
     // Use Vercel Blob Storage in production
-    const blob = await put(filename, file, {
-      access: "public",
-      contentType,
-      addRandomSuffix: true, // Prevents filename conflicts
-    });
+    try {
+      const blob = await put(filename, file, {
+        access: "public",
+        contentType,
+        addRandomSuffix: true, // Prevents filename conflicts
+      });
 
-    return {
-      url: blob.url,
-      path: blob.url, // Use URL as path for blob storage
-    };
-  } else {
+      return {
+        url: blob.url,
+        path: blob.url, // Use URL as path for blob storage
+      };
+    } catch (error) {
+      // If blob storage fails, log error and fallback to local storage
+      console.error("Vercel Blob Storage error:", error);
+
+      // Check if it's a "store does not exist" error
+      if (
+        error instanceof Error &&
+        error.message.includes("store does not exist")
+      ) {
+        console.error(
+          "❌ Vercel Blob Store does not exist. Please:\n" +
+            "1. Go to Vercel Dashboard → Storage\n" +
+            "2. Create a new Blob store\n" +
+            "3. Copy the AI_READ_WRITE_TOKEN\n" +
+            "4. Add it to your environment variables\n" +
+            "\nFalling back to local /tmp storage..."
+        );
+      }
+
+      // Fall through to local storage fallback
+      console.warn("Falling back to local filesystem storage");
+    }
+  }
+
+  // Fallback to local filesystem (development or if blob storage fails)
+  {
     // Fallback to local filesystem in development
     const filesDir = join(tmpdir(), "ainexo-files");
     if (!existsSync(filesDir)) {

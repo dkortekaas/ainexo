@@ -97,7 +97,7 @@ AUTH_URL="https://your-domain.vercel.app"
 OPENAI_API_KEY="sk-prod-your-key-here"
 
 # Vercel Blob Storage
-BLOB_READ_WRITE_TOKEN="vercel_blob_rw_xxxxx"
+AI_READ_WRITE_TOKEN="vercel_blob_rw_xxxxx"
 
 # App
 NEXT_PUBLIC_APP_URL="https://your-domain.vercel.app"
@@ -131,7 +131,7 @@ vercel env add DIRECT_URL production
 vercel env add AUTH_SECRET production
 vercel env add AUTH_URL production
 vercel env add OPENAI_API_KEY production
-vercel env add BLOB_READ_WRITE_TOKEN production
+vercel env add AI_READ_WRITE_TOKEN production
 vercel env add NEXT_PUBLIC_APP_URL production
 
 # Preview (optional)
@@ -284,7 +284,7 @@ Region: Same as your app
 
 6.2 Get Access Token
 
-After creation, copy the BLOB_READ_WRITE_TOKEN
+After creation, copy the AI_READ_WRITE_TOKEN
 Add to environment variables in Vercel
 
 6.3 Storage Implementation

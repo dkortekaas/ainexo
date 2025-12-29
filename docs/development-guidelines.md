@@ -342,7 +342,7 @@ NEXTAUTH_SECRET="your-secret"
 NEXTAUTH_URL="http://localhost:3000"
 RESEND_API_KEY="re_xxxxxxxxxxxxx"
 RESEND_FROM_EMAIL="noreply@yourapp.com"
-BLOB_READ_WRITE_TOKEN="your-token"
+AI_READ_WRITE_TOKEN="your-token"
 ```
 
 ## Code Review Guidelines

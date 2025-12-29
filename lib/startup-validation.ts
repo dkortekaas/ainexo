@@ -177,7 +177,7 @@ const envSchema = z.object({
   UPSTASH_REDIS_REST_TOKEN: z.string().optional(),
 
   // Vercel Blob Storage (required in production)
-  BLOB_READ_WRITE_TOKEN: z
+  AI_READ_WRITE_TOKEN: z
     .string()
     .refine(
       (token) => {
@@ -193,7 +193,7 @@ const envSchema = z.object({
       },
       {
         message:
-          "BLOB_READ_WRITE_TOKEN is required in production and must start with 'vercel_blob_'",
+          "AI_READ_WRITE_TOKEN is required in production and must start with 'vercel_blob_'",
       }
     )
     .optional(),
@@ -252,9 +252,9 @@ export function validateEnvironmentVariables(): EnvSchema {
       }
 
       // Check Vercel Blob Storage in production
-      if (!env.BLOB_READ_WRITE_TOKEN) {
+      if (!env.AI_READ_WRITE_TOKEN) {
         productionErrors.push(
-          "BLOB_READ_WRITE_TOKEN is required in production for file storage. Create a Blob store in Vercel Dashboard → Storage and add the token to environment variables."
+          "AI_READ_WRITE_TOKEN is required in production for file storage. Create a Blob store in Vercel Dashboard → Storage and add the token to environment variables."
         );
       }
 

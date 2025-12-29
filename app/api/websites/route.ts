@@ -72,12 +72,14 @@ export async function GET(request: NextRequest) {
     // Get total count for pagination metadata
     let total: number;
     let websites: any[];
-    
+
     try {
       total = await db.website.count({ where });
     } catch (countError) {
       console.error("Error counting websites:", countError);
-      throw new Error(`Failed to count websites: ${countError instanceof Error ? countError.message : "Unknown error"}`);
+      throw new Error(
+        `Failed to count websites: ${countError instanceof Error ? countError.message : "Unknown error"}`
+      );
     }
 
     try {
@@ -88,7 +90,9 @@ export async function GET(request: NextRequest) {
       });
     } catch (findError) {
       console.error("Error finding websites:", findError);
-      throw new Error(`Failed to find websites: ${findError instanceof Error ? findError.message : "Unknown error"}`);
+      throw new Error(
+        `Failed to find websites: ${findError instanceof Error ? findError.message : "Unknown error"}`
+      );
     }
 
     // Return paginated response
@@ -108,9 +112,10 @@ export async function GET(request: NextRequest) {
       assistantId: request.nextUrl.searchParams.get("assistantId"),
     });
     return NextResponse.json(
-      { 
+      {
         error: "Failed to fetch websites",
-        message: error instanceof Error ? error.message : "Unknown error occurred"
+        message:
+          error instanceof Error ? error.message : "Unknown error occurred",
       },
       { status: 500 }
     );

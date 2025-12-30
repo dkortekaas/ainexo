@@ -127,21 +127,21 @@ export default function UserMenu() {
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col items-start">
-            <span className="text-sm font-medium text-gray-900">
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
               {session.user.name}
             </span>
-            <span className="text-xs text-gray-500">{session.user.email}</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">{session.user.email}</span>
           </div>
-          <ChevronDown className="w-4 h-4 text-gray-500" />
+          <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-56 mt-2" sideOffset={8}>
         <div className="px-3 py-2">
-          <p className="text-sm font-medium text-gray-900">
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
             {session.user.name}
           </p>
-          <p className="text-xs text-gray-500">{session.user.email}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{session.user.email}</p>
         </div>
 
         <DropdownMenuSeparator />
@@ -171,7 +171,7 @@ export default function UserMenu() {
 
         <DropdownMenuItem
           onClick={handleLogout}
-          className="cursor-pointer text-red-600 focus:text-red-600"
+          className="cursor-pointer text-red-600 dark:text-red-400 focus:text-red-600 dark:focus:text-red-400"
         >
           <LogOut className="w-4 h-4 mr-2" />
           {t("userMenu.logout")}

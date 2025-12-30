@@ -42,7 +42,7 @@ export function Tabs({
 }
 
 export function TabsList({ children }: { children: React.ReactNode }) {
-  return <div className="flex overflow-x-auto border-b border-gray-200 mb-4 -mx-4 px-4 sm:mx-0 sm:px-0">{children}</div>;
+  return <div className="flex overflow-x-auto border-b border-gray-200 dark:border-gray-700 mb-4 -mx-4 px-4 sm:mx-0 sm:px-0">{children}</div>;
 }
 
 export function TabsTrigger({
@@ -64,7 +64,7 @@ export function TabsTrigger({
       className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
         isActive
           ? "border-b-2 border-primary text-primary"
-          : "text-gray-500 hover:text-gray-700"
+          : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
       }`}
       onClick={() => setActiveTab(value)}
     >

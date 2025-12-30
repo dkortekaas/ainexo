@@ -40,9 +40,9 @@ export function AssistantSwitcher() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 animate-pulse">
-        <Bot className="w-4 h-4 text-gray-400" />
-        <span className="text-sm text-gray-500">
+      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 animate-pulse">
+        <Bot className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+        <span className="text-sm text-gray-500 dark:text-gray-400">
           {t("common.statuses.loading")}
         </span>
       </div>
@@ -91,14 +91,14 @@ export function AssistantSwitcher() {
           >
             <Bot className="w-2.5 h-2.5 text-white" />
           </div>
-          <span className="truncate text-gray-900 font-medium">
+          <span className="truncate text-gray-900 dark:text-gray-100 font-medium">
             {currentAssistant.name}
           </span>
-          <ChevronDown className="w-4 h-4 text-gray-500" />
+          <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-64">
-        <div className="px-2 py-1.5 text-xs font-medium text-gray-500 uppercase tracking-wider">
+        <div className="px-2 py-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
           {t("assistants.aiAssistants")}
         </div>
         {assistants.map((assistant) => (

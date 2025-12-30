@@ -292,7 +292,7 @@ export default function Sidebar({
             className="w-full h-full rounded-md flex items-center justify-center text-white font-bold"
           >
             <Image
-              src={config.appIcon}
+              src={config.appLogo}
               alt={config.appTitle}
               className="h-10 w-auto object-contain"
               width={80}

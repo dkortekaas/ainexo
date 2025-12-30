@@ -30,7 +30,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const htmlElement = document.documentElement;
     const isDark = htmlElement.classList.contains("dark");
     const currentTheme = isDark ? "dark" : "light";
-    
+
     // Only update if there's a mismatch
     if (theme !== currentTheme) {
       setTheme(currentTheme);

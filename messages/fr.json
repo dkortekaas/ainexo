@@ -94,7 +94,10 @@
       "invitations": "Invitations",
       "admin": "Administrateur",
       "menu": "Menu",
-      "logout": "Déconnexion"
+      "logout": "Déconnexion",
+      "declarationsList": "Déclarations",
+      "new": "Nouveau",
+      "settings": "Paramètres"
     },
     "status": "Statut",
     "statuses": {

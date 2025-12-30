@@ -94,7 +94,10 @@
       "invitations": "Einladungen",
       "admin": "Administrator",
       "menu": "Menü",
-      "logout": "Abmelden"
+      "logout": "Abmelden",
+      "declarationsList": "Erklärungen",
+      "new": "Neu",
+      "settings": "Einstellungen"
     },
     "status": "Status",
     "statuses": {

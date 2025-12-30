@@ -224,7 +224,7 @@ export default function WebsiteContentPage() {
 
   return (
     <TrialGuard feature="website">
-      <div className="space-y-6">
+      <div className="space-y-6 w-full max-w-full overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -294,10 +294,10 @@ export default function WebsiteContentPage() {
             </div>
           </div>
           {website.errorMessage && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
-              <div className="flex items-center">
-                <AlertCircle className="w-4 h-4 text-red-600 mr-2" />
-                <p className="text-sm text-red-800">{website.errorMessage}</p>
+            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md overflow-hidden">
+              <div className="flex items-start">
+                <AlertCircle className="w-4 h-4 text-red-600 mr-2 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-red-800 break-words min-w-0">{website.errorMessage}</p>
               </div>
             </div>
           )}
@@ -305,15 +305,15 @@ export default function WebsiteContentPage() {
 
         {/* Main Content */}
         {website.scrapedContent && (
-          <Card className="p-6">
+          <Card className="p-6 overflow-hidden">
             <div className="flex items-center gap-2 mb-4">
               <FileText className="w-5 h-5 text-gray-600" />
               <h2 className="text-lg font-semibold text-gray-900">
                 {t("website.scrapedContent")}
               </h2>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 max-h-96 overflow-y-auto">
-              <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono">
+            <div className="bg-gray-50 rounded-lg p-4 max-h-96 overflow-auto">
+              <pre className="whitespace-pre-wrap break-words text-sm text-gray-700 font-mono max-w-full overflow-x-hidden">
                 {website.scrapedContent}
               </pre>
             </div>
@@ -322,7 +322,7 @@ export default function WebsiteContentPage() {
 
         {/* Links */}
         {website.scrapedLinks && website.scrapedLinks.length > 0 && (
-          <Card className="p-6">
+          <Card className="p-6 overflow-hidden">
             <div className="flex items-center gap-2 mb-4">
               <LinkIcon className="w-5 h-5 text-gray-600" />
               <h2 className="text-lg font-semibold text-gray-900">
@@ -333,14 +333,14 @@ export default function WebsiteContentPage() {
               {website.scrapedLinks.map((link, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-2 p-2 bg-gray-50 rounded border"
+                  className="flex items-center gap-2 p-2 bg-gray-50 rounded border min-w-0 overflow-hidden"
                 >
                   <ExternalLink className="w-3 h-3 text-gray-400 flex-shrink-0" />
                   <a
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-primary hover:text-indigo-800 truncate"
+                    className="text-sm text-primary hover:text-indigo-800 truncate min-w-0"
                   >
                     {link}
                   </a>
@@ -352,7 +352,7 @@ export default function WebsiteContentPage() {
 
         {/* Individual Pages */}
         {pages.length > 0 && (
-          <Card className="p-6">
+          <Card className="p-6 overflow-hidden">
             <div className="flex items-center gap-2 mb-4">
               <FileText className="w-5 h-5 text-gray-600" />
               <h2 className="text-lg font-semibold text-gray-900">
@@ -361,9 +361,9 @@ export default function WebsiteContentPage() {
             </div>
             <div className="space-y-4">
               {pages.map((page) => (
-                <div key={page.id} className="border rounded-lg p-4">
+                <div key={page.id} className="border rounded-lg p-4 overflow-hidden">
                   <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 overflow-hidden">
                       <h3 className="text-sm font-medium text-gray-900 truncate">
                         {page.title || page.url}
                       </h3>
@@ -371,14 +371,14 @@ export default function WebsiteContentPage() {
                         {page.url}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2 ml-4">
+                    <div className="flex items-center gap-2 ml-4 flex-shrink-0">
                       {getStatusIcon(page.status)}
                       {getStatusBadge(page.status)}
                     </div>
                   </div>
                   {page.content && (
-                    <div className="mt-2 bg-gray-50 rounded p-3 max-h-32 overflow-y-auto">
-                      <pre className="whitespace-pre-wrap text-xs text-gray-700 font-mono">
+                    <div className="mt-2 bg-gray-50 rounded p-3 max-h-32 overflow-auto">
+                      <pre className="whitespace-pre-wrap break-words text-xs text-gray-700 font-mono max-w-full">
                         {page.content.substring(0, 500)}
                         {page.content.length > 500 && "..."}
                       </pre>
@@ -396,7 +396,7 @@ export default function WebsiteContentPage() {
                             href={link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs text-primary hover:text-indigo-800 bg-indigo-50 px-2 py-1 rounded"
+                            className="text-xs text-primary hover:text-indigo-800 bg-indigo-50 px-2 py-1 rounded truncate max-w-[150px]"
                           >
                             {new URL(link).hostname}
                           </a>
@@ -410,7 +410,7 @@ export default function WebsiteContentPage() {
                     </div>
                   )}
                   {page.errorMessage && (
-                    <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded text-xs text-red-800">
+                    <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded text-xs text-red-800 break-words">
                       {page.errorMessage}
                     </div>
                   )}

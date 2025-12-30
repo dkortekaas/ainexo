@@ -7,34 +7,24 @@ type Theme = "light" | "dark";
 type ThemeContextType = {
   theme: Theme;
   toggleTheme: () => void;
+  mounted: boolean;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Initialize theme from DOM to match the inline script
-  const [theme, setTheme] = useState<Theme>(() => {
-    // This will run on the client side
-    if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme") as Theme;
-      const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      return savedTheme || (systemPrefersDark ? "dark" : "light");
-    }
-    return "light";
-  });
+  // Always start with "light" to match server render and prevent hydration mismatch
+  const [theme, setTheme] = useState<Theme>("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Sync with the DOM class that was set by the inline script
+    // After mounting, sync with the DOM class that was set by the inline script
     const htmlElement = document.documentElement;
     const isDark = htmlElement.classList.contains("dark");
     const currentTheme = isDark ? "dark" : "light";
 
-    // Only update if there's a mismatch
-    if (theme !== currentTheme) {
-      setTheme(currentTheme);
-    }
+    setTheme(currentTheme);
+    setMounted(true);
 
     // Listen for system theme changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -53,7 +43,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme]);
+  }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -69,7 +59,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -157,12 +157,12 @@ function addSecurityHeaders(response: NextResponse): void {
   const cspDirectives = [
     "default-src 'self'",
     // Removed 'unsafe-eval' for better security - Next.js doesn't require it
-    "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://*.sentry.io",
+    "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://*.sentry.io https://ainexo.app https://*.ainexo.app https://www.googletagmanager.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com data:",
     "img-src 'self' data: https: blob:",
-    // Added Sentry, Stripe, Upstash, OpenAI, and Sanity to connect-src
-    "connect-src 'self' https://api.openai.com https://*.sentry.io https://*.stripe.com https://*.upstash.io wss://*.upstash.io https://*.sanity.io https://*.apicdn.sanity.io",
+    // Added Sentry, Stripe, Upstash, OpenAI, Sanity, Google Analytics, and Google Fonts to connect-src
+    "connect-src 'self' https://api.openai.com https://*.sentry.io https://*.stripe.com https://*.upstash.io wss://*.upstash.io https://*.sanity.io https://*.apicdn.sanity.io https://*.google-analytics.com https://www.google-analytics.com https://www.googletagmanager.com https://fonts.googleapis.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",

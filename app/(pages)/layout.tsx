@@ -8,6 +8,7 @@ import Header from "@/components/layouts/Header";
 import Sidebar from "@/components/layouts/Sidebar";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Home, FileText, Bell, Settings, FilePlus, Shield } from "lucide-react";
 import { Session } from "next-auth";
 import { SubscriptionProvider } from "@/lib/subscription-context";
@@ -23,6 +24,7 @@ type AppLayoutProps = {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const { data: session } = useSession();
+  const pathname = usePathname();
   // Initialize with SSR-friendly defaults to prevent CLS
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
@@ -92,6 +94,7 @@ function AppLayoutContent({
   setIsSidebarOpen: (value: boolean) => void;
 }) {
   const t = useTranslations();
+  const pathname = usePathname();
   const { hasValidSubscription } = useSubscription();
 
   return (
@@ -162,10 +165,9 @@ function AppLayoutContent({
                   : "/dashboard"
               }
               className={`flex flex-col items-center justify-center text-xs ${
-                typeof window !== "undefined" &&
-                (window.location.pathname === "/dashboard" ||
-                  (session?.user?.role === "SUPERUSER" &&
-                    window.location.pathname === "/admindashboard"))
+                pathname === "/dashboard" ||
+                (session?.user?.role === "SUPERUSER" &&
+                  pathname === "/admindashboard")
                   ? "text-primary"
                   : "text-gray-500"
               }`}
@@ -183,9 +185,8 @@ function AppLayoutContent({
                 <Link
                   href="/declarations"
                   className={`flex flex-col items-center justify-center text-xs ${
-                    typeof window !== "undefined" &&
-                    window.location.pathname.includes("/declarations") &&
-                    !window.location.pathname.includes("/new")
+                    pathname.includes("/declarations") &&
+                    !pathname.includes("/new")
                       ? "text-primary"
                       : "text-gray-500"
                   }`}
@@ -200,10 +201,7 @@ function AppLayoutContent({
               <Link
                 href="/admin"
                 className={`flex flex-col items-center justify-center text-xs ${
-                  typeof window !== "undefined" &&
-                  window.location.pathname === "/admin"
-                    ? "text-primary"
-                    : "text-gray-500"
+                  pathname === "/admin" ? "text-primary" : "text-gray-500"
                 }`}
               >
                 <Shield className="h-6 w-6 mb-1" />
@@ -214,10 +212,7 @@ function AppLayoutContent({
             <Link
               href="/notifications"
               className={`flex flex-col items-center justify-center text-xs ${
-                typeof window !== "undefined" &&
-                window.location.pathname === "/notifications"
-                  ? "text-primary"
-                  : "text-gray-500"
+                pathname === "/notifications" ? "text-primary" : "text-gray-500"
               }`}
             >
               <Bell className="h-6 w-6 mb-1" />
@@ -227,10 +222,7 @@ function AppLayoutContent({
             <Link
               href="/settings"
               className={`flex flex-col items-center justify-center text-xs ${
-                typeof window !== "undefined" &&
-                window.location.pathname === "/settings"
-                  ? "text-primary"
-                  : "text-gray-500"
+                pathname === "/settings" ? "text-primary" : "text-gray-500"
               }`}
             >
               <Settings className="h-6 w-6 mb-1" />

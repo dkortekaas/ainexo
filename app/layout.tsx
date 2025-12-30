@@ -25,14 +25,12 @@ export async function generateMetadata(): Promise<Metadata> {
     description: t("metadata.description"),
     icons: {
       icon: [
-        { url: "/favicon-32x32.png" },
-        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
-        { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
       ],
       apple: [
-        { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
+        { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
       ],
     },
     manifest: "/manifest.json",
@@ -77,21 +75,7 @@ export default async function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/hero-illustration-mobile.webp"
-          media="(max-width: 640px)"
-          type="image/webp"
-        />
-        <link
-          rel="preload"
-          as="image"
-          href="/hero-illustration.webp"
-          media="(min-width: 641px)"
-          type="image/webp"
-        />
-        <link
-          rel="preload"
-          as="image"
-          href="/ainexo-logo-optimized.png"
+          href="/ainexo-logo.png"
           type="image/png"
         />
       </head>

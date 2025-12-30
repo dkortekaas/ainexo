@@ -1,6 +1,9 @@
 @import "tailwindcss";
 /* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"); */
 
+/* Define dark mode variant for Tailwind CSS v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Colors - using oklch for better color manipulation in v4 */
   --color-background: hsl(0 0% 100%);

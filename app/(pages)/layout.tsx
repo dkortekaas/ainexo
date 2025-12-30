@@ -107,7 +107,7 @@ function AppLayoutContent({
       />
 
       {/* Main content area - constrain width to prevent horizontal overflow */}
-      <div className="flex-1 flex flex-col min-h-screen w-full">
+      <div className="flex-1 flex flex-col min-h-screen">
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
         {hasValidSubscription === false && (

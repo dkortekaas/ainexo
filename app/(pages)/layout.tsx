@@ -201,8 +201,7 @@ function AppLayoutContent({
               <Link
                 href="/admin"
                 className={`flex flex-col items-center justify-center text-xs ${
-                  typeof window !== "undefined" &&
-                  window.location.pathname === "/admin"
+                  pathname === "/admin"
                     ? "text-primary"
                     : "text-gray-500 dark:text-gray-400"
                 }`}
@@ -215,8 +214,7 @@ function AppLayoutContent({
             <Link
               href="/notifications"
               className={`flex flex-col items-center justify-center text-xs ${
-                typeof window !== "undefined" &&
-                window.location.pathname === "/notifications"
+                pathname === "/notifications"
                   ? "text-primary"
                   : "text-gray-500 dark:text-gray-400"
               }`}
@@ -228,8 +226,7 @@ function AppLayoutContent({
             <Link
               href="/settings"
               className={`flex flex-col items-center justify-center text-xs ${
-                typeof window !== "undefined" &&
-                window.location.pathname === "/settings"
+                pathname === "/settings"
                   ? "text-primary"
                   : "text-gray-500 dark:text-gray-400"
               }`}

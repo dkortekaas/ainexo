@@ -31,17 +31,23 @@ export function TrialGuard({
   useEffect(() => {
     if (loading) return;
 
-    // Check if subscription is expired or inactive
-    if (subscriptionStatus?.isExpired || !subscriptionStatus?.isActive) {
+    // Only redirect if subscription status is loaded AND explicitly expired
+    // Don't redirect if subscriptionStatus is null (still loading/error state)
+    if (!subscriptionStatus) {
+      return;
+    }
+
+    // Only redirect if subscription is explicitly expired (trial ended or subscription ended AND grace period ended)
+    if (subscriptionStatus.isExpired) {
       console.log(
-        "🚫 Subscription expired or inactive - redirecting to subscription page"
+        "🚫 Subscription expired - redirecting to subscription page"
       );
       router.push(redirectUrl);
       return;
     }
 
-    // If specific feature check requested
-    if (feature && subscriptionStatus) {
+    // If specific feature check requested and subscription is not active
+    if (feature && !subscriptionStatus.isActive) {
       let canAccess = false;
 
       switch (feature) {
@@ -76,8 +82,8 @@ export function TrialGuard({
     );
   }
 
-  // If subscription expired or inactive, show nothing (redirect is happening)
-  if (subscriptionStatus?.isExpired || !subscriptionStatus?.isActive) {
+  // If subscription is explicitly expired, show redirect message
+  if (subscriptionStatus?.isExpired) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">

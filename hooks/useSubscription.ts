@@ -28,11 +28,26 @@ export function useSubscription() {
           const data = await response.json();
           // Convert the API response to our SubscriptionStatus format
           const isTrial = data.user.subscriptionStatus === "TRIAL";
-          const isActive = data.user.subscriptionStatus === "ACTIVE";
-          const isExpired = isTrial ? !data.user.isTrialActive : false;
+          const isActiveSubscription = data.user.subscriptionStatus === "ACTIVE";
+          const gracePeriod = data.user.gracePeriod;
 
-          // Consider trial as active if not expired
-          const isEffectivelyActive = (isTrial && !isExpired) || (isActive && !isExpired);
+          // Check if trial is expired
+          const isTrialExpired = isTrial && !data.user.isTrialActive;
+
+          // Check if paid subscription is expired (past subscription end date and grace period ended)
+          const isSubscriptionExpired = isActiveSubscription &&
+            data.user.subscriptionEndDate &&
+            new Date(data.user.subscriptionEndDate) < new Date() &&
+            !gracePeriod?.isInGracePeriod;
+
+          // Combined expired check - only expired if trial ended OR subscription ended AND grace period ended
+          const isExpired = isTrialExpired || isSubscriptionExpired;
+
+          // Consider active if:
+          // - Trial is active (not expired)
+          // - OR subscription is active (even if in grace period)
+          const isEffectivelyActive = (isTrial && !isTrialExpired) ||
+            (isActiveSubscription && (!isSubscriptionExpired || gracePeriod?.isInGracePeriod));
 
           const status: SubscriptionStatus = {
             isActive: isEffectivelyActive,
@@ -43,15 +58,9 @@ export function useSubscription() {
             subscriptionEndDate: data.user.subscriptionEndDate
               ? new Date(data.user.subscriptionEndDate)
               : null,
-            canCreateAssistant:
-              data.user.subscriptionStatus !== "TRIAL" ||
-              data.user.isTrialActive,
-            canCreateDocument:
-              data.user.subscriptionStatus !== "TRIAL" ||
-              data.user.isTrialActive,
-            canCreateWebsite:
-              data.user.subscriptionStatus !== "TRIAL" ||
-              data.user.isTrialActive,
+            canCreateAssistant: isEffectivelyActive,
+            canCreateDocument: isEffectivelyActive,
+            canCreateWebsite: isEffectivelyActive,
             assistantsLimit: data.user.currentPlan?.limits?.assistants || 1,
             documentsLimit:
               data.user.currentPlan?.limits?.documentsPerAssistant || 10,
@@ -132,11 +141,24 @@ export function useSubscription() {
       if (response.ok) {
         const data = await response.json();
         const isTrial = data.user.subscriptionStatus === "TRIAL";
-        const isActive = data.user.subscriptionStatus === "ACTIVE";
-        const isExpired = isTrial ? !data.user.isTrialActive : false;
+        const isActiveSubscription = data.user.subscriptionStatus === "ACTIVE";
+        const gracePeriod = data.user.gracePeriod;
 
-        // Consider trial as active if not expired
-        const isEffectivelyActive = (isTrial && !isExpired) || (isActive && !isExpired);
+        // Check if trial is expired
+        const isTrialExpired = isTrial && !data.user.isTrialActive;
+
+        // Check if paid subscription is expired (past subscription end date and grace period ended)
+        const isSubscriptionExpired = isActiveSubscription &&
+          data.user.subscriptionEndDate &&
+          new Date(data.user.subscriptionEndDate) < new Date() &&
+          !gracePeriod?.isInGracePeriod;
+
+        // Combined expired check
+        const isExpired = isTrialExpired || isSubscriptionExpired;
+
+        // Consider active if trial is active OR subscription is active (even if in grace period)
+        const isEffectivelyActive = (isTrial && !isTrialExpired) ||
+          (isActiveSubscription && (!isSubscriptionExpired || gracePeriod?.isInGracePeriod));
 
         const status: SubscriptionStatus = {
           isActive: isEffectivelyActive,
@@ -147,12 +169,9 @@ export function useSubscription() {
           subscriptionEndDate: data.user.subscriptionEndDate
             ? new Date(data.user.subscriptionEndDate)
             : null,
-          canCreateAssistant:
-            data.user.subscriptionStatus !== "TRIAL" || data.user.isTrialActive,
-          canCreateDocument:
-            data.user.subscriptionStatus !== "TRIAL" || data.user.isTrialActive,
-          canCreateWebsite:
-            data.user.subscriptionStatus !== "TRIAL" || data.user.isTrialActive,
+          canCreateAssistant: isEffectivelyActive,
+          canCreateDocument: isEffectivelyActive,
+          canCreateWebsite: isEffectivelyActive,
           assistantsLimit: data.user.currentPlan?.limits?.assistants || 1,
           documentsLimit:
             data.user.currentPlan?.limits?.documentsPerAssistant || 10,

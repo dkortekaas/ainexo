@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Externalize jsdom to avoid ES module issues in serverless
-  serverComponentsExternalPackages: ["jsdom"],
+  serverExternalPackages: ["jsdom"],
   // Performance optimizations
   images: {
     formats: ["image/webp", "image/avif"],

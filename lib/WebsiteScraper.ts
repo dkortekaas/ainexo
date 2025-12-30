@@ -13,15 +13,36 @@ export interface ScrapedWebsite {
   errors: string[];
 }
 
+export interface ScraperOptions {
+  maxPages?: number;
+  maxDepth?: number;
+  timeout?: number;
+  retries?: number;
+  retryDelay?: number;
+  concurrentRequests?: number;
+}
+
+const DEFAULT_OPTIONS: Required<ScraperOptions> = {
+  maxPages: 10,
+  maxDepth: 2,
+  timeout: 45000, // 45 seconds - increased for slow websites
+  retries: 3, // Retry failed requests up to 3 times
+  retryDelay: 2000, // Wait 2 seconds between retries
+  concurrentRequests: 3, // Limit concurrent requests to reduce load
+};
+
 export class WebsiteScraper {
-  private maxPages: number;
-  private maxDepth: number;
+  private options: Required<ScraperOptions>;
   private visitedUrls: Set<string>;
   private baseDomain!: string;
 
-  constructor(maxPages: number = 10, maxDepth: number = 2) {
-    this.maxPages = maxPages;
-    this.maxDepth = maxDepth;
+  constructor(maxPages?: number, maxDepth?: number, options?: ScraperOptions) {
+    this.options = {
+      ...DEFAULT_OPTIONS,
+      ...options,
+      maxPages: maxPages ?? options?.maxPages ?? DEFAULT_OPTIONS.maxPages,
+      maxDepth: maxDepth ?? options?.maxDepth ?? DEFAULT_OPTIONS.maxDepth,
+    };
     this.visitedUrls = new Set();
   }
 
@@ -48,6 +69,93 @@ export class WebsiteScraper {
     return result;
   }
 
+  /**
+   * Fetch a URL with retry logic and proper timeout handling
+   */
+  private async fetchWithRetry(
+    url: string,
+    retryCount: number = 0
+  ): Promise<{ html: string; response: Response }> {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), this.options.timeout);
+
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          Accept:
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+          "Accept-Language": "en-US,en;q=0.5,nl;q=0.3",
+          "Accept-Encoding": "gzip, deflate, br",
+          Connection: "keep-alive",
+          "Upgrade-Insecure-Requests": "1",
+          "Cache-Control": "no-cache",
+        },
+        signal: controller.signal,
+        redirect: "follow",
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      // Read body with a separate timeout for large responses
+      const bodyController = new AbortController();
+      const bodyTimeoutId = setTimeout(
+        () => bodyController.abort(),
+        this.options.timeout
+      );
+
+      try {
+        const html = await response.text();
+        clearTimeout(bodyTimeoutId);
+        return { html, response };
+      } catch (bodyError) {
+        clearTimeout(bodyTimeoutId);
+        throw bodyError;
+      }
+    } catch (error) {
+      clearTimeout(timeoutId);
+
+      // Check if we should retry
+      const isTimeoutError =
+        error instanceof Error &&
+        (error.name === "AbortError" ||
+          error.message.includes("timeout") ||
+          error.message.includes("aborted"));
+
+      const isNetworkError =
+        error instanceof Error &&
+        (error.message.includes("ECONNRESET") ||
+          error.message.includes("ECONNREFUSED") ||
+          error.message.includes("ETIMEDOUT") ||
+          error.message.includes("network"));
+
+      if (
+        (isTimeoutError || isNetworkError) &&
+        retryCount < this.options.retries
+      ) {
+        console.log(
+          `Retry ${retryCount + 1}/${this.options.retries} for ${url} after ${this.options.retryDelay}ms`
+        );
+        await this.delay(this.options.retryDelay * (retryCount + 1)); // Exponential backoff
+        return this.fetchWithRetry(url, retryCount + 1);
+      }
+
+      throw error;
+    }
+  }
+
+  /**
+   * Simple delay helper
+   */
+  private delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   private async scrapePage(
     url: string,
     depth: number,
@@ -55,8 +163,8 @@ export class WebsiteScraper {
   ): Promise<void> {
     // Check limits
     if (
-      depth > this.maxDepth ||
-      result.pages.length >= this.maxPages ||
+      depth > this.options.maxDepth ||
+      result.pages.length >= this.options.maxPages ||
       this.visitedUrls.has(url)
     ) {
       return;
@@ -65,29 +173,8 @@ export class WebsiteScraper {
     this.visitedUrls.add(url);
 
     try {
-      // Increased timeout to 30 seconds for slower websites
-      // Note: Vercel serverless functions have a max timeout of 10s (Hobby) or 60s (Pro)
-      const timeoutMs = 30000; // 30 seconds
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
-
-      const response = await fetch(url, {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        },
-        signal: controller.signal,
-      });
-
-      if (!response.ok) {
-        clearTimeout(timeoutId);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      // Read response body
-      // Note: Large responses may take time, but the fetch timeout above should handle slow responses
-      const html = await response.text();
-      clearTimeout(timeoutId);
+      // Use the new fetchWithRetry method for robust fetching
+      const { html } = await this.fetchWithRetry(url);
 
       // Try to use jsdom, but fallback to simple parsing if it fails (e.g., in serverless)
       let document: Document;
@@ -125,7 +212,7 @@ export class WebsiteScraper {
       result.pages.push(scrapedPage);
 
       // Recursively scrape found links (same domain only)
-      if (depth < this.maxDepth) {
+      if (depth < this.options.maxDepth) {
         const sameDomainLinks = links.filter((link) => {
           try {
             return new URL(link).hostname === this.baseDomain;
@@ -134,11 +221,31 @@ export class WebsiteScraper {
           }
         });
 
-        // Limit concurrent requests
-        const linksToScrape = sameDomainLinks.slice(0, 5); // Max 5 concurrent
-        await Promise.allSettled(
-          linksToScrape.map((link) => this.scrapePage(link, depth + 1, result))
+        // Process links in batches to limit concurrent requests
+        const linksToScrape = sameDomainLinks.slice(
+          0,
+          this.options.maxPages - result.pages.length
         );
+
+        // Process in batches based on concurrentRequests option
+        for (
+          let i = 0;
+          i < linksToScrape.length;
+          i += this.options.concurrentRequests
+        ) {
+          const batch = linksToScrape.slice(
+            i,
+            i + this.options.concurrentRequests
+          );
+          await Promise.allSettled(
+            batch.map((link) => this.scrapePage(link, depth + 1, result))
+          );
+
+          // Small delay between batches to be respectful to the server
+          if (i + this.options.concurrentRequests < linksToScrape.length) {
+            await this.delay(500);
+          }
+        }
       }
     } catch (error) {
       // Handle timeout errors specifically
@@ -149,7 +256,7 @@ export class WebsiteScraper {
           error.message.includes("timeout") ||
           error.message.includes("aborted")
         ) {
-          errorMessage = `Request timeout: The website took too long to respond (${url})`;
+          errorMessage = `Request timeout: The website took too long to respond after ${this.options.retries} retries (${url})`;
         } else {
           errorMessage = `Failed to scrape ${url}: ${error.message}`;
         }

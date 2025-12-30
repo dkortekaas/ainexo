@@ -387,11 +387,11 @@ export async function POST(request: NextRequest) {
             hasCustomPrompt: !!chatbotSettings.mainPrompt,
           });
 
-          // Get conversation history for context (last 6 messages = 3 exchanges)
+          // Get conversation history for context (last 10 messages = 5 exchanges for better context)
           const conversationHistory = await db.conversationMessage.findMany({
             where: { sessionId: finalSessionId },
             orderBy: { createdAt: "desc" },
-            take: 6,
+            take: 10,
             select: {
               messageType: true,
               content: true,
@@ -422,8 +422,8 @@ export async function POST(request: NextRequest) {
           });
 
           // Only accept AI response if confidence is high enough
-          // Raised threshold to 0.5 (50%) for better quality responses
-          if (aiResponse.confidence >= 0.5) {
+          // Raised threshold to 0.55 (55%) for better quality responses
+          if (aiResponse.confidence >= 0.55) {
             answer = aiResponse.answer;
             tokensUsed = aiResponse.tokensUsed;
             confidence = aiResponse.confidence;

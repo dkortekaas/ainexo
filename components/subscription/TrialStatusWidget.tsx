@@ -90,8 +90,8 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
   if (loading) {
     return (
       <Card className="p-6 animate-pulse">
-        <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
-        <div className="h-8 bg-gray-200 rounded w-3/4"></div>
+        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-4"></div>
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
       </Card>
     );
   }
@@ -119,28 +119,28 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
     totalDays > 0 ? ((totalDays - daysRemaining) / totalDays) * 100 : 0;
 
   // Determine status
-  let statusColor = "text-blue-600";
-  let statusBg = "bg-blue-50";
-  let statusBorder = "border-blue-200";
+  let statusColor = "text-blue-600 dark:text-blue-400";
+  let statusBg = "bg-blue-50 dark:bg-blue-900/20";
+  let statusBorder = "border-blue-200 dark:border-blue-800";
   let statusIcon = <Clock className="w-5 h-5" />;
   let statusText = "Trial Actief";
 
   if (isInGracePeriod) {
-    statusColor = "text-orange-600";
-    statusBg = "bg-orange-50";
-    statusBorder = "border-orange-200";
+    statusColor = "text-orange-600 dark:text-orange-400";
+    statusBg = "bg-orange-50 dark:bg-orange-900/20";
+    statusBorder = "border-orange-200 dark:border-orange-800";
     statusIcon = <AlertTriangle className="w-5 h-5" />;
     statusText = "Grace Period";
   } else if (daysRemaining <= 3 && daysRemaining > 0) {
-    statusColor = "text-yellow-600";
-    statusBg = "bg-yellow-50";
-    statusBorder = "border-yellow-200";
+    statusColor = "text-yellow-600 dark:text-yellow-400";
+    statusBg = "bg-yellow-50 dark:bg-yellow-900/20";
+    statusBorder = "border-yellow-200 dark:border-yellow-800";
     statusIcon = <AlertTriangle className="w-5 h-5" />;
     statusText = "Verloopt Binnenkort";
   } else if (daysRemaining === 0) {
-    statusColor = "text-red-600";
-    statusBg = "bg-red-50";
-    statusBorder = "border-red-200";
+    statusColor = "text-red-600 dark:text-red-400";
+    statusBg = "bg-red-50 dark:bg-red-900/20";
+    statusBorder = "border-red-200 dark:border-red-800";
     statusIcon = <AlertTriangle className="w-5 h-5" />;
     statusText = "Verlopen";
   }
@@ -157,7 +157,7 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
           <div className="flex items-center space-x-3">
             <div className={statusColor}>{statusIcon}</div>
             <div>
-              <p className="text-sm font-medium text-gray-900">Trial</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Trial</p>
               {timeRemaining && timeRemaining.days > 0 ? (
                 <p className={`text-xs ${statusColor}`}>
                   {timeRemaining.days} dag{timeRemaining.days === 1 ? "" : "en"}{" "}
@@ -187,8 +187,8 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
     <Card className={`p-6 ${statusBg} border ${statusBorder}`}>
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">Trial Status</h3>
-          <p className="text-sm text-gray-600 mt-1">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Trial Status</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
             {isInGracePeriod
               ? "Je trial is verlopen, maar je hebt nog tijdelijk toegang"
               : "Je proefperiode loopt nog"}
@@ -210,27 +210,27 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
               {daysRemaining > 0 ? (
                 <>
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-3xl font-bold text-gray-900">
+                    <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                       {timeRemaining.days}
                     </span>
-                    <span className="text-sm text-gray-600">dagen</span>
-                    <span className="text-2xl font-bold text-gray-700">:</span>
-                    <span className="text-3xl font-bold text-gray-900">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">dagen</span>
+                    <span className="text-2xl font-bold text-gray-700 dark:text-gray-300">:</span>
+                    <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                       {String(timeRemaining.hours).padStart(2, "0")}
                     </span>
-                    <span className="text-sm text-gray-600">uur</span>
-                    <span className="text-2xl font-bold text-gray-700">:</span>
-                    <span className="text-3xl font-bold text-gray-900">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">uur</span>
+                    <span className="text-2xl font-bold text-gray-700 dark:text-gray-300">:</span>
+                    <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                       {String(timeRemaining.minutes).padStart(2, "0")}
                     </span>
-                    <span className="text-sm text-gray-600">min</span>
-                    <span className="text-2xl font-bold text-gray-700">:</span>
-                    <span className="text-3xl font-bold text-gray-900">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">min</span>
+                    <span className="text-2xl font-bold text-gray-700 dark:text-gray-300">:</span>
+                    <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                       {String(timeRemaining.seconds).padStart(2, "0")}
                     </span>
-                    <span className="text-sm text-gray-600">sec</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">sec</span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                     Verloopt op{" "}
                     {trialData.trialEndDate
                       ? new Date(trialData.trialEndDate).toLocaleDateString(
@@ -247,7 +247,7 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
                   </p>
                 </>
               ) : (
-                <span className="text-xl font-bold text-red-600">
+                <span className="text-xl font-bold text-red-600 dark:text-red-400">
                   Trial Verlopen
                 </span>
               )}
@@ -268,7 +268,7 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
                       : "bg-blue-500"
                 }
               />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {Math.round(progress)}% van trial verbruikt
               </p>
             </div>
@@ -278,8 +278,8 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
 
       {/* Grace Period Warning */}
       {isInGracePeriod && (
-        <div className="mb-4 p-3 bg-orange-50 border border-orange-200 rounded-lg">
-          <p className="text-sm text-orange-900">
+        <div className="mb-4 p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
+          <p className="text-sm text-orange-900 dark:text-orange-300">
             <strong>Let op:</strong> Je trial is verlopen. Je hebt nog{" "}
             {trialData.gracePeriod?.daysRemaining || 0}{" "}
             {trialData.gracePeriod?.daysRemaining === 1 ? "dag" : "dagen"}{" "}
@@ -300,8 +300,8 @@ export function TrialStatusWidget({ compact = false }: TrialStatusWidgetProps) {
 
       {/* Warning Message */}
       {daysRemaining > 0 && daysRemaining <= 3 && !isInGracePeriod && (
-        <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-xs text-yellow-900">
+        <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+          <p className="text-xs text-yellow-900 dark:text-yellow-300">
             ⚠️ <strong>Waarschuwing:</strong> Je trial verloopt binnenkort.
             Upgrade nu om geen onderbreking te ervaren.
           </p>

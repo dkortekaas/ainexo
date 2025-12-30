@@ -48,8 +48,8 @@ export function DeleteConfirmationModal({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
-              <AlertTriangle className="h-5 w-5 text-red-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
+              <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400" />
             </div>
             <div>
               <DialogTitle className="text-left">{title}</DialogTitle>
@@ -61,8 +61,8 @@ export function DeleteConfirmationModal({
         </DialogHeader>
 
         <div className="py-4">
-          <div className="rounded-lg bg-gray-50 p-4">
-            <p className="text-sm text-gray-600">
+          <div className="rounded-lg bg-gray-50 dark:bg-gray-800 p-4">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               <span className="font-medium">{t("common.item") || "Item"}:</span>{" "}
               {itemName || t("common.unnamed") || "Unnamed"}
             </p>

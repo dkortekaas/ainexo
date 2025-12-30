@@ -27,7 +27,7 @@ const renderContent = (text: string) => {
   // Basic markdown support: **bold**, *italic*, [links](url)
   // For full markdown support, consider adding react-markdown library
   return (
-    <div className="prose prose-sm max-w-none text-gray-900">
+    <div className="prose prose-sm max-w-none text-gray-900 dark:text-gray-100">
       <div className="whitespace-pre-wrap">{text}</div>
     </div>
   );
@@ -58,7 +58,7 @@ export function FAQPreviewModal({
         <div className="space-y-6 py-4">
           {/* Status Badge */}
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {t("knowledgebase.status") || "Status"}:
             </span>
             <Badge
@@ -81,11 +81,11 @@ export function FAQPreviewModal({
 
           {/* Question */}
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
               {t("knowledgebase.question")}
             </h3>
-            <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <p className="text-lg font-medium text-gray-900">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <p className="text-lg font-medium text-gray-900 dark:text-gray-100">
                 {faq.question}
               </p>
             </div>
@@ -93,17 +93,17 @@ export function FAQPreviewModal({
 
           {/* Answer */}
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
               {t("knowledgebase.answer")}
             </h3>
-            <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
               {renderContent(faq.answer)}
             </div>
           </div>
 
           {/* Metadata */}
-          <div className="pt-4 border-t border-gray-200">
-            <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
+          <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
               <div>
                 <span className="font-medium">
                   {t("knowledgebase.order") || "Volgorde"}:

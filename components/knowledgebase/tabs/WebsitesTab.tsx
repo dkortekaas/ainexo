@@ -183,25 +183,25 @@ export function WebsitesTab() {
     switch (status) {
       case "COMPLETED":
         return (
-          <Badge className="bg-green-100 text-green-800">
+          <Badge className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
             ✓ {t("knowledgebase.completed")}
           </Badge>
         );
       case "PENDING":
         return (
-          <Badge className="bg-yellow-100 text-yellow-800">
+          <Badge className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400">
             {t("knowledgebase.pending")}
           </Badge>
         );
       case "SYNCING":
         return (
-          <Badge className="bg-blue-100 text-blue-800">
+          <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400">
             {t("knowledgebase.syncing")}
           </Badge>
         );
       case "ERROR":
         return (
-          <Badge className="bg-red-100 text-red-800">
+          <Badge className="bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400">
             {t("knowledgebase.error")}
           </Badge>
         );
@@ -230,12 +230,12 @@ export function WebsitesTab() {
     return (
       <div className="space-y-6">
         <div className="text-center py-12">
-          <div className="text-gray-500 mb-4">
-            <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <div className="text-gray-500 dark:text-gray-400 mb-4">
+            <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300 dark:text-gray-600" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
               {t("knowledgebase.noAssistantSelected")}
             </h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {t("knowledgebase.noAssistantSelectedDescription")}
             </p>
           </div>
@@ -248,10 +248,10 @@ export function WebsitesTab() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {t("knowledgebase.websites")}
           </h2>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {t("knowledgebase.websitesDescription")}{" "}
             <strong>{currentAssistant.name}</strong>.
           </p>
@@ -270,37 +270,37 @@ export function WebsitesTab() {
       <Card>
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-50 dark:bg-gray-800">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t("knowledgebase.url")}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t("knowledgebase.pages")}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t("knowledgebase.syncSpeed")}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t("knowledgebase.syncInterval")}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t("knowledgebase.lastSync")}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t("knowledgebase.status")}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t("knowledgebase.actions")}
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
               {isLoading ? (
                 <tr>
                   <td
                     colSpan={7}
-                    className="px-6 py-8 text-center text-gray-500"
+                    className="px-6 py-8 text-center text-gray-500 dark:text-gray-400"
                   >
                     {t("knowledgebase.loadingWebsites")}
                   </td>
@@ -309,48 +309,48 @@ export function WebsitesTab() {
                 <tr>
                   <td
                     colSpan={7}
-                    className="px-6 py-8 text-center text-gray-500"
+                    className="px-6 py-8 text-center text-gray-500 dark:text-gray-400"
                   >
                     {t("knowledgebase.noWebsitesAdded")}
                   </td>
                 </tr>
               ) : (
                 websites.map((website) => (
-                  <tr key={website.id} className="hover:bg-gray-50">
+                  <tr key={website.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <ExternalLink className="w-4 h-4 text-gray-400 mr-2" />
+                        <ExternalLink className="w-4 h-4 text-gray-400 dark:text-gray-500 mr-2" />
                         <div>
                           <button
                             onClick={() => handleEditWebsite(website)}
-                            className="text-primary hover:text-blue-800 font-medium text-left"
+                            className="text-primary hover:text-blue-800 dark:hover:text-blue-400 font-medium text-left"
                           >
                             {website.url}
                           </button>
                           {website.name && (
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-gray-500 dark:text-gray-400">
                               {website.name}
                             </div>
                           )}
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                       {website.pageCount}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                       {website.syncSpeed ? website.syncSpeed.toFixed(2) : "-"}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                       {website.syncInterval}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                       {formatLastSync(website.lastSync)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {getStatusBadge(website.status)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon">

@@ -356,12 +356,12 @@ export function FaqsTab() {
     return (
       <div className="space-y-6">
         <div className="text-center py-12">
-          <div className="text-gray-500 mb-4">
-            <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <div className="text-gray-500 dark:text-gray-400 mb-4">
+            <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300 dark:text-gray-600" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
               {t("knowledgebase.noAssistantSelected")}
             </h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {t("knowledgebase.noAssistantSelectedDescription")}
             </p>
           </div>
@@ -374,10 +374,10 @@ export function FaqsTab() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {t("knowledgebase.faqs")}
           </h2>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {t("knowledgebase.faqsDescription")}{" "}
             <strong>{currentAssistant.name}</strong>.
           </p>
@@ -452,7 +452,7 @@ export function FaqsTab() {
 
       {/* Results count */}
       {!isLoading && (
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-gray-500 dark:text-gray-400">
           {filteredAndSortedFAQs.length === 0
             ? t("common.noResults") || "Geen resultaten gevonden"
             : `${filteredAndSortedFAQs.length} ${t("common.results") || "resultaten"}`}
@@ -464,40 +464,40 @@ export function FaqsTab() {
         <Card>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     <button
                       onClick={() => handleSort("question")}
-                      className="flex items-center hover:text-gray-700"
+                      className="flex items-center hover:text-gray-700 dark:hover:text-gray-200"
                     >
                       {t("knowledgebase.question")}
                       <SortIcon field="question" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     {t("knowledgebase.enabled")}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     <button
                       onClick={() => handleSort("updatedAt")}
-                      className="flex items-center hover:text-gray-700"
+                      className="flex items-center hover:text-gray-700 dark:hover:text-gray-200"
                     >
                       {t("knowledgebase.modified")}
                       <SortIcon field="updatedAt" />
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     {t("common.actions")}
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                 {isLoading ? (
                   <tr>
                     <td
                       colSpan={4}
-                      className="px-6 py-8 text-center text-gray-500"
+                      className="px-6 py-8 text-center text-gray-500 dark:text-gray-400"
                     >
                       {t("knowledgebase.loadingFAQs")}
                     </td>
@@ -506,17 +506,17 @@ export function FaqsTab() {
                   <tr>
                     <td
                       colSpan={4}
-                      className="px-6 py-12 text-center text-gray-500"
+                      className="px-6 py-12 text-center text-gray-500 dark:text-gray-400"
                     >
-                      <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                      <p className="text-sm font-medium text-gray-900 mb-1">
+                      <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300 dark:text-gray-600" />
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
                         {searchQuery
                           ? t("common.noSearchResults") ||
                             "Geen resultaten gevonden"
                           : t("knowledgebase.noFAQsAdded")}
                       </p>
                       {!searchQuery && (
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           {t("knowledgebase.addFirstFAQ") ||
                             "Voeg je eerste FAQ toe om te beginnen"}
                         </p>
@@ -525,9 +525,9 @@ export function FaqsTab() {
                   </tr>
                 ) : (
                   paginatedFAQs.map((faq) => (
-                    <tr key={faq.id} className="hover:bg-gray-50">
+                    <tr key={faq.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
                       <td className="px-6 py-4">
-                        <div className="text-sm font-medium text-gray-900 max-w-md">
+                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100 max-w-md">
                           {faq.question}
                         </div>
                       </td>
@@ -538,10 +538,10 @@ export function FaqsTab() {
                           className="data-[state=checked]:bg-primary"
                         />
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                         {formatModifiedDate(faq.updatedAt)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="icon">
@@ -590,19 +590,19 @@ export function FaqsTab() {
       {layoutView === "cards" && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {isLoading ? (
-            <div className="col-span-full text-center py-12 text-gray-500">
+            <div className="col-span-full text-center py-12 text-gray-500 dark:text-gray-400">
               {t("knowledgebase.loadingFAQs")}
             </div>
           ) : paginatedFAQs.length === 0 ? (
             <div className="col-span-full text-center py-12">
-              <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-              <p className="text-sm font-medium text-gray-900 mb-1">
+              <Bot className="w-12 h-12 mx-auto mb-4 text-gray-300 dark:text-gray-600" />
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">
                 {searchQuery
                   ? t("common.noSearchResults") || "Geen resultaten gevonden"
                   : t("knowledgebase.noFAQsAdded")}
               </p>
               {!searchQuery && (
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {t("knowledgebase.addFirstFAQ") ||
                     "Voeg je eerste FAQ toe om te beginnen"}
                 </p>
@@ -615,7 +615,7 @@ export function FaqsTab() {
                 className="p-4 hover:shadow-md transition-shadow"
               >
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-sm font-medium text-gray-900 line-clamp-2 flex-1">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 line-clamp-2 flex-1">
                     {faq.question}
                   </h3>
                   <DropdownMenu>
@@ -647,23 +647,23 @@ export function FaqsTab() {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                <p className="text-xs text-gray-600 line-clamp-3 mb-3">
+                <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-3 mb-3">
                   {faq.answer}
                 </p>
-                <div className="flex items-center justify-between pt-3 border-t">
+                <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-2">
                     <Switch
                       checked={faq.enabled}
                       onCheckedChange={() => toggleEnabled(faq)}
                       className="data-[state=checked]:bg-primary"
                     />
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
                       {faq.enabled
                         ? t("common.enabled") || "Actief"
                         : t("common.disabled") || "Inactief"}
                     </span>
                   </div>
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
                     {formatModifiedDate(faq.updatedAt)}
                   </span>
                 </div>
@@ -676,7 +676,7 @@ export function FaqsTab() {
       {/* Pagination */}
       {!isLoading && filteredAndSortedFAQs.length > ITEMS_PER_PAGE && (
         <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-500 dark:text-gray-400">
             {t("common.showing") || "Toont"} {startIndex + 1} -{" "}
             {Math.min(endIndex, filteredAndSortedFAQs.length)}{" "}
             {t("common.of") || "van"} {filteredAndSortedFAQs.length}

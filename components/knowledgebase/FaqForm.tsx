@@ -275,7 +275,7 @@ export function FAQForm({ isOpen, onClose, onSuccess, faq }: FAQFormProps) {
               disabled={isLoading}
               min="0"
             />
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {t("knowledgebase.orderDescription")}
             </p>
           </div>

@@ -148,13 +148,13 @@ export default function WebsiteContentPage() {
   const getStatusIcon = (status: Website["status"]) => {
     switch (status) {
       case "COMPLETED":
-        return <CheckCircle className="w-4 h-4 text-green-600" />;
+        return <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />;
       case "PENDING":
-        return <Clock className="w-4 h-4 text-yellow-600" />;
+        return <Clock className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />;
       case "SYNCING":
         return <RefreshCw className="w-4 h-4 text-primary animate-spin" />;
       case "ERROR":
-        return <AlertCircle className="w-4 h-4 text-red-600" />;
+        return <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400" />;
     }
   };
 
@@ -162,14 +162,14 @@ export default function WebsiteContentPage() {
     switch (status) {
       case "COMPLETED":
         return (
-          <Badge className="bg-green-100 text-green-800">✓ Completed</Badge>
+          <Badge className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">✓ Completed</Badge>
         );
       case "PENDING":
-        return <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>;
+        return <Badge className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400">Pending</Badge>;
       case "SYNCING":
-        return <Badge className="bg-blue-100 text-blue-800">Syncing</Badge>;
+        return <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400">Syncing</Badge>;
       case "ERROR":
-        return <Badge className="bg-red-100 text-red-800">Error</Badge>;
+        return <Badge className="bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400">Error</Badge>;
     }
   };
 
@@ -187,11 +187,11 @@ export default function WebsiteContentPage() {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back
             </Button>
-            <div className="h-6 bg-gray-200 rounded w-48 animate-pulse"></div>
+            <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-48 animate-pulse"></div>
           </div>
           <div className="space-y-4">
-            <div className="h-32 bg-gray-200 rounded animate-pulse"></div>
-            <div className="h-64 bg-gray-200 rounded animate-pulse"></div>
+            <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
           </div>
         </div>
       </TrialGuard>
@@ -209,11 +209,11 @@ export default function WebsiteContentPage() {
             </Button>
           </div>
           <div className="text-center py-12">
-            <AlertCircle className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <AlertCircle className="w-12 h-12 mx-auto mb-4 text-gray-400 dark:text-gray-600" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
               {t("website.notFound")}
             </h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {t("website.notFoundDescription")}
             </p>
           </div>
@@ -233,16 +233,16 @@ export default function WebsiteContentPage() {
               Back
             </Button>
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900">
+              <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {website.name || t("website.content")}
               </h1>
               <div className="flex items-center gap-2 mt-1">
-                <ExternalLink className="w-4 h-4 text-gray-400" />
+                <ExternalLink className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                 <a
                   href={website.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-primary hover:text-indigo-800"
+                  className="text-sm text-primary hover:text-indigo-800 dark:hover:text-indigo-400"
                 >
                   {website.url}
                 </a>
@@ -269,35 +269,35 @@ export default function WebsiteContentPage() {
         <Card className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">
+              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">
                 {t("website.pagesScraped")}
               </h3>
-              <p className="text-2xl font-semibold text-gray-900">
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {website.pageCount}
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">
+              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">
                 {t("website.lastSync")}
               </h3>
-              <p className="text-sm text-gray-900">
+              <p className="text-sm text-gray-900 dark:text-gray-100">
                 {formatDate(website.lastSync)}
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-1">
+              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">
                 {t("website.syncInterval")}
               </h3>
-              <p className="text-sm text-gray-900 capitalize">
+              <p className="text-sm text-gray-900 dark:text-gray-100 capitalize">
                 {website.syncInterval}
               </p>
             </div>
           </div>
           {website.errorMessage && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md overflow-hidden">
+            <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md overflow-hidden">
               <div className="flex items-start">
-                <AlertCircle className="w-4 h-4 text-red-600 mr-2 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-red-800 break-words min-w-0">{website.errorMessage}</p>
+                <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 mr-2 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-red-800 dark:text-red-300 break-words min-w-0">{website.errorMessage}</p>
               </div>
             </div>
           )}
@@ -307,13 +307,13 @@ export default function WebsiteContentPage() {
         {website.scrapedContent && (
           <Card className="p-6 overflow-hidden">
             <div className="flex items-center gap-2 mb-4">
-              <FileText className="w-5 h-5 text-gray-600" />
-              <h2 className="text-lg font-semibold text-gray-900">
+              <FileText className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {t("website.scrapedContent")}
               </h2>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 max-h-96 overflow-auto">
-              <pre className="whitespace-pre-wrap break-words text-sm text-gray-700 font-mono max-w-full overflow-x-hidden">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 max-h-96 overflow-auto">
+              <pre className="whitespace-pre-wrap break-words text-sm text-gray-700 dark:text-gray-300 font-mono max-w-full overflow-x-hidden">
                 {website.scrapedContent}
               </pre>
             </div>
@@ -324,8 +324,8 @@ export default function WebsiteContentPage() {
         {website.scrapedLinks && website.scrapedLinks.length > 0 && (
           <Card className="p-6 overflow-hidden">
             <div className="flex items-center gap-2 mb-4">
-              <LinkIcon className="w-5 h-5 text-gray-600" />
-              <h2 className="text-lg font-semibold text-gray-900">
+              <LinkIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {t("website.foundLinks")} ({website.scrapedLinks.length})
               </h2>
             </div>
@@ -333,14 +333,14 @@ export default function WebsiteContentPage() {
               {website.scrapedLinks.map((link, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-2 p-2 bg-gray-50 rounded border min-w-0 overflow-hidden"
+                  className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 min-w-0 overflow-hidden"
                 >
-                  <ExternalLink className="w-3 h-3 text-gray-400 flex-shrink-0" />
+                  <ExternalLink className="w-3 h-3 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                   <a
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-primary hover:text-indigo-800 truncate min-w-0"
+                    className="text-sm text-primary hover:text-indigo-800 dark:hover:text-indigo-400 truncate min-w-0"
                   >
                     {link}
                   </a>
@@ -354,20 +354,20 @@ export default function WebsiteContentPage() {
         {pages.length > 0 && (
           <Card className="p-6 overflow-hidden">
             <div className="flex items-center gap-2 mb-4">
-              <FileText className="w-5 h-5 text-gray-600" />
-              <h2 className="text-lg font-semibold text-gray-900">
+              <FileText className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {t("website.individualPages")} ({pages.length})
               </h2>
             </div>
             <div className="space-y-4">
               {pages.map((page) => (
-                <div key={page.id} className="border rounded-lg p-4 overflow-hidden">
+                <div key={page.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 overflow-hidden">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1 min-w-0 overflow-hidden">
-                      <h3 className="text-sm font-medium text-gray-900 truncate">
+                      <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                         {page.title || page.url}
                       </h3>
-                      <p className="text-xs text-gray-500 truncate">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                         {page.url}
                       </p>
                     </div>
@@ -377,8 +377,8 @@ export default function WebsiteContentPage() {
                     </div>
                   </div>
                   {page.content && (
-                    <div className="mt-2 bg-gray-50 rounded p-3 max-h-32 overflow-auto">
-                      <pre className="whitespace-pre-wrap break-words text-xs text-gray-700 font-mono max-w-full">
+                    <div className="mt-2 bg-gray-50 dark:bg-gray-800 rounded p-3 max-h-32 overflow-auto">
+                      <pre className="whitespace-pre-wrap break-words text-xs text-gray-700 dark:text-gray-300 font-mono max-w-full">
                         {page.content.substring(0, 500)}
                         {page.content.length > 500 && "..."}
                       </pre>
@@ -386,7 +386,7 @@ export default function WebsiteContentPage() {
                   )}
                   {page.links && page.links.length > 0 && (
                     <div className="mt-2">
-                      <p className="text-xs text-gray-500 mb-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
                         {page.links.length} {t("website.linksFound")}
                       </p>
                       <div className="flex flex-wrap gap-1">
@@ -396,13 +396,13 @@ export default function WebsiteContentPage() {
                             href={link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs text-primary hover:text-indigo-800 bg-indigo-50 px-2 py-1 rounded truncate max-w-[150px]"
+                            className="text-xs text-primary hover:text-indigo-800 dark:hover:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-1 rounded truncate max-w-[150px]"
                           >
                             {new URL(link).hostname}
                           </a>
                         ))}
                         {page.links.length > 5 && (
-                          <span className="text-xs text-gray-500 px-2 py-1">
+                          <span className="text-xs text-gray-500 dark:text-gray-400 px-2 py-1">
                             +{page.links.length - 5} {t("website.more")}
                           </span>
                         )}
@@ -410,7 +410,7 @@ export default function WebsiteContentPage() {
                     </div>
                   )}
                   {page.errorMessage && (
-                    <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded text-xs text-red-800 break-words">
+                    <div className="mt-2 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-xs text-red-800 dark:text-red-300 break-words">
                       {page.errorMessage}
                     </div>
                   )}
@@ -424,11 +424,11 @@ export default function WebsiteContentPage() {
         {!website.scrapedContent && website.status === "COMPLETED" && (
           <Card className="p-6">
             <div className="text-center py-8">
-              <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300 dark:text-gray-600" />
+              <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
                 {t("website.noContentFound")}
               </h3>
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 {t("website.noContentFoundDescription")}
               </p>
               <Button onClick={handleScrapeNow} variant="outline">

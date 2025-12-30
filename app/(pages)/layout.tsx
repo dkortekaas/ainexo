@@ -96,7 +96,7 @@ function AppLayoutContent({
 
   return (
     <div
-      className={`flex min-h-screen bg-gray-50 dark:bg-gray-900 max-w-[6rem] ${isMobile ? "flex-col" : ""}`}
+      className={`flex min-h-screen bg-gray-50 dark:bg-gray-900 ${isMobile ? "flex-col" : ""}`}
     >
       {/* Sidebar */}
       <Sidebar
@@ -111,11 +111,11 @@ function AppLayoutContent({
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
         {hasValidSubscription === false && (
-          <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 dark:border-yellow-600 p-4">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg
-                  className="h-5 w-5 text-yellow-400"
+                  className="h-5 w-5 text-yellow-400 dark:text-yellow-500"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -127,11 +127,11 @@ function AppLayoutContent({
                 </svg>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-yellow-700">
+                <p className="text-sm text-yellow-700 dark:text-yellow-300">
                   {t("subscription.noValidSubscription")}
                   <Link
                     href="/subscription/upgrade"
-                    className="font-medium underline text-yellow-700 hover:text-yellow-600 ml-1"
+                    className="font-medium underline text-yellow-700 dark:text-yellow-300 hover:text-yellow-600 dark:hover:text-yellow-200 ml-1"
                   >
                     {t("subscription.upgradeSubscription")}
                   </Link>
@@ -167,7 +167,7 @@ function AppLayoutContent({
                   (session?.user?.role === "SUPERUSER" &&
                     window.location.pathname === "/admindashboard"))
                   ? "text-primary"
-                  : "text-gray-500"
+                  : "text-gray-500 dark:text-gray-400"
               }`}
             >
               <Home className="h-6 w-6 mb-1" />
@@ -187,7 +187,7 @@ function AppLayoutContent({
                     window.location.pathname.includes("/declarations") &&
                     !window.location.pathname.includes("/new")
                       ? "text-primary"
-                      : "text-gray-500"
+                      : "text-gray-500 dark:text-gray-400"
                   }`}
                 >
                   <FileText className="h-6 w-6 mb-1" />
@@ -203,7 +203,7 @@ function AppLayoutContent({
                   typeof window !== "undefined" &&
                   window.location.pathname === "/admin"
                     ? "text-primary"
-                    : "text-gray-500"
+                    : "text-gray-500 dark:text-gray-400"
                 }`}
               >
                 <Shield className="h-6 w-6 mb-1" />
@@ -217,7 +217,7 @@ function AppLayoutContent({
                 typeof window !== "undefined" &&
                 window.location.pathname === "/notifications"
                   ? "text-primary"
-                  : "text-gray-500"
+                  : "text-gray-500 dark:text-gray-400"
               }`}
             >
               <Bell className="h-6 w-6 mb-1" />
@@ -230,7 +230,7 @@ function AppLayoutContent({
                 typeof window !== "undefined" &&
                 window.location.pathname === "/settings"
                   ? "text-primary"
-                  : "text-gray-500"
+                  : "text-gray-500 dark:text-gray-400"
               }`}
             >
               <Settings className="h-6 w-6 mb-1" />

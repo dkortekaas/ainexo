@@ -106,8 +106,8 @@ function AppLayoutContent({
         hasValidSubscription={hasValidSubscription}
       />
 
-      {/* Main content area */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      {/* Main content area - constrain width to prevent horizontal overflow */}
+      <div className="flex-1 flex flex-col min-h-screen w-full md:w-[calc(100vw-16rem)] md:max-w-[calc(100vw-16rem)]">
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
         {hasValidSubscription === false && (
@@ -142,9 +142,9 @@ function AppLayoutContent({
           </div>
         )}
 
-        <main className="flex-1 p-4 md:p-6 overflow-auto pb-24 md:pb-6">
+        <main className="flex-1 p-4 md:p-6 overflow-x-hidden overflow-y-auto pb-24 md:pb-6 max-w-full">
           {/* Safe area for iOS bottom navigation */}
-          <div className="pb-safe">{children}</div>
+          <div className="pb-safe max-w-full overflow-hidden">{children}</div>
         </main>
 
         {/* Mobile bottom navigation - Hidden with CSS on desktop to prevent CLS */}

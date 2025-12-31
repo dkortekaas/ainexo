@@ -67,9 +67,10 @@ const ContactPage = () => {
         newErrors.email = t("emailInvalid");
       }
 
-      if (!formData.company.trim()) {
-        newErrors.company = t("companyRequired");
-      }
+      // Company is optional
+      // if (!formData.company.trim()) {
+      //   newErrors.company = t("companyRequired");
+      // }
 
       if (!formData.message.trim()) {
         newErrors.message = t("messageRequired");
@@ -154,38 +155,44 @@ const ContactPage = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <Input
+                name="name"
                 placeholder={t("namePlaceholder")}
                 value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
+                onChange={handleChange}
                 required
-                className="h-14 text-base"
+                className={`h-14 text-base ${errors.name ? 'border-red-500' : ''}`}
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              )}
             </div>
             <div>
               <Input
+                name="email"
                 type="email"
                 placeholder={t("emailPlaceholder")}
                 value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
+                onChange={handleChange}
                 required
-                className="h-14 text-base"
+                className={`h-14 text-base ${errors.email ? 'border-red-500' : ''}`}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              )}
             </div>
             <div>
               <Textarea
+                name="message"
                 placeholder={t("messagePlaceholder")}
                 value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
+                onChange={handleChange}
                 required
                 rows={6}
-                className="text-base resize-none"
+                className={`text-base resize-none ${errors.message ? 'border-red-500' : ''}`}
               />
+              {errors.message && (
+                <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+              )}
             </div>
             <Button
               type="submit"

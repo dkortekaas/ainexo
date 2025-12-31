@@ -1205,7 +1205,7 @@ export async function sendSubscriptionExpiredEmail(
 export async function sendContactFormEmail(data: {
   name: string;
   email: string;
-  company: string;
+  company?: string; // Optional company field
   message: string;
 }) {
   //const t = await getTranslations("mail.contact");
@@ -1225,9 +1225,9 @@ export async function sendContactFormEmail(data: {
           <p style="color: #666; line-height: 1.6; margin: 0 0 10px 0;">
             <strong>Email:</strong> <a href="mailto:${data.email}" style="color: #3B82F6; text-decoration: none;">${data.email}</a>
           </p>
-          <p style="color: #666; line-height: 1.6; margin: 0 0 10px 0;">
+          ${data.company ? `<p style="color: #666; line-height: 1.6; margin: 0 0 10px 0;">
             <strong>Bedrijf:</strong> ${data.company}
-          </p>
+          </p>` : ''}
         </div>
 
         <h2 style="color: #333; margin: 30px 0 15px;">Bericht:</h2>

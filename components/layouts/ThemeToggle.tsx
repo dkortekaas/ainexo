@@ -12,7 +12,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+        className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
         aria-label={t("common.toggleTheme")}
         suppressHydrationWarning
       >
@@ -24,7 +24,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+      className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
       aria-label={t("common.toggleTheme")}
     >
       {theme === "light" ? (

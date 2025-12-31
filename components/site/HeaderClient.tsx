@@ -9,6 +9,7 @@ import Logo from "@/public/ainexo-logo.png";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { LanguageSwitcher } from "@/components/site";
+import { ThemeToggle } from "@/components/layouts/ThemeToggle";
 import config from "@/config";
 
 interface HeaderClientProps {
@@ -77,6 +78,7 @@ export const HeaderClient = ({
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
             <LanguageSwitcher />
+            <ThemeToggle />
             <Button variant="ghost" size="sm" asChild>
               <Link href="/login">{t("login")}</Link>
             </Button>
@@ -113,7 +115,8 @@ export const HeaderClient = ({
                 </Link>
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border">
-                <div className="pb-2">
+                <div className="flex items-center gap-2 pb-2">
+                  <ThemeToggle />
                   <LanguageSwitcher />
                 </div>
                 <Button variant="ghost" size="sm" asChild>

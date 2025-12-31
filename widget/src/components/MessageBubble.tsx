@@ -1,6 +1,7 @@
 import type { Message } from "../types";
 import { formatTime } from "../utils/helpers";
 import { getAvatarIconComponent } from "../utils/avatarIcons";
+import { parseMarkdown } from "../utils/markdown";
 
 interface MessageBubbleProps {
   message: Message;
@@ -27,7 +28,9 @@ export function MessageBubble({ message, primaryColor, avatar }: MessageBubblePr
         className="chatbot-message-bubble"
         style={isUser ? { backgroundColor: primaryColor } : {}}
       >
-        <p className="chatbot-message-content">{message.content}</p>
+        <div className="chatbot-message-content">
+          {isUser ? message.content : parseMarkdown(message.content)}
+        </div>
 
         {/* Relevant URL */}
         {message.relevantUrl && (

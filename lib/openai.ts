@@ -131,13 +131,48 @@ export const EMBEDDINGS_ENABLED = process.env.EMBEDDINGS_ENABLED !== "false";
 
 /**
  * Genereer semantic hash van embedding voor cache key
+ * Verhoogde precision (4 decimalen) en langere hash voor betere uniqueness
  */
 function hashEmbedding(embedding: number[]): string {
   const hash = crypto.createHash("sha256");
-  // Rond embeddings af naar 2 decimalen voor consistentie
-  const roundedEmbedding = embedding.map((val) => Math.round(val * 100) / 100);
+  // Verhoogde precision: 4 decimalen ipv 2 voor betere differentiatie
+  const roundedEmbedding = embedding.map((val) => Math.round(val * 10000) / 10000);
   hash.update(JSON.stringify(roundedEmbedding));
-  return hash.digest("hex").substring(0, 16); // Korte hash voor cache key
+  return hash.digest("hex").substring(0, 32); // Langere hash (128-bit) voor minder collisions
+}
+
+/**
+ * Genereer cache key inclusief conversatie context
+ * Dit voorkomt dat verschillende vragen met vergelijkbare embeddings dezelfde cache key krijgen
+ */
+function generateCacheKey(
+  questionEmbedding: number[],
+  context: Array<{ id: string; score: number }>,
+  conversationHistory?: Array<{ role: string; content: string }>
+): string {
+  // Basis: question embedding hash
+  const questionHash = hashEmbedding(questionEmbedding);
+
+  // Context fingerprint: gebruik alleen de top 3 document IDs + scores
+  // Dit zorgt ervoor dat verschillende knowledge base results andere cache keys krijgen
+  const contextFingerprint = context
+    .slice(0, 3)
+    .map(c => `${c.id}:${Math.round(c.score * 100)}`)
+    .join('|');
+
+  // Conversation context: laatste 2 messages voor context awareness
+  const conversationFingerprint = conversationHistory
+    ? conversationHistory
+        .slice(-2)
+        .map(msg => `${msg.role}:${msg.content.substring(0, 50)}`)
+        .join('|')
+    : '';
+
+  // Combineer alles in één hash
+  const combinedHash = crypto.createHash("sha256");
+  combinedHash.update(`${questionHash}:${contextFingerprint}:${conversationFingerprint}`);
+
+  return combinedHash.digest("hex").substring(0, 32);
 }
 
 /**
@@ -170,14 +205,28 @@ async function getCachedOrGenerate(
   try {
     // Genereer semantic hash van vraag
     const questionEmbedding = await generateEmbedding(question);
-    const cacheKey = hashEmbedding(questionEmbedding);
 
-    // Check cache (max 1 uur oud)
+    // Genereer cache key inclusief context EN conversatiegeschiedenis
+    // Dit voorkomt dat verschillende vragen dezelfde cache key krijgen
+    const cacheKey = generateCacheKey(
+      questionEmbedding,
+      context.map(c => ({ id: c.id, score: c.score })),
+      options.conversationHistory
+    );
+
+    // Check cache (TTL afhankelijk van conversatie context)
+    // Als er conversatiegeschiedenis is: kortere TTL (10 min) voor betere context awareness
+    // Zonder conversatie: langere TTL (1 uur) voor standalone vragen
+    const cacheTTL = options.conversationHistory && options.conversationHistory.length > 0
+      ? 600000  // 10 minuten voor conversational context
+      : 3600000; // 1 uur voor standalone vragen
+
     const cached = responseCache.get(cacheKey);
-    if (cached && Date.now() - cached.timestamp < 3600000) {
+    if (cached && Date.now() - cached.timestamp < cacheTTL) {
       console.log(
         "📦 Using cached response for question:",
-        question.substring(0, 50) + "..."
+        question.substring(0, 50) + "...",
+        `(cache key includes context, TTL: ${cacheTTL / 60000} min)`
       );
       return {
         answer: cached.answer,
@@ -185,6 +234,13 @@ async function getCachedOrGenerate(
         sources: cached.sources,
         tokensUsed: cached.tokensUsed,
       };
+    }
+
+    // Log cache miss voor debugging
+    if (cached) {
+      console.log("⏰ Cache expired, generating fresh response");
+    } else {
+      console.log("🆕 Cache miss, generating new response");
     }
 
     // Generate nieuwe response with options

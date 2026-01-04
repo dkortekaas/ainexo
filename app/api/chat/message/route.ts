@@ -406,7 +406,7 @@ export async function POST(request: NextRequest) {
           });
 
           // Reverse to get chronological order and map to correct format
-          const historyForAI = conversationHistory.reverse().map((msg) => ({
+          const historyForAI = conversationHistory.reverse().map((msg: { messageType: string; content: string }) => ({
             role:
               msg.messageType === "USER"
                 ? ("user" as const)
@@ -439,30 +439,29 @@ export async function POST(request: NextRequest) {
             // Optionally update project context cache confidence if using projects
 
             logger.debug("✅ AI response accepted (high confidence)");
-            logger.debug("🎯 Final Answer:", answer);
-            logger.debug(
-              "📊 Confidence Score:",
-              (confidence * 100).toFixed(1) + "%"
-            );
-            logger.debug("🔢 Tokens Used:", tokensUsed);
-            logger.debug(
-              "📚 Sources Used:",
-              sources.length,
-              "sources with relevance:",
-              sources
-                .map((s) => `${(s.relevanceScore * 100).toFixed(0)}%`)
-                .join(", ")
-            );
+            logger.debug("🎯 Final Answer:", { answer });
+            logger.debug("📊 Confidence Score:", {
+              confidence: (confidence * 100).toFixed(1) + "%",
+            });
+            logger.debug("🔢 Tokens Used:", { tokensUsed });
+            logger.debug("📚 Sources Used:", {
+              count: sources.length,
+              relevance: sources
+                .map((s: { relevanceScore: number }) => `${(s.relevanceScore * 100).toFixed(0)}%`)
+                .join(", "),
+            });
           } else {
-            logger.debug(
-              "❌ AI response rejected (low confidence):",
-              (aiResponse.confidence * 100).toFixed(1) + "%"
-            );
+            logger.debug("❌ AI response rejected (low confidence):", {
+              confidence: (aiResponse.confidence * 100).toFixed(1) + "%",
+            });
             logger.debug("🔄 Using fallback message instead");
             // Keep the default fallback message
           }
         } catch (aiError) {
-          logger.error("❌ AI response generation failed:", aiError);
+          const errorMessage = aiError instanceof Error ? aiError.message : String(aiError);
+          logger.error("❌ AI response generation failed:", {
+            message: errorMessage,
+          });
           logger.debug("🔄 Falling back to best knowledge base result...");
 
           // Fallback to best knowledge base result
@@ -478,7 +477,7 @@ export async function POST(request: NextRequest) {
               },
             ];
             confidence = bestResult.score;
-            logger.debug("✅ Using fallback result:", bestResult.title);
+            logger.debug("✅ Using fallback result:", { title: bestResult.title });
           }
         }
       }
@@ -523,12 +522,15 @@ export async function POST(request: NextRequest) {
         confidence = 0.1; // Very low confidence since no knowledge base info was found
       }
     } catch (searchError) {
-      logger.error("❌ Search error:", searchError);
+      const errorMessage = searchError instanceof Error ? searchError.message : String(searchError);
+      logger.error("❌ Search error:", {
+        message: errorMessage,
+      });
       // Keep the fallback message if search fails
     }
 
-    logger.debug("🎯 Final answer:", answer.substring(0, 100) + "...");
-    logger.debug("📚 Sources found:", sources.length);
+    logger.debug("🎯 Final answer:", { preview: answer.substring(0, 100) + "..." });
+    logger.debug("📚 Sources found:", { count: sources.length });
 
     // Save conversation session and messages
     try {
@@ -581,13 +583,13 @@ export async function POST(request: NextRequest) {
 
         // Create a map for quick lookup
         const documentMap = new Map(
-          documents.map((doc) => [doc.name, doc])
+          documents.map((doc: { name: string }) => [doc.name, doc])
         );
 
         // Batch create conversation sources
         const sourcesToCreate = sources
           .map((source: any) => {
-            const document = documentMap.get(source.documentName);
+            const document = documentMap.get(source.documentName) as { id: string } | undefined;
             if (document) {
               return {
                 messageId: assistantMessage.id,
@@ -610,7 +612,10 @@ export async function POST(request: NextRequest) {
 
       logger.debug("✅ Conversation saved successfully");
     } catch (error) {
-      logger.error("❌ Error saving conversation:", error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      logger.error("❌ Error saving conversation:", {
+        message: errorMessage,
+      });
       // Don't fail the request if saving fails
     }
 
@@ -646,7 +651,10 @@ export async function POST(request: NextRequest) {
       }
     );
   } catch (error) {
-    logger.error("Error in chat message endpoint:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logger.error("Error in chat message endpoint:", {
+      message: errorMessage,
+    });
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(

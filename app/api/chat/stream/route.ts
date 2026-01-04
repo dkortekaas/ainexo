@@ -96,7 +96,10 @@ export async function POST(request: NextRequest) {
         },
       });
     } catch (dbError) {
-      logger.error("Database error:", dbError);
+      const errorMessage = dbError instanceof Error ? dbError.message : String(dbError);
+      logger.error("Database error:", {
+        message: errorMessage,
+      });
       return NextResponse.json(
         { success: false, error: "Database connection error" },
         { status: 500, headers: corsHeaders }

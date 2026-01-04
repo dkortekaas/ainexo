@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    const assistantIds = userAssistants.map((assistant) => assistant.id);
+    const assistantIds = userAssistants.map((assistant: { id: string }) => assistant.id);
 
     if (assistantIds.length === 0) {
       // No assistants, return empty data

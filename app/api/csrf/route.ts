@@ -31,7 +31,10 @@ export async function GET() {
       expiresIn: 3600, // 1 hour in seconds
     });
   } catch (error) {
-    logger.error("Failed to generate CSRF token", error instanceof Error ? error : undefined);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logger.error("Failed to generate CSRF token", {
+      message: errorMessage,
+    });
     return NextResponse.json(
       {
         error: "Failed to generate CSRF token",

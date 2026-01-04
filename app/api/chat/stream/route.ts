@@ -344,7 +344,10 @@ export async function POST(request: NextRequest) {
             sourcesCount: sources.length,
           });
         } catch (error) {
-          logger.error("[STREAM_CHAT_POST] Stream error:", error);
+          const errorMessage = error instanceof Error ? error.message : String(error);
+          logger.error("[STREAM_CHAT_POST] Stream error:", {
+            message: errorMessage,
+          });
 
           const errorData = JSON.stringify({
             type: "error",
@@ -367,7 +370,10 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error("[STREAM_CHAT_POST] Error:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logger.error("[STREAM_CHAT_POST] Error:", {
+      message: errorMessage,
+    });
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(

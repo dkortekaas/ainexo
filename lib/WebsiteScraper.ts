@@ -138,7 +138,7 @@ export class WebsiteScraper {
         (isTimeoutError || isNetworkError) &&
         retryCount < this.options.retries
       ) {
-        console.log(
+        logger.debug(
           `Retry ${retryCount + 1}/${this.options.retries} for ${url} after ${this.options.retryDelay}ms`
         );
         await this.delay(this.options.retryDelay * (retryCount + 1)); // Exponential backoff
@@ -186,7 +186,7 @@ export class WebsiteScraper {
       } catch (jsdomError) {
         // Fallback: Use a simple HTML parser or regex-based extraction
         // This is a basic fallback that works without jsdom
-        console.warn("jsdom failed, using fallback parser:", jsdomError);
+        logger.warn("jsdom failed, using fallback parser:", jsdomError);
         document = this.createFallbackDocument(html);
       }
 

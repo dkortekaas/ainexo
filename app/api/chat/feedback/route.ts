@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { z } from "zod";
 import { getCorsHeaders, validateCorsOrigin } from "@/lib/cors";
 import { checkRateLimit, getRateLimitHeaders } from "@/lib/redis-rate-limiter";
+import { logger } from "@/lib/logger";
 
 const feedbackSchema = z.object({
   messageId: z.string().min(1),
@@ -137,7 +138,7 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      console.log(`📝 Updated feedback for message ${messageId}: ${rating}`);
+      logger.debug(`📝 Updated feedback for message ${messageId}: ${rating}`);
     } else {
       // Create new feedback
       const newFeedback = await db.messageFeedback.create({
@@ -154,7 +155,7 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      console.log(`📝 New feedback for message ${messageId}: ${rating}`);
+      logger.debug(`📝 New feedback for message ${messageId}: ${rating}`);
     }
 
     // If it's a thumbs down, analyze the poor response
@@ -172,7 +173,7 @@ export async function POST(request: NextRequest) {
       }
     );
   } catch (error) {
-    console.error("Error in feedback endpoint:", error);
+    logger.error("Error in feedback endpoint:", error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -203,7 +204,7 @@ async function analyzePoorResponse(
   userFeedback?: string
 ) {
   try {
-    console.log(`🔍 Analyzing poor response for message ${messageId}`);
+    logger.debug(`🔍 Analyzing poor response for message ${messageId}`);
 
     // Get the conversation context
     const conversationContext = await db.conversationMessage.findMany({
@@ -247,7 +248,7 @@ async function analyzePoorResponse(
       },
     });
 
-    console.log(`📊 Created analysis record ${analysis.id} for poor response`);
+    logger.debug(`📊 Created analysis record ${analysis.id} for poor response`);
 
     // Generate improvement suggestions
     await generateImprovementSuggestions(
@@ -257,7 +258,7 @@ async function analyzePoorResponse(
       userFeedback
     );
   } catch (error) {
-    console.error("Error analyzing poor response:", error);
+    logger.error("Error analyzing poor response:", error);
   }
 }
 
@@ -271,7 +272,7 @@ async function generateImprovementSuggestions(
   userFeedback?: string
 ) {
   try {
-    console.log(
+    logger.debug(
       `💡 Generating improvement suggestions for analysis ${analysisId}`
     );
 
@@ -372,9 +373,9 @@ async function generateImprovementSuggestions(
       },
     });
 
-    console.log(`✅ Generated ${suggestions.length} improvement suggestions`);
+    logger.debug(`✅ Generated ${suggestions.length} improvement suggestions`);
   } catch (error) {
-    console.error("Error generating improvement suggestions:", error);
+    logger.error("Error generating improvement suggestions:", error);
 
     // Update analysis status to failed
     await db.poorResponseAnalysis.update({

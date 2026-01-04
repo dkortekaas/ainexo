@@ -1,6 +1,7 @@
 import { getBlogPosts, calculateReadingTime } from "@/sanity/lib/fetch";
 import { urlFor } from "@/sanity/lib/image";
 import type { BlogPost } from "@/sanity/lib/types";
+import { logger } from "./logger";
 
 export interface ListBlogPostsOptions {
   status?: "PUBLISHED" | "DRAFT" | "ALL";
@@ -89,7 +90,7 @@ export async function listBlogPosts(
       total: filteredPosts.length,
     };
   } catch (error) {
-    console.error("Error fetching blog posts:", error);
+    logger.error("Error fetching blog posts:", error);
     // Return empty result on error to prevent build failures
     return {
       items: [],

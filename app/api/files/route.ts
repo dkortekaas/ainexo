@@ -16,6 +16,7 @@ import { generateBatchEmbeddings } from "@/lib/embedding-service-optimized";
 import * as mammoth from "mammoth";
 import { db } from "@/lib/db";
 import { randomBytes } from "crypto";
+import { logger } from "@/lib/logger";
 import {
   getPaginationParams,
   getPrismaOptions,
@@ -61,7 +62,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -101,7 +102,7 @@ export async function GET(request: NextRequest) {
       createPaginatedResponse(files, pagination.page, pagination.limit, total)
     );
   } catch (error) {
-    console.error("Error fetching files:", error);
+    logger.error("Error fetching files:", error);
     return NextResponse.json(
       { error: "Failed to fetch files" },
       { status: 500 }
@@ -140,7 +141,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -233,7 +234,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(knowledgeFile, { status: 201 });
   } catch (error) {
-    console.error("Error uploading file:", error);
+    logger.error("Error uploading file:", error);
     return NextResponse.json(
       { error: "Failed to upload file" },
       { status: 500 }
@@ -251,7 +252,7 @@ async function processDocumentForAI(
   originalName: string
 ) {
   try {
-    console.log(`Processing document: ${originalName}`);
+    logger.debug(`Processing document: ${originalName}`);
 
     // Extract text content based on file type
     let contentText = "";
@@ -280,11 +281,11 @@ async function processDocumentForAI(
           ) => Promise<{ text: string; numpages: number }>
         )(pdfBuffer);
         contentText = text ?? "";
-        console.log(
+        logger.debug(
           `Extracted ${numpages ?? "unknown"} pages from PDF: ${originalName}`
         );
       } catch (error) {
-        console.error(`Error parsing PDF ${originalName}:`, error);
+        logger.error(`Error parsing PDF ${originalName}:`, error);
         await db.knowledgeFile.update({
           where: { id: fileId },
           data: {
@@ -304,14 +305,14 @@ async function processDocumentForAI(
         const wordBuffer = await readFileFromStorage(filePath);
         const result = await mammoth.extractRawText({ buffer: wordBuffer });
         contentText = result.value;
-        console.log(`Extracted text from Word document: ${originalName}`);
+        logger.debug(`Extracted text from Word document: ${originalName}`);
 
         // Log any conversion messages
         if (result.messages.length > 0) {
-          console.log("Word conversion messages:", result.messages);
+          logger.debug("Word conversion messages:", result.messages);
         }
       } catch (error) {
-        console.error(`Error parsing Word document ${originalName}:`, error);
+        logger.error(`Error parsing Word document ${originalName}:`, error);
         await db.knowledgeFile.update({
           where: { id: fileId },
           data: {
@@ -323,7 +324,7 @@ async function processDocumentForAI(
       }
     } else {
       // For other file types - mark as unsupported
-      console.warn(
+      logger.warn(
         `File type ${mimeType} not yet supported for text extraction`
       );
       await db.knowledgeFile.update({
@@ -381,7 +382,7 @@ async function processDocumentForAI(
 
     // Chunk the content for better AI processing with optimized strategy
     // New: 1500 chars chunks, 100 overlap, 200 min size = 30-50% fewer chunks!
-    console.log(`📊 Starting optimized chunking for: ${originalName}`);
+    logger.debug(`📊 Starting optimized chunking for: ${originalName}`);
     const chunks = chunkTextOptimized(contentText, {
       chunkSize: 1500, // Increased from 1000 (30-50% fewer chunks)
       chunkOverlap: 100, // Reduced from 200 (50% less redundancy)
@@ -393,7 +394,7 @@ async function processDocumentForAI(
         mimeType: mimeType,
       },
     });
-    console.log(`✅ Created ${chunks.length} optimized chunks`);
+    logger.debug(`✅ Created ${chunks.length} optimized chunks`);
 
     if (chunks.length === 0) {
       await db.document.update({
@@ -414,7 +415,7 @@ async function processDocumentForAI(
     // Generate embeddings if enabled
     if (EMBEDDINGS_ENABLED && process.env.OPENAI_API_KEY) {
       try {
-        console.log(
+        logger.debug(
           `\n🚀 Generating optimized embeddings with cost reduction...`
         );
         const chunkTexts = chunks.map((chunk) => sanitizeText(chunk.content));
@@ -448,18 +449,18 @@ async function processDocumentForAI(
           0
         );
         const estimatedCost = (totalTokens / 1000) * 0.00002; // text-embedding-3-small
-        console.log(`\n💰 Embedding Stats:`);
-        console.log(`   Chunks: ${chunks.length}`);
-        console.log(`   Tokens: ${totalTokens}`);
-        console.log(`   Estimated cost: $${estimatedCost.toFixed(6)}`);
-        console.log(
+        logger.debug(`\n💰 Embedding Stats:`);
+        logger.debug(`   Chunks: ${chunks.length}`);
+        logger.debug(`   Tokens: ${totalTokens}`);
+        logger.debug(`   Estimated cost: $${estimatedCost.toFixed(6)}`);
+        logger.debug(
           `   (Using text-embedding-3-small - 5x cheaper than ada-002!)`
         );
-        console.log(
+        logger.debug(
           `✅ Created ${chunks.length} chunks with embeddings for: ${originalName}`
         );
       } catch (embeddingError) {
-        console.warn(
+        logger.warn(
           `Failed to create embeddings for document ${originalName}:`,
           embeddingError
         );
@@ -481,7 +482,7 @@ async function processDocumentForAI(
           data: documentChunks,
         });
 
-        console.log(
+        logger.debug(
           `Created ${chunks.length} chunks without embeddings for document: ${originalName}`
         );
       }
@@ -503,7 +504,7 @@ async function processDocumentForAI(
         data: documentChunks,
       });
 
-      console.log(
+      logger.debug(
         `Created ${chunks.length} chunks without embeddings for document: ${originalName}`
       );
     }
@@ -537,12 +538,12 @@ async function processDocumentForAI(
       },
     });
 
-    console.log(`Successfully processed document: ${originalName}`);
+    logger.debug(`Successfully processed document: ${originalName}`);
 
     // Note: Files are stored in Vercel Blob Storage in production (persistent)
     // or in /tmp in development (temporary, cleaned up after function execution)
   } catch (error) {
-    console.error(`Error processing document ${originalName}:`, error);
+    logger.error(`Error processing document ${originalName}:`, error);
 
     // Note: Files are stored in Vercel Blob Storage in production (persistent)
     // or in /tmp in development (temporary)
@@ -558,7 +559,7 @@ async function processDocumentForAI(
         },
       });
     } catch (updateError) {
-      console.error("Error updating knowledge file status:", updateError);
+      logger.error("Error updating knowledge file status:", updateError);
     }
   }
 }

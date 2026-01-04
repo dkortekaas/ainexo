@@ -15,6 +15,7 @@ import {
   createPaginatedResponse,
 } from "@/lib/pagination";
 import { validateScrapingUrl } from "@/lib/url-validator";
+import { logger } from "@/lib/logger";
 
 // GET /api/websites - Get all websites for a specific assistant
 export async function GET(request: NextRequest) {
@@ -41,7 +42,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -76,7 +77,7 @@ export async function GET(request: NextRequest) {
     try {
       total = await db.website.count({ where });
     } catch (countError) {
-      console.error("Error counting websites:", countError);
+      logger.error("Error counting websites:", countError);
       throw new Error(
         `Failed to count websites: ${countError instanceof Error ? countError.message : "Unknown error"}`
       );
@@ -89,7 +90,7 @@ export async function GET(request: NextRequest) {
         ...getPrismaOptions(pagination),
       });
     } catch (findError) {
-      console.error("Error finding websites:", findError);
+      logger.error("Error finding websites:", findError);
       throw new Error(
         `Failed to find websites: ${findError instanceof Error ? findError.message : "Unknown error"}`
       );
@@ -105,7 +106,7 @@ export async function GET(request: NextRequest) {
       )
     );
   } catch (error) {
-    console.error("Error fetching websites:", {
+    logger.error("Error fetching websites:", {
       error,
       errorMessage: error instanceof Error ? error.message : "Unknown error",
       errorStack: error instanceof Error ? error.stack : undefined,
@@ -153,7 +154,7 @@ export async function POST(request: NextRequest) {
     // Validate URL format and check for SSRF
     const urlValidation = validateScrapingUrl(url);
     if (!urlValidation.valid) {
-      console.warn(
+      logger.warn(
         `🚫 Invalid/unsafe URL rejected: ${url} - ${urlValidation.error}`
       );
       return NextResponse.json(
@@ -169,12 +170,12 @@ export async function POST(request: NextRequest) {
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     if (!currentUser.companyId) {
-      console.error("User has no companyId:", session.user.id);
+      logger.error("User has no companyId:", session.user.id);
       return NextResponse.json(
         { error: "User is not associated with a company" },
         { status: 400 }
@@ -237,7 +238,7 @@ export async function POST(request: NextRequest) {
     // Start scraping automatically in the background
     // Use .catch() to prevent errors from crashing the request
     scrapeWebsiteInBackground(website.id, website.url).catch((error) => {
-      console.error("Background scraping error (non-blocking):", error);
+      logger.error("Background scraping error (non-blocking):", error);
       // Update website status to ERROR if scraping fails immediately
       db.website
         .update({
@@ -251,7 +252,7 @@ export async function POST(request: NextRequest) {
           },
         })
         .catch((updateError) => {
-          console.error("Failed to update website status:", updateError);
+          logger.error("Failed to update website status:", updateError);
         });
     });
 
@@ -274,7 +275,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Enhanced error logging for production debugging
-    console.error("Error creating website:", {
+    logger.error("Error creating website:", {
       error,
       errorMessage: error instanceof Error ? error.message : "Unknown error",
       errorStack: error instanceof Error ? error.stack : undefined,
@@ -436,7 +437,7 @@ async function scrapeWebsiteInBackground(websiteId: string, url: string) {
             { id: websiteId, url: websitePage.url }
           );
         } catch (embeddingError) {
-          console.warn(
+          logger.warn(
             `Failed to create embeddings for page ${page.url}:`,
             embeddingError
           );
@@ -468,11 +469,11 @@ async function scrapeWebsiteInBackground(websiteId: string, url: string) {
       });
     }
 
-    console.log(
+    logger.debug(
       `Successfully scraped website ${url}: ${scrapedData.pages.length} pages in ${duration}s`
     );
   } catch (error) {
-    console.error(`Error scraping website ${url}:`, error);
+    logger.error(`Error scraping website ${url}:`, error);
 
     // Update sync log if exists
     const endTime = Date.now();
@@ -578,7 +579,7 @@ async function createDocumentChunksForPage(
             WHERE id = ${documentChunk.id}
           `;
         } catch (embeddingError) {
-          console.warn(
+          logger.warn(
             `Failed to generate embeddings for chunk ${i} of page ${websitePage.url}:`,
             embeddingError
           );
@@ -587,11 +588,11 @@ async function createDocumentChunksForPage(
       }
     }
 
-    console.log(
+    logger.debug(
       `Created ${chunks.length} document chunks for page ${websitePage.url}`
     );
   } catch (error) {
-    console.error(
+    logger.error(
       `Error creating document chunks for page ${websitePage.url}:`,
       error
     );

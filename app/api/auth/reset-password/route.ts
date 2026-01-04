@@ -1,17 +1,39 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hash } from "bcryptjs";
+import { z } from "zod";
+
+const resetPasswordSchema = z.object({
+  token: z.string().min(1, "Token is required"),
+  password: z
+    .string()
+    .min(12, "Password must be at least 12 characters")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number")
+    .regex(
+      /[^A-Za-z0-9]/,
+      "Password must contain at least one special character"
+    ),
+});
 
 export async function POST(req: Request) {
   try {
-    const { token, password } = await req.json();
+    const body = await req.json();
 
-    if (!token || !password) {
+    // Validate input
+    const validation = resetPasswordSchema.safeParse(body);
+    if (!validation.success) {
       return NextResponse.json(
-        { error: "Token and password are required" },
+        {
+          error: "Invalid input",
+          details: validation.error.errors.map((e) => e.message),
+        },
         { status: 400 }
       );
     }
+
+    const { token, password } = validation.data;
 
     // Find user with this reset token
     const user = await db.user.findFirst({

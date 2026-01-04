@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { checkGracePeriod } from "@/lib/subscription";
 
-// CORS headers
+// CORS headers - Wildcard allowed for public widget embedding
+// This endpoint provides public, non-sensitive configuration data
+// Authentication is handled via API key validation below
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers":
-    "Content-Type, Authorization, X-Chatbot-API-Key",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, X-Chatbot-API-Key",
 };
 
 export async function GET(request: NextRequest) {

@@ -564,24 +564,40 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // Save sources for the assistant message
+      // Save sources for the assistant message (optimized to avoid N+1 queries)
       if (sources && sources.length > 0) {
-        for (const source of sources) {
-          // Find document by name or create a reference
-          const document = await db.document.findFirst({
-            where: { name: source.documentName },
-          });
+        // Batch fetch all documents by names (prevents N+1 query problem)
+        const documentNames = sources.map((s: any) => s.documentName);
+        const documents = await db.document.findMany({
+          where: { name: { in: documentNames } },
+        });
 
-          if (document) {
-            await db.conversationSource.create({
-              data: {
+        // Create a map for quick lookup
+        const documentMap = new Map(
+          documents.map((doc) => [doc.name, doc])
+        );
+
+        // Batch create conversation sources
+        const sourcesToCreate = sources
+          .map((source: any) => {
+            const document = documentMap.get(source.documentName);
+            if (document) {
+              return {
                 messageId: assistantMessage.id,
                 documentId: document.id,
                 chunkContent: source.documentName,
                 relevanceScore: source.relevanceScore || 0.8,
-              },
-            });
-          }
+              };
+            }
+            return null;
+          })
+          .filter((s): s is NonNullable<typeof s> => s !== null);
+
+        // Create all sources in a single transaction
+        if (sourcesToCreate.length > 0) {
+          await db.conversationSource.createMany({
+            data: sourcesToCreate,
+          });
         }
       }
 

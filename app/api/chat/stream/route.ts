@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
     );
 
     if (
-      !graceCheck.isActive &&
+      !graceCheck.canAccessFeatures &&
       user.subscriptionStatus !== "TRIALING" &&
       user.subscriptionStatus !== "ACTIVE"
     ) {
@@ -179,7 +179,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: quotaCheck.message,
+          error: quotaCheck.error?.message || "Quota exceeded",
           quotaExceeded: true,
         },
         { status: 402, headers: corsHeaders }
@@ -217,7 +217,7 @@ export async function POST(request: NextRequest) {
       });
 
       // Track new session
-      await trackConversationSession(user.id);
+      await trackConversationSession(session.sessionId, assistant.id);
     } else {
       // Update last activity
       await updateConversationSession(session.id);
@@ -236,7 +236,7 @@ export async function POST(request: NextRequest) {
     // Prepare conversation history
     const conversationHistory = session.messages
       .reverse()
-      .map((msg) => ({
+      .map((msg: { role: string; content: string }) => ({
         role: msg.role === "USER" ? ("user" as const) : ("assistant" as const),
         content: msg.content,
       }));
@@ -306,11 +306,11 @@ export async function POST(request: NextRequest) {
               where: { name: { in: documentNames } },
             });
 
-            const documentMap = new Map(documents.map((doc) => [doc.name, doc]));
+            const documentMap = new Map(documents.map((doc: { name: string; id: string }) => [doc.name, doc]));
 
             const sourcesToCreate = sources
               .map((source) => {
-                const document = documentMap.get(source.documentName);
+                const document = documentMap.get(source.documentName) as { id: string } | undefined;
                 return document
                   ? {
                       messageId: assistantMessage.id,

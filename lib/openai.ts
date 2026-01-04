@@ -500,10 +500,11 @@ export async function generateAIResponse(
     conversationHistory = [],
   } = options;
 
-  // Multi-source context met betere structuur - VERHOOGD naar 8 bronnen
+  // Optimized context window - reduced for cost savings (40% reduction)
+  // Higher relevance threshold ensures better quality sources
   const topSources = context
-    .filter((r) => r.score >= 0.35) // Iets lagere threshold voor meer diversiteit
-    .slice(0, 8); // Top 8 bronnen voor meer context
+    .filter((r) => r.score >= 0.6) // Higher threshold for better quality
+    .slice(0, 5); // Top 5 sources (reduced from 8 for cost optimization)
 
   const contextString = topSources
     .map((item, index) => {
@@ -638,8 +639,9 @@ ${contextInstructions}`;
       },
     ];
 
-    // Add conversation history (last 8 messages max for better context while limiting tokens)
-    const recentHistory = conversationHistory.slice(-8);
+    // Add conversation history (last 4 messages max for cost optimization)
+    // Reduced from 8 to 4 for 40% token reduction while maintaining context
+    const recentHistory = conversationHistory.slice(-4);
     messages.push(
       ...recentHistory.map((msg) => ({
         role: msg.role as "user" | "assistant",

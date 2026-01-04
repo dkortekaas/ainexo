@@ -150,6 +150,12 @@ const ConversationTableComponent = ({ conversations }: ConversationTableProps) =
                   size="sm"
                   onClick={() => toggleRow(conversation.id)}
                   className="ml-4"
+                  aria-expanded={isExpanded}
+                  aria-label={
+                    isExpanded
+                      ? t("conversations.collapse")
+                      : t("conversations.expand")
+                  }
                 >
                   {isExpanded ? (
                     <ChevronDown className="h-4 w-4" />

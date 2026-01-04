@@ -42,13 +42,13 @@ export async function verifyRecaptchaToken(
 ): Promise<VerifyResult> {
   // In development or if reCAPTCHA is not configured, allow all requests
   if (process.env.NODE_ENV === 'development' && !process.env.RECAPTCHA_SECRET_KEY) {
-    console.warn('⚠️ reCAPTCHA not configured in development - skipping verification');
+    logger.warn('⚠️ reCAPTCHA not configured in development - skipping verification');
     return { success: true, score: 1.0 };
   }
 
   // If no secret key is configured, fail closed (deny request)
   if (!process.env.RECAPTCHA_SECRET_KEY) {
-    console.error('❌ RECAPTCHA_SECRET_KEY not configured');
+    logger.error('❌ RECAPTCHA_SECRET_KEY not configured');
     return {
       success: false,
       error: 'reCAPTCHA not configured on server',
@@ -77,7 +77,7 @@ export async function verifyRecaptchaToken(
     });
 
     if (!response.ok) {
-      console.error('❌ reCAPTCHA API request failed:', response.status);
+      logger.error('❌ reCAPTCHA API request failed:', response.status);
       return {
         success: false,
         error: 'Failed to verify reCAPTCHA token',
@@ -89,7 +89,7 @@ export async function verifyRecaptchaToken(
     // Check if verification was successful
     if (!data.success) {
       const errors = data['error-codes']?.join(', ') || 'unknown error';
-      console.warn(`⚠️ reCAPTCHA verification failed: ${errors}`);
+      logger.warn(`⚠️ reCAPTCHA verification failed: ${errors}`);
       return {
         success: false,
         error: `reCAPTCHA verification failed: ${errors}`,
@@ -98,7 +98,7 @@ export async function verifyRecaptchaToken(
 
     // Check if action matches expected action
     if (data.action !== expectedAction) {
-      console.warn(
+      logger.warn(
         `⚠️ reCAPTCHA action mismatch: expected '${expectedAction}', got '${data.action}'`
       );
       return {
@@ -109,7 +109,7 @@ export async function verifyRecaptchaToken(
 
     // Check if score meets minimum threshold
     if (data.score < minScore) {
-      console.warn(
+      logger.warn(
         `⚠️ reCAPTCHA score too low: ${data.score} < ${minScore} (action: ${expectedAction})`
       );
       return {
@@ -119,14 +119,14 @@ export async function verifyRecaptchaToken(
       };
     }
 
-    console.log(`✅ reCAPTCHA verified: score ${data.score} (action: ${expectedAction})`);
+    logger.debug(`✅ reCAPTCHA verified: score ${data.score} (action: ${expectedAction})`);
 
     return {
       success: true,
       score: data.score,
     };
   } catch (error) {
-    console.error('❌ Error verifying reCAPTCHA:', error);
+    logger.error('❌ Error verifying reCAPTCHA:', error);
     return {
       success: false,
       error: 'Failed to verify reCAPTCHA token',

@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { updateSubscriptionFromStripeWebhook, updateSubscription } from "@/lib/subscription-crud";
 import { SubscriptionStatus } from "@prisma/client";
 import Stripe from "stripe";
+import { logger } from "@/lib/logger";
 
 // This is required for Stripe webhook signature verification
 export const runtime = "nodejs";
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (!process.env.STRIPE_WEBHOOK_SECRET) {
-    console.error("STRIPE_WEBHOOK_SECRET is not configured");
+    logger.error("STRIPE_WEBHOOK_SECRET is not configured");
     return NextResponse.json(
       { error: "Webhook secret not configured" },
       { status: 500 }
@@ -39,7 +40,7 @@ export async function POST(req: NextRequest) {
       process.env.STRIPE_WEBHOOK_SECRET
     );
   } catch (err: any) {
-    console.error(`Webhook signature verification failed: ${err.message}`);
+    logger.error(`Webhook signature verification failed: ${err.message}`);
     return NextResponse.json(
       { error: `Webhook Error: ${err.message}` },
       { status: 400 }
@@ -82,12 +83,12 @@ export async function POST(req: NextRequest) {
         break;
 
       default:
-        console.log(`Unhandled event type: ${event.type}`);
+        logger.debug(`Unhandled event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error(`Error processing webhook event ${event.type}:`, error);
+    logger.error(`Error processing webhook event ${event.type}:`, error);
     return NextResponse.json(
       { error: "Webhook handler failed" },
       { status: 500 }
@@ -98,14 +99,14 @@ export async function POST(req: NextRequest) {
 async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   const result = await updateSubscriptionFromStripeWebhook(subscription);
   if (result) {
-    console.log(`Subscription created for user ${result.userId}: ${result.subscriptionPlan}`);
+    logger.debug(`Subscription created for user ${result.userId}: ${result.subscriptionPlan}`);
   }
 }
 
 async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   const result = await updateSubscriptionFromStripeWebhook(subscription);
   if (result) {
-    console.log(
+    logger.debug(
       `Subscription updated for user ${result.userId}: status=${result.subscriptionStatus}, plan=${result.subscriptionPlan}`
     );
   }
@@ -121,7 +122,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   });
 
   if (!user) {
-    console.error(`User not found for customer ${customerId}`);
+    logger.error(`User not found for customer ${customerId}`);
     return;
   }
 
@@ -132,7 +133,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     subscriptionEndDate: new Date(),
   });
 
-  console.log(`Subscription deleted for user ${user.id}`);
+  logger.debug(`Subscription deleted for user ${user.id}`);
 }
 
 async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
@@ -150,7 +151,7 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   });
 
   if (!user) {
-    console.error(`User not found for customer ${customerId}`);
+    logger.error(`User not found for customer ${customerId}`);
     return;
   }
 
@@ -162,10 +163,10 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
     await updateSubscription(user.id, {
       subscriptionStatus: SubscriptionStatus.ACTIVE,
     });
-    console.log(`Payment succeeded, user ${user.id} reactivated`);
+    logger.debug(`Payment succeeded, user ${user.id} reactivated`);
   }
 
-  console.log(`Payment succeeded for user ${user.id}, invoice ${invoice.id}`);
+  logger.debug(`Payment succeeded for user ${user.id}, invoice ${invoice.id}`);
 }
 
 async function handlePaymentFailed(invoice: Stripe.Invoice) {
@@ -183,7 +184,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
   });
 
   if (!user) {
-    console.error(`User not found for customer ${customerId}`);
+    logger.error(`User not found for customer ${customerId}`);
     return;
   }
 
@@ -192,7 +193,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
     subscriptionStatus: SubscriptionStatus.PAST_DUE,
   });
 
-  console.log(`Payment failed for user ${user.id}, invoice ${invoice.id}`);
+  logger.debug(`Payment failed for user ${user.id}, invoice ${invoice.id}`);
 }
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
@@ -210,7 +211,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   });
 
   if (!user) {
-    console.error(`User not found for customer ${customerId}`);
+    logger.error(`User not found for customer ${customerId}`);
     return;
   }
 
@@ -219,18 +220,18 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const priceId = subscription.items.data[0]?.price.id;
 
   if (!priceId) {
-    console.error("No price ID found in subscription");
+    logger.error("No price ID found in subscription");
     return;
   }
 
   const plan = getPlanByPriceId(priceId);
   if (!plan) {
-    console.error(`Unknown price ID: ${priceId}`);
+    logger.error(`Unknown price ID: ${priceId}`);
     return;
   }
 
   // Update user with subscription info using CRUD function
   await updateSubscriptionFromStripeWebhook(subscription);
 
-  console.log(`Checkout completed for user ${user.id}: ${plan}`);
+  logger.debug(`Checkout completed for user ${user.id}: ${plan}`);
 }

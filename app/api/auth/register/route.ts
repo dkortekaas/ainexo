@@ -8,6 +8,7 @@ import { logger } from "@/lib/logger";
 import { sendWelcomeEmail, sendEmailVerificationEmail } from "@/lib/email";
 import { verifyRecaptchaToken } from "@/lib/recaptcha";
 import { generateToken } from "@/lib/token";
+import { checkRateLimit, getRateLimitHeaders } from "@/lib/redis-rate-limiter";
 
 const registerSchema = z.object({
   name: z.string().min(1),
@@ -21,6 +22,25 @@ export async function POST(req: NextRequest) {
   const t = await getTranslations();
 
   try {
+    // Rate limiting: 5 registration attempts per hour per IP
+    const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
+    const rateLimitKey = `register:${ip}`;
+    const rateLimit = await checkRateLimit(rateLimitKey, 5, 3600); // 5 attempts per hour
+
+    if (!rateLimit.success) {
+      logger.warn(`[REGISTER_POST] Rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        {
+          message: t("error.tooManyRequests"),
+          error: "Too many registration attempts. Please try again later.",
+        },
+        {
+          status: 429,
+          headers: getRateLimitHeaders(rateLimit),
+        }
+      );
+    }
+
     const body = await req.json();
     const validationResult = registerSchema.safeParse(body);
 

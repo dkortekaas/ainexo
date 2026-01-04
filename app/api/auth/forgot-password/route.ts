@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { sendPasswordResetEmail } from "@/lib/email";
 import { generateToken } from "@/lib/token";
 import { verifyRecaptchaToken } from "@/lib/recaptcha";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: Request) {
   try {
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
     );
 
     if (!recaptchaResult.success) {
-      console.warn(
+      logger.warn(
         `[FORGOT_PASSWORD] reCAPTCHA failed for ${email}: ${recaptchaResult.error}`
       );
       return NextResponse.json(
@@ -67,17 +68,17 @@ export async function POST(req: Request) {
         id: user.id,
         companyId: user.companyId,
       });
-      console.log(
+      logger.debug(
         `[FORGOT_PASSWORD] Password reset email sent successfully to ${email}`
       );
     } catch (emailError) {
-      console.error(
+      logger.error(
         `[FORGOT_PASSWORD] Failed to send password reset email to ${email}:`,
         emailError
       );
       // Log the full error details
       if (emailError instanceof Error) {
-        console.error(`[FORGOT_PASSWORD] Error details:`, {
+        logger.error(`[FORGOT_PASSWORD] Error details:`, {
           message: emailError.message,
           stack: emailError.stack,
         });
@@ -94,7 +95,7 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error in forgot password:", error);
+    logger.error("Error in forgot password:", error);
 
     // Check if error message contains database connection keywords
     const errorMessage = error instanceof Error ? error.message : String(error);
@@ -110,7 +111,7 @@ export async function POST(req: Request) {
       errorMessage.includes("ECONNREFUSED") ||
       errorMessage.includes("PrismaClient")
     ) {
-      console.error(
+      logger.error(
         "[FORGOT_PASSWORD] Database connection error:",
         errorMessage
       );

@@ -10,6 +10,7 @@ import { writeFile, readFile, unlink } from "fs/promises";
 import { join } from "path";
 import { tmpdir } from "os";
 import { existsSync, mkdir } from "fs";
+import { logger } from "./logger";
 
 // Get the blob storage token (supports both AI_READ_WRITE_TOKEN and BLOB_READ_WRITE_TOKEN)
 const getBlobToken = (): string | undefined => {
@@ -57,14 +58,14 @@ export async function uploadFile(
       };
     } catch (error) {
       // If blob storage fails, log error and fallback to local storage
-      console.error("Vercel Blob Storage error:", error);
+      logger.error("Vercel Blob Storage error:", error);
 
       // Check if it's a "store does not exist" error
       if (
         error instanceof Error &&
         error.message.includes("store does not exist")
       ) {
-        console.error(
+        logger.error(
           "❌ Vercel Blob Store does not exist or token is invalid. Please:\n" +
             "1. Go to Vercel Dashboard → Storage\n" +
             "2. Create a new Blob store (if not already created)\n" +
@@ -76,7 +77,7 @@ export async function uploadFile(
       }
 
       // Fall through to local storage fallback
-      console.warn("Falling back to local filesystem storage");
+      logger.warn("Falling back to local filesystem storage");
     }
   }
 
@@ -185,14 +186,14 @@ export async function deleteFile(pathOrUrl: string): Promise<void> {
   if (USE_BLOB_STORAGE) {
     const token = getBlobToken();
     if (!token) {
-      console.warn("Blob storage token is not configured, cannot delete file");
+      logger.warn("Blob storage token is not configured, cannot delete file");
       return;
     }
 
     try {
       await del(pathOrUrl, { token });
     } catch (error) {
-      console.warn(
+      logger.warn(
         `Failed to delete file from blob storage: ${pathOrUrl}`,
         error
       );
@@ -201,7 +202,7 @@ export async function deleteFile(pathOrUrl: string): Promise<void> {
     try {
       await unlink(pathOrUrl);
     } catch (error) {
-      console.warn(`Failed to delete local file: ${pathOrUrl}`, error);
+      logger.warn(`Failed to delete local file: ${pathOrUrl}`, error);
     }
   }
 }

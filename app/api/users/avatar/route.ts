@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
+import { randomBytes } from "crypto";
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,10 +27,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Whitelist of allowed image extensions with their MIME types
+    const allowedImageTypes: Record<string, string[]> = {
+      jpg: ["image/jpeg"],
+      jpeg: ["image/jpeg"],
+      png: ["image/png"],
+      webp: ["image/webp"],
+      gif: ["image/gif"],
+    };
+
     // Validate file type (only images)
     if (!file.type.startsWith("image/")) {
       return NextResponse.json(
         { error: "Only image files are allowed" },
+        { status: 400 }
+      );
+    }
+
+    // Extract and validate file extension
+    const fileExtension = file.name.split(".").pop()?.toLowerCase();
+    if (
+      !fileExtension ||
+      !allowedImageTypes[fileExtension] ||
+      !allowedImageTypes[fileExtension].includes(file.type)
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Invalid file type. Allowed: JPG, JPEG, PNG, WebP, GIF",
+        },
         { status: 400 }
       );
     }
@@ -49,9 +75,9 @@ export async function POST(req: NextRequest) {
       await mkdir(avatarsDir, { recursive: true });
     }
 
-    // Generate unique filename
-    const fileExtension = file.name.split(".").pop() || "jpg";
-    const fileName = `${session.user.id}-${Date.now()}.${fileExtension}`;
+    // Generate secure, unpredictable filename using crypto
+    const randomId = randomBytes(16).toString("hex");
+    const fileName = `${session.user.id}-${randomId}.${fileExtension}`;
     const filePath = join(avatarsDir, fileName);
 
     // Convert file to buffer and save

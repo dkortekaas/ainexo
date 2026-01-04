@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { db as prisma } from "@/lib/db";
 import { WebsiteScraper } from "@/lib/WebsiteScraper";
 import { chunkWebsiteContent } from "@/lib/chunking-optimized";
+import { logger } from "@/lib/logger";
 import {
   generateEmbeddings,
   estimateTokens,
@@ -64,7 +65,7 @@ export async function POST(
       status: "SYNCING",
     });
   } catch (error) {
-    console.error("Error starting website scraping:", error);
+    logger.error("Error starting website scraping:", error);
     return NextResponse.json(
       { error: "Failed to start scraping" },
       { status: 500 }
@@ -216,7 +217,7 @@ async function scrapeWebsiteInBackground(websiteId: string, url: string) {
             { id: websiteId, url: websitePage.url }
           );
         } catch (embeddingError) {
-          console.warn(
+          logger.warn(
             `Failed to create embeddings for page ${page.url}:`,
             embeddingError
           );
@@ -248,11 +249,11 @@ async function scrapeWebsiteInBackground(websiteId: string, url: string) {
       });
     }
 
-    console.log(
+    logger.debug(
       `Successfully scraped website ${url}: ${scrapedData.pages.length} pages in ${duration}s`
     );
   } catch (error) {
-    console.error(`Error scraping website ${url}:`, error);
+    logger.error(`Error scraping website ${url}:`, error);
 
     // Update sync log if exists
     const endTime = Date.now();
@@ -382,9 +383,9 @@ async function createDocumentChunksForPage(
       },
     });
 
-    console.log(`Created ${chunks.length} chunks for page: ${websitePage.url}`);
+    logger.debug(`Created ${chunks.length} chunks for page: ${websitePage.url}`);
   } catch (error) {
-    console.error(`Error creating chunks for page ${websitePage.url}:`, error);
+    logger.error(`Error creating chunks for page ${websitePage.url}:`, error);
 
     // Update document status to failed
     try {
@@ -406,7 +407,7 @@ async function createDocumentChunksForPage(
         });
       }
     } catch (updateError) {
-      console.error("Error updating document status:", updateError);
+      logger.error("Error updating document status:", updateError);
     }
   }
 }

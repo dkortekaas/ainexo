@@ -185,7 +185,7 @@ export async function searchFAQsHybrid(
       embeddingsAvailable = true;
     } catch {
       // Fallback naar tekstuele matching als embeddings niet beschikbaar zijn
-      console.warn("FAQ embedding generation failed, falling back to text search");
+      logger.warn("FAQ embedding generation failed, falling back to text search");
     }
 
     // Bereken scores voor elke FAQ
@@ -229,7 +229,7 @@ export async function searchFAQsHybrid(
       assistantId: item.faq.assistantId,
     }));
   } catch (error) {
-    console.error("Error in hybrid FAQ search:", error);
+    logger.error("Error in hybrid FAQ search:", error);
     // Fallback naar standaard tekstuele search
     return searchFAQs(query, options);
   }
@@ -369,7 +369,7 @@ export async function hybridSearchDocumentChunks(
 ): Promise<SearchResult[]> {
   const { limit = 10 } = options;
 
-  console.log(
+  logger.debug(
     `🔄 Hybrid search: Combining vector + keyword search for: "${query}"`
   );
 
@@ -377,25 +377,25 @@ export async function hybridSearchDocumentChunks(
   const [vectorResults, keywordResults] = await Promise.all([
     searchDocumentChunks(query, { ...options, limit: limit * 2 }).catch(
       (err) => {
-        console.warn("⚠️  Vector search failed:", err);
+        logger.warn("⚠️  Vector search failed:", err);
         return [];
       }
     ),
     searchDocumentsByText(query, { ...options, limit: limit * 2 }).catch(
       (err) => {
-        console.warn("⚠️  Keyword search failed:", err);
+        logger.warn("⚠️  Keyword search failed:", err);
         return [];
       }
     ),
   ]);
 
-  console.log(`  🧠 Vector search: ${vectorResults.length} results`);
-  console.log(`  🔤 Keyword search: ${keywordResults.length} results`);
+  logger.debug(`  🧠 Vector search: ${vectorResults.length} results`);
+  logger.debug(`  🔤 Keyword search: ${keywordResults.length} results`);
 
   // Merge using Reciprocal Rank Fusion
   const merged = reciprocalRankFusion([vectorResults, keywordResults]);
 
-  console.log(`  ✅ Hybrid merged: ${merged.length} results (top ${limit})`);
+  logger.debug(`  ✅ Hybrid merged: ${merged.length} results (top ${limit})`);
 
   return merged.slice(0, limit);
 }
@@ -419,7 +419,7 @@ export async function searchDocumentChunks(
     const isEmptyEmbedding = queryEmbedding.every((val) => val === 0);
 
     if (isEmptyEmbedding) {
-      console.warn(
+      logger.warn(
         "⚠️  Embeddings are not working (empty embedding returned). Falling back to text-based search."
       );
       return searchDocumentsByText(query, options);
@@ -429,7 +429,7 @@ export async function searchDocumentChunks(
     let allowedDocumentIds: string[] | null = null;
 
     if (assistantId) {
-      console.log(`🔍 Vector search: Filtering for assistant: ${assistantId}`);
+      logger.debug(`🔍 Vector search: Filtering for assistant: ${assistantId}`);
 
       // Find knowledge files for this assistant
       const knowledgeFiles = await prisma.knowledgeFile.findMany({
@@ -440,7 +440,7 @@ export async function searchDocumentChunks(
       const fileIds = knowledgeFiles.map((f) => f.id);
 
       if (fileIds.length === 0) {
-        console.warn(
+        logger.warn(
           `⚠️  No knowledge files found for assistant ${assistantId}`
         );
         return [];
@@ -459,12 +459,12 @@ export async function searchDocumentChunks(
         })
         .map((doc) => doc.id);
 
-      console.log(
+      logger.debug(
         `📄 Vector search: Found ${allowedDocumentIds.length} documents for this assistant`
       );
 
       if (allowedDocumentIds.length === 0) {
-        console.warn(`⚠️  No documents found for assistant ${assistantId}`);
+        logger.warn(`⚠️  No documents found for assistant ${assistantId}`);
         return [];
       }
     }
@@ -540,7 +540,7 @@ export async function searchDocumentChunks(
 
     // Als geen resultaten, probeer text-based search als fallback
     if (results.length === 0) {
-      console.log(
+      logger.debug(
         "ℹ️  No vector search results found, trying text-based search as fallback..."
       );
       return searchDocumentsByText(query, options);
@@ -551,7 +551,7 @@ export async function searchDocumentChunks(
       (r) => r.similarity === 0 || r.similarity < 0.01
     );
     if (allZeroScores) {
-      console.log(
+      logger.debug(
         "⚠️  All vector search results have 0 similarity (empty embeddings). Falling back to text-based search..."
       );
       return searchDocumentsByText(query, options);
@@ -588,7 +588,7 @@ export async function searchDocumentsByText(
 ): Promise<SearchResult[]> {
   const { limit = 10, assistantId } = options;
 
-  console.log(`🔍 Using text-based search for query: "${query}"`);
+  logger.debug(`🔍 Using text-based search for query: "${query}"`);
 
   // Split query into keywords (remove common words and punctuation)
   const stopWords = [
@@ -622,7 +622,7 @@ export async function searchDocumentsByText(
     .split(/\s+/)
     .filter((word) => word.length > 2 && !stopWords.includes(word));
 
-  console.log(`📝 Searching for keywords: ${keywords.join(", ")}`);
+  logger.debug(`📝 Searching for keywords: ${keywords.join(", ")}`);
 
   // Build OR conditions for each keyword
   const keywordConditions = keywords.map((keyword) => ({
@@ -640,7 +640,7 @@ export async function searchDocumentsByText(
   let documentIds: string[] | undefined;
 
   if (assistantId) {
-    console.log(`🔍 Filtering for assistant: ${assistantId}`);
+    logger.debug(`🔍 Filtering for assistant: ${assistantId}`);
 
     // Find knowledge files for this assistant
     const knowledgeFiles = await prisma.knowledgeFile.findMany({
@@ -649,12 +649,12 @@ export async function searchDocumentsByText(
     });
 
     const fileIds = knowledgeFiles.map((f) => f.id);
-    console.log(
+    logger.debug(
       `📁 Found ${fileIds.length} knowledge files for this assistant`
     );
 
     if (fileIds.length === 0) {
-      console.warn(`⚠️  No knowledge files found for assistant ${assistantId}`);
+      logger.warn(`⚠️  No knowledge files found for assistant ${assistantId}`);
       return [];
     }
 
@@ -677,10 +677,10 @@ export async function searchDocumentsByText(
       })
       .map((doc) => doc.id);
 
-    console.log(`📄 Found ${documentIds.length} documents for this assistant`);
+    logger.debug(`📄 Found ${documentIds.length} documents for this assistant`);
 
     if (documentIds.length === 0) {
-      console.warn(`⚠️  No documents found for assistant ${assistantId}`);
+      logger.warn(`⚠️  No documents found for assistant ${assistantId}`);
       return [];
     }
   }
@@ -760,7 +760,7 @@ export async function searchDocumentsByText(
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 
-  console.log(
+  logger.debug(
     `✅ Found ${sortedChunks.length} results via text search (scores: ${sortedChunks.map((c) => c.score.toFixed(2)).join(", ")})`
   );
 
@@ -943,47 +943,47 @@ export async function unifiedSearch(
   ]);
 
   // Debug logging voor elke bron
-  console.log("🔍 Unified Search Results:");
-  console.log(`📋 FAQs: ${faqResults.length} results`);
+  logger.debug("🔍 Unified Search Results:");
+  logger.debug(`📋 FAQs: ${faqResults.length} results`);
   if (faqResults.length > 0) {
     faqResults.forEach((result, index) => {
-      console.log(
+      logger.debug(
         `  ${index + 1}. ${result.title} (score: ${(result.score * 100).toFixed(1)}%)`
       );
     });
   }
 
-  console.log(`📄 Documents: ${documentResults.length} results`);
+  logger.debug(`📄 Documents: ${documentResults.length} results`);
   if (documentResults.length > 0) {
     documentResults.forEach((result, index) => {
-      console.log(
+      logger.debug(
         `  ${index + 1}. ${result.title} (score: ${(result.score * 100).toFixed(1)}%)`
       );
     });
   }
 
-  console.log(`📁 Knowledge Files: ${fileResults.length} results`);
+  logger.debug(`📁 Knowledge Files: ${fileResults.length} results`);
   if (fileResults.length > 0) {
     fileResults.forEach((result, index) => {
-      console.log(
+      logger.debug(
         `  ${index + 1}. ${result.title} (score: ${(result.score * 100).toFixed(1)}%)`
       );
     });
   }
 
-  console.log(`🌐 Websites: ${websiteResults.length} results`);
+  logger.debug(`🌐 Websites: ${websiteResults.length} results`);
   if (websiteResults.length > 0) {
     websiteResults.forEach((result, index) => {
-      console.log(
+      logger.debug(
         `  ${index + 1}. ${result.title} (score: ${(result.score * 100).toFixed(1)}%)`
       );
     });
   }
 
-  console.log(`📰 Website Pages: ${websitePageResults.length} results`);
+  logger.debug(`📰 Website Pages: ${websitePageResults.length} results`);
   if (websitePageResults.length > 0) {
     websitePageResults.forEach((result, index) => {
-      console.log(
+      logger.debug(
         `  ${index + 1}. ${result.title} (score: ${(result.score * 100).toFixed(1)}%)`
       );
     });
@@ -998,7 +998,7 @@ export async function unifiedSearch(
     ...websitePageResults,
   ];
 
-  console.log(
+  logger.debug(
     `✅ Total results before sorting: ${allResults.length} from ${faqResults.length + documentResults.length + fileResults.length + websiteResults.length + websitePageResults.length} sources`
   );
 
@@ -1007,12 +1007,12 @@ export async function unifiedSearch(
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 
-  console.log(
+  logger.debug(
     `🎯 Final sorted results (top ${limit}): ${sortedResults.length}`
   );
   if (sortedResults.length > 0) {
     sortedResults.forEach((result, index) => {
-      console.log(
+      logger.debug(
         `  ${index + 1}. [${result.type.toUpperCase()}] ${result.title} (score: ${(result.score * 100).toFixed(1)}%)`
       );
     });
@@ -1073,8 +1073,8 @@ export async function searchRelevantContext(
 ): Promise<SearchResult[]> {
   // Preprocess query voor betere zoekresultaten
   const preprocessedQuery = preprocessQuery(query);
-  console.log(`🔍 Original query: "${query}"`);
-  console.log(`🔍 Preprocessed query: "${preprocessedQuery}"`);
+  logger.debug(`🔍 Original query: "${query}"`);
+  logger.debug(`🔍 Preprocessed query: "${preprocessedQuery}"`);
 
   const searchOptions: SearchOptions = {
     assistantId,

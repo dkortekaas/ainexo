@@ -223,7 +223,11 @@
     "emailNotVerifiedDescription": "Votre adresse e-mail n'est pas vérifiée. Veuillez vérifier votre e-mail pour vérifier votre compte.",
     "invalidImageFile": "Seuls les fichiers image sont autorisés",
     "errorUploadingAvatar": "Échec du téléchargement de la photo de profil",
-    "errorRemovingAvatar": "Échec de la suppression de la photo de profil"
+    "errorRemovingAvatar": "Échec de la suppression de la photo de profil",
+    "failedToParseCSV": "Échec de l'analyse du CSV",
+    "noValidRows": "Aucune ligne valide",
+    "partialImport": "Importation partielle",
+    "failedToImportFAQs": "Échec de l'importation des FAQs"
   },
   "success": {
     "actionButton": "Bouton d'action ajouté avec succès",
@@ -264,7 +268,10 @@
     "avatarUploaded": "Photo de profil téléchargée avec succès",
     "avatarRemoved": "Photo de profil supprimée avec succès",
     "personalDetailsSaved": "Détails personnels enregistrés avec succès",
-    "errorSavingPersonalDetails": "Échec de l'enregistrement des détails personnels"
+    "errorSavingPersonalDetails": "Échec de l'enregistrement des détails personnels",
+    "faqsImportedSuccessfully": "{count} FAQs importées avec succès",
+    "importCompleted": "Importation terminée avec succès",
+    "accountCreated": "Compte créé avec succès"
   },
   "notFound": {
     "title": "Page non trouvée",
@@ -540,7 +547,16 @@
     "getStartedForFree": "Commencer gratuitement !",
     "watchDemo": "Regarder la démo",
     "noCreditCardRequired": "Aucune carte de crédit requise. Votre assistant IA est opérationnel en quelques minutes.",
-    "lastUpdated": "Dernière mise à jour"
+    "lastUpdated": "Dernière mise à jour",
+    "buildAIAgentsDescription": "Créez des agents IA qui",
+    "buildYourAgent": "Créez votre agent",
+    "benefits": [
+      "5 minutes pour configurer et mettre en ligne instantanément",
+      "Personnalisez selon la voix de votre marque",
+      "Entraînez sur de grandes bases de connaissances, fichiers et pages web",
+      "Service client et ventes instantanés 24/7",
+      "Ajoutez un chatbot IA à votre site web, sans codage nécessaire"
+    ]
   },
   "howItWorks": {
     "howAinexoWorks": "Comment fonctionne Ainexo",
@@ -1284,7 +1300,31 @@
       "tryAgain": "Réessayer",
       "backToDashboard": "Retour au tableau de bord",
       "errorReference": "Référence d'erreur"
-    }
+    },
+    "bulkImport": "Importation en bloc",
+    "bulkImportFAQs": "Importation en bloc de FAQs",
+    "bulkImportDescription": "Téléchargez un fichier CSV pour ajouter plusieurs FAQs à la fois",
+    "csvFile": "Fichier CSV",
+    "csvFormat": "Format attendu : question,answer,enabled,order",
+    "csvOnly": "Seuls les fichiers CSV sont autorisés",
+    "csvFileTooLarge": "Le fichier CSV ne doit pas dépasser 5MB",
+    "csvMissingColumns": "Le CSV doit contenir les colonnes 'question' et 'answer'",
+    "csvValidationQuestionRequired": "La question est obligatoire",
+    "csvValidationQuestionTooLong": "La question ne doit pas dépasser {max} caractères",
+    "csvValidationAnswerRequired": "La réponse est obligatoire",
+    "csvValidationAnswerTooLong": "La réponse ne doit pas dépasser {max} caractères",
+    "selectedFile": "Fichier sélectionné",
+    "validatingCSV": "Validation du CSV...",
+    "importPreview": "Aperçu de l'importation",
+    "totalRows": "Total des lignes",
+    "validRows": "Lignes valides",
+    "invalidRows": "Lignes invalides",
+    "validationErrors": "Erreurs de validation trouvées",
+    "importing": "Importation en cours...",
+    "importResult": "Résultat de l'importation",
+    "importFAQs": "Importer des FAQs",
+    "allRowsHaveErrors": "Toutes les lignes contiennent des erreurs. Veuillez corriger les erreurs et réessayer.",
+    "importCompletedWithErrors": "{imported} FAQs importées, {failed} échouées"
   },
   "status": {
     "active": "Actif",
@@ -1373,7 +1413,16 @@
     "missingFields": "Champs manquants",
     "missingFieldsDescription": "Veuillez remplir tous les champs obligatoires.",
     "messageSent": "Message envoyé !",
-    "messageSentDescription": "Nous vous répondrons dès que possible."
+    "messageSentDescription": "Nous vous répondrons dès que possible.",
+    "sending": "Envoi en cours...",
+    "errorSending": "Erreur d'envoi",
+    "errorSendingDescription": "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer.",
+    "nameRequired": "Veuillez remplir ce champ",
+    "emailRequired": "Veuillez remplir ce champ",
+    "emailInvalid": "Veuillez entrer une adresse e-mail valide",
+    "companyRequired": "Veuillez remplir ce champ",
+    "messageRequired": "Veuillez remplir ce champ",
+    "messageTooShort": "Le message doit contenir au moins 10 caractères"
   },
   "pricing": {
     "title": "Tarification simple et transparente",
@@ -1398,49 +1447,61 @@
     "plans": {
       "starter": {
         "name": "Starter",
-        "description": "Parfait pour les petites entreprises qui débutent avec l'IA",
-        "monthlyPrice": "€25",
-        "yearlyMonthPrice": "€17,50",
-        "yearlyPrice": "€300",
+        "description": "Parfait pour les petites entreprises qui débutent",
+        "price": "€29",
+        "period": "/mois",
         "features": [
-          "Assistant de Chat sur 1 site web",
-          "Jusqu'à 50 conversations/mois",
+          "Jusqu'à 1 000 conversations par mois",
+          "Assistant IA de base",
           "Support par e-mail",
+          "Base de connaissances standard",
           "Analyses de base"
         ],
-        "cta": "Démarrer l'essai gratuit"
+        "cta": "Commencer",
+        "href": "/register",
+        "monthlyPrice": "€25",
+        "yearlyMonthPrice": "€17.50",
+        "yearlyPrice": "€300"
       },
       "professional": {
         "name": "Professional",
-        "description": "Pour les entreprises en croissance qui ont besoin de plus",
+        "description": "Idéal pour les entreprises en croissance",
+        "price": "€79",
+        "period": "/mois",
+        "features": [
+          "Jusqu'à 10 000 conversations par mois",
+          "Assistant IA avancé",
+          "Support prioritaire",
+          "Base de connaissances avancée",
+          "Analyses détaillées",
+          "Branding personnalisé",
+          "Accès API"
+        ],
+        "cta": "Commencer l'essai gratuit",
+        "href": "/register",
         "monthlyPrice": "€49",
         "yearlyMonthPrice": "€40",
-        "yearlyPrice": "€480",
-        "features": [
-          "Assistant de Chat sur sites web illimités",
-          "Jusqu'à 400 conversations/mois",
-          "Assistant e-mail inclus",
-          "Support prioritaire",
-          "Analyses avancées",
-          "Image de marque personnalisée"
-        ],
-        "cta": "Démarrer l'essai gratuit"
+        "yearlyPrice": "€480"
       },
       "enterprise": {
         "name": "Enterprise",
         "description": "Pour les grandes organisations aux besoins complexes",
+        "price": "Sur mesure",
+        "period": "",
+        "features": [
+          "Conversations illimitées",
+          "Formation IA personnalisée",
+          "Support dédié",
+          "Intégrations avancées",
+          "Analyses personnalisées",
+          "Solution white-label",
+          "Garantie SLA"
+        ],
+        "cta": "Contacter les ventes",
+        "href": "/contact",
         "monthlyPrice": "€145",
         "yearlyMonthPrice": "€125",
-        "yearlyPrice": "€1500",
-        "features": [
-          "Assistant de Chat sur sites web illimités",
-          "Jusqu'à 3 000 conversations/mois",
-          "Assistant e-mail inclus",
-          "Support prioritaire",
-          "Analyses avancées",
-          "Image de marque personnalisée"
-        ],
-        "cta": "Démarrer l'essai gratuit"
+        "yearlyPrice": "€1500"
       }
     },
     "categories": {
@@ -1508,57 +1569,6 @@
       "oneMonth": "1 Mois",
       "oneYear": "1 An",
       "twoYears": "2 Ans"
-    },
-    "plans": {
-      "starter": {
-        "name": "Starter",
-        "description": "Parfait pour les petites entreprises qui débutent",
-        "price": "€29",
-        "period": "/mois",
-        "features": [
-          "Jusqu'à 1 000 conversations par mois",
-          "Assistant IA de base",
-          "Support par e-mail",
-          "Base de connaissances standard",
-          "Analyses de base"
-        ],
-        "cta": "Commencer",
-        "href": "/register"
-      },
-      "professional": {
-        "name": "Professional",
-        "description": "Idéal pour les entreprises en croissance",
-        "price": "€79",
-        "period": "/mois",
-        "features": [
-          "Jusqu'à 10 000 conversations par mois",
-          "Assistant IA avancé",
-          "Support prioritaire",
-          "Base de connaissances avancée",
-          "Analyses détaillées",
-          "Branding personnalisé",
-          "Accès API"
-        ],
-        "cta": "Commencer l'essai gratuit",
-        "href": "/register"
-      },
-      "enterprise": {
-        "name": "Enterprise",
-        "description": "Pour les grandes organisations aux besoins complexes",
-        "price": "Sur mesure",
-        "period": "",
-        "features": [
-          "Conversations illimitées",
-          "Formation IA personnalisée",
-          "Support dédié",
-          "Intégrations avancées",
-          "Analyses personnalisées",
-          "Solution white-label",
-          "Garantie SLA"
-        ],
-        "cta": "Contacter les ventes",
-        "href": "/contact"
-      }
     }
   },
   "roles": {
@@ -2107,5 +2117,185 @@
     "cancel": "Annuler",
     "upgrade": "Mettre à niveau",
     "messagePlaceholder": "Message..."
+  },
+  "howItWorksSite": {
+    "badge": "Comment ça marche",
+    "title": "Démarrez en",
+    "titleHighlight": "3 étapes simples",
+    "subtitle": "Aucune compétence technique requise. Configurez votre chatbot IA en quelques minutes, pas en jours.",
+    "steps": {
+      "step1": {
+        "title": "Connectez vos données",
+        "description": "Téléchargez vos documents, connectez votre site web ou intégrez votre système d'assistance existant. Ainexo indexe automatiquement tout."
+      },
+      "step2": {
+        "title": "Personnalisez votre agent",
+        "description": "Définissez la personnalité, le ton et le comportement de votre chatbot. Configurez des messages d'accueil personnalisés et définissez comment il gère différents types de requêtes."
+      },
+      "step3": {
+        "title": "Déployez partout",
+        "description": "Ajoutez Ainexo à votre site web avec un simple code d'intégration. Votre agent IA est maintenant en direct et prêt à aider vos clients 24/7."
+      }
+    }
+  },
+  "ctaSite": {
+    "title": "Prêt à transformer votre support client ?",
+    "description": "Rejoignez des milliers d'entreprises qui utilisent Ainexo pour offrir des expériences client exceptionnelles. Commencez votre essai gratuit dès aujourd'hui.",
+    "startFree": "Commencer gratuitement",
+    "scheduleDemo": "Planifier une démo"
+  },
+  "trustedBy": {
+    "title": "Approuvé par des entreprises du monde entier"
+  },
+  "featuresSite": {
+    "badge": "Fonctionnalités",
+    "title": "Tout ce dont vous avez besoin pour",
+    "titleHighlight": "surcharger",
+    "subtitle": "votre support",
+    "description": "Ainexo fournit tous les outils dont vous avez besoin pour offrir des expériences client exceptionnelles à grande échelle.",
+    "features": {
+      "trainAI": {
+        "title": "Entraînez des agents IA sur vos données",
+        "description": "Téléchargez de la documentation et intégrez-vous aux systèmes d'assistance. Ainexo apprend à partir de PDFs, URLs, Zendesk et autres sources pour fournir des réponses précises.",
+        "benefits": [
+          "Entraînez sur tous les formats de fichiers",
+          "Indexez des sites web illimités",
+          "Synchronisez vos données automatiquement"
+        ]
+      },
+      "customizable": {
+        "title": "Entièrement personnalisable selon votre marque",
+        "description": "Personnalisez le rôle, le ton, le style de votre chatbot et rédigez des instructions personnalisées pour donner à votre chatbot un comportement et une personnalité.",
+        "benefits": [
+          "Correspond aux couleurs de votre marque",
+          "Messages d'accueil personnalisés",
+          "Réponses personnalisées"
+        ]
+      },
+      "trainConversations": {
+        "title": "Entraînez le chatbot sur les conversations en temps réel",
+        "description": "Vous n'aimez pas une réponse que votre chatbot donne ? Entraînez votre chatbot à apprendre de ses erreurs en l'informant de ce qu'est une réponse modèle.",
+        "benefits": [
+          "Ajoutez des corrections à la volée",
+          "Réponses plus intelligentes au fil du temps",
+          "Identification automatique des corrections"
+        ]
+      },
+      "gdprCompliant": {
+        "title": "Conforme RGPD & Certifié SOC 2",
+        "description": "La conformité de niveau industriel garantit que vos données sont protégées avec des normes de sécurité de niveau entreprise.",
+        "benefits": [
+          "Chiffrement de bout en bout",
+          "Contrôles de confidentialité des données",
+          "Audits de sécurité réguliers"
+        ]
+      },
+      "fastSetup": {
+        "title": "Configuration ultra-rapide en 5 minutes",
+        "description": "5 minutes suffisent pour que le chatbot s'entraîne sur votre site web et vos fichiers. Une fois terminé, vous pouvez instantanément converser avec lui.",
+        "benefits": [
+          "Aucun codage requis",
+          "Déploiement instantané",
+          "Intégration facile"
+        ]
+      },
+      "analytics": {
+        "title": "Tableau de bord analytique intégré",
+        "description": "Suivez chaque métrique qui compte dans un tableau de bord puissant qui quantifie le ROI de votre chatbot et révèle exactement où optimiser.",
+        "benefits": [
+          "Suivi du taux de résolution",
+          "Résumés des requêtes clients",
+          "Analyse des lacunes de connaissances"
+        ]
+      }
+    }
+  },
+  "pricingSite": {
+    "badge": "Tarification",
+    "title": "Tarification simple et",
+    "titleHighlight": "transparente",
+    "subtitle": "Commencez gratuitement, évoluez selon vos besoins. Pas de frais cachés.",
+    "mostPopular": "Le plus populaire",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Parfait pour les petits sites web et projets personnels",
+        "price": "29",
+        "features": [
+          "1 agent IA",
+          "1 000 messages/mois",
+          "Personnalisation basique",
+          "Support par e-mail",
+          "Widget de site web"
+        ]
+      },
+      "professional": {
+        "name": "Professionnel",
+        "description": "Pour les entreprises en croissance avec plus de trafic",
+        "price": "99",
+        "features": [
+          "5 agents IA",
+          "10 000 messages/mois",
+          "Personnalisation complète",
+          "Support prioritaire",
+          "Tableau de bord analytique",
+          "Collaboration en équipe",
+          "Accès API"
+        ]
+      },
+      "enterprise": {
+        "name": "Entreprise",
+        "description": "Pour les grandes organisations avec des besoins spécifiques",
+        "price": "Personnalisé",
+        "features": [
+          "Agents IA illimités",
+          "Messages illimités",
+          "Intégrations personnalisées",
+          "Support dédié",
+          "Garantie SLA",
+          "Option sur site",
+          "Formation personnalisée"
+        ]
+      }
+    },
+    "currency": "$",
+    "perMonth": "/mois",
+    "contactSales": "Contacter les ventes",
+    "getStarted": "Commencer"
+  },
+  "testimonials": {
+    "badge": "Témoignages",
+    "title": "Les entreprises ayant un service client réussi commencent avec",
+    "titleHighlight": "Ainexo",
+    "testimonials": {
+      "testimonial1": {
+        "quote": "Ainexo a révolutionné notre support client. Nous avons réduit le temps de réponse de 80% et nos clients adorent l'aide instantanée.",
+        "author": "Sarah Johnson",
+        "role": "Responsable du succès client",
+        "company": "TechFlow Inc."
+      },
+      "testimonial2": {
+        "quote": "La configuration était incroyablement facile. En 5 minutes, nous avions un chatbot IA qui comprenait vraiment notre documentation produit.",
+        "author": "Michael Chen",
+        "role": "Fondateur & CEO",
+        "company": "StartupLab"
+      },
+      "testimonial3": {
+        "quote": "La précision des réponses est impressionnante. Notre équipe de support peut maintenant se concentrer sur les problèmes complexes tandis qu'Ainexo gère les requêtes routinières.",
+        "author": "Emily Rodriguez",
+        "role": "Responsable du support",
+        "company": "CloudScale"
+      }
+    }
+  },
+  "contactPage": {
+    "badge": "Contact",
+    "title": "Vous cherchez de l'aide ?",
+    "titleHighlight": "Besoin d'aide ?",
+    "description": "Envoyez-nous un message et un membre de l'équipe vous répondra dès que possible."
+  },
+  "blogPage": {
+    "minRead": "min de lecture",
+    "views": "vues"
   }
 }

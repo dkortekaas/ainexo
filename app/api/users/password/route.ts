@@ -67,8 +67,8 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
-    // Hash het nieuwe wachtwoord
-    const hashedPassword = await hash(newPassword, 10);
+    // Hash het nieuwe wachtwoord with bcrypt cost factor 12
+    const hashedPassword = await hash(newPassword, 12);
 
     // Update het wachtwoord in de database
     await db.user.update({

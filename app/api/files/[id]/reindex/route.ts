@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { estimateTokens } from "@/lib/openai";
 import { generateBatchEmbeddings } from "@/lib/embedding-service-optimized";
+import { logger } from "@/lib/logger";
 
 // POST /api/files/[id]/reindex - Re-generate embeddings for a file
 export async function POST(
@@ -18,7 +19,7 @@ export async function POST(
 
     const { id } = await params;
 
-    console.log(`🔄 Re-indexing file: ${id}`);
+    logger.debug(`🔄 Re-indexing file: ${id}`);
 
     // Load current user with company for scoping
     const currentUser = await db.user.findUnique({
@@ -83,18 +84,18 @@ export async function POST(
       );
     }
 
-    console.log(`📦 Found ${chunks.length} chunks to re-index`);
+    logger.debug(`📦 Found ${chunks.length} chunks to re-index`);
 
     // Generate new embeddings
     try {
       const chunkTexts = chunks.map((chunk) => chunk.content);
-      console.log(
+      logger.debug(
         `🔄 Generating embeddings for ${chunkTexts.length} chunks...`
       );
 
       const embeddings = await generateBatchEmbeddings(chunkTexts);
 
-      console.log(`✅ Generated ${embeddings.length} embeddings`);
+      logger.debug(`✅ Generated ${embeddings.length} embeddings`);
 
       // Update each chunk with new embedding
       let updated = 0;
@@ -111,11 +112,11 @@ export async function POST(
         updated++;
 
         if (updated % 10 === 0) {
-          console.log(`📊 Updated ${updated}/${chunks.length} chunks`);
+          logger.debug(`📊 Updated ${updated}/${chunks.length} chunks`);
         }
       }
 
-      console.log(
+      logger.debug(
         `✅ Successfully re-indexed ${updated} chunks for file: ${file.originalName}`
       );
 
@@ -131,7 +132,7 @@ export async function POST(
         chunksUpdated: updated,
       });
     } catch (error) {
-      console.error("Error generating embeddings:", error);
+      logger.error("Error generating embeddings:", error);
       return NextResponse.json(
         {
           error: "Failed to generate embeddings",
@@ -141,7 +142,7 @@ export async function POST(
       );
     }
   } catch (error) {
-    console.error("Error re-indexing file:", error);
+    logger.error("Error re-indexing file:", error);
     return NextResponse.json(
       {
         error: "Failed to re-index file",

@@ -6,6 +6,7 @@ import {
 } from "@/lib/stripe";
 import { SubscriptionStatus, SubscriptionPlan } from "@prisma/client";
 import Stripe from "stripe";
+import { logger } from "./logger";
 
 /**
  * Subscription data interface
@@ -103,7 +104,7 @@ export async function getSubscription(
       updatedAt: user.updatedAt,
     };
   } catch (error) {
-    console.error("Error getting subscription:", error);
+    logger.error("Error getting subscription:", error);
     throw error;
   }
 }
@@ -164,7 +165,7 @@ export async function initializeTrialSubscription(
       updatedAt: user.updatedAt,
     };
   } catch (error) {
-    console.error("Error initializing trial subscription:", error);
+    logger.error("Error initializing trial subscription:", error);
     throw error;
   }
 }
@@ -266,7 +267,7 @@ export async function createSubscription(
       "Direct subscription creation is only supported for TRIAL plans. Use createStripeCheckout for paid plans."
     );
   } catch (error) {
-    console.error("Error creating subscription:", error);
+    logger.error("Error creating subscription:", error);
     throw error;
   }
 }
@@ -352,7 +353,7 @@ export async function updateSubscription(
       updatedAt: user.updatedAt,
     };
   } catch (error) {
-    console.error("Error updating subscription:", error);
+    logger.error("Error updating subscription:", error);
     throw error;
   }
 }
@@ -406,7 +407,7 @@ export async function cancelSubscription(
       });
     }
   } catch (error) {
-    console.error("Error canceling subscription:", error);
+    logger.error("Error canceling subscription:", error);
     throw error;
   }
 }
@@ -453,7 +454,7 @@ export async function syncSubscriptionFromStripe(
           user.stripeSubscriptionId
         );
       } catch (error) {
-        console.log(
+        logger.debug(
           `Failed to retrieve subscription ${user.stripeSubscriptionId}, falling back to list`
         );
         activeSubscription = null;
@@ -540,7 +541,7 @@ export async function syncSubscriptionFromStripe(
       subscriptionCancelAt: cancelAt,
     });
   } catch (error) {
-    console.error("Error syncing subscription from Stripe:", error);
+    logger.error("Error syncing subscription from Stripe:", error);
     throw error;
   }
 }
@@ -564,14 +565,14 @@ export async function updateSubscriptionFromStripeWebhook(
     });
 
     if (!user) {
-      console.error(`User not found for customer ${customerId}`);
+      logger.error(`User not found for customer ${customerId}`);
       return null;
     }
 
     // Get the price ID from the subscription
     const priceId = subscription.items.data[0]?.price.id;
     if (!priceId) {
-      console.error("No price ID found in subscription");
+      logger.error("No price ID found in subscription");
       return null;
     }
 
@@ -629,7 +630,7 @@ export async function updateSubscriptionFromStripeWebhook(
       subscriptionCancelAt: cancelAt,
     });
   } catch (error) {
-    console.error("Error updating subscription from Stripe webhook:", error);
+    logger.error("Error updating subscription from Stripe webhook:", error);
     throw error;
   }
 }

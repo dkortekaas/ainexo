@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { logger } from "@/lib/logger";
 
 // GET /api/faqs/[id] - Get a specific FAQ
 export async function GET(
@@ -23,7 +24,7 @@ export async function GET(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -54,7 +55,7 @@ export async function GET(
 
     return NextResponse.json(faq);
   } catch (error) {
-    console.error("Error fetching FAQ:", error);
+    logger.error("Error fetching FAQ:", error);
     return NextResponse.json({ error: "Failed to fetch FAQ" }, { status: 500 });
   }
 }
@@ -88,7 +89,7 @@ export async function PUT(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -129,7 +130,7 @@ export async function PUT(
 
     return NextResponse.json(faq);
   } catch (error) {
-    console.error("Error updating FAQ:", error);
+    logger.error("Error updating FAQ:", error);
     return NextResponse.json(
       { error: "Failed to update FAQ" },
       { status: 500 }
@@ -157,7 +158,7 @@ export async function DELETE(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -192,7 +193,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: "FAQ deleted successfully" });
   } catch (error) {
-    console.error("Error deleting FAQ:", error);
+    logger.error("Error deleting FAQ:", error);
     return NextResponse.json(
       { error: "Failed to delete FAQ" },
       { status: 500 }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { logger } from "@/lib/logger";
 
 // GET /api/websites/[id] - Get a specific website
 export async function GET(
@@ -23,7 +24,7 @@ export async function GET(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -64,7 +65,7 @@ export async function GET(
 
     return NextResponse.json(website);
   } catch (error) {
-    console.error("Error fetching website:", error);
+    logger.error("Error fetching website:", error);
     return NextResponse.json(
       { error: "Failed to fetch website" },
       { status: 500 }
@@ -108,7 +109,7 @@ export async function PUT(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -176,7 +177,7 @@ export async function PUT(
 
     return NextResponse.json(website);
   } catch (error) {
-    console.error("Error updating website:", error);
+    logger.error("Error updating website:", error);
     return NextResponse.json(
       { error: "Failed to update website" },
       { status: 500 }
@@ -204,7 +205,7 @@ export async function DELETE(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -249,7 +250,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: "Website deleted successfully" });
   } catch (error) {
-    console.error("Error deleting website:", error);
+    logger.error("Error deleting website:", error);
     return NextResponse.json(
       { error: "Failed to delete website" },
       { status: 500 }

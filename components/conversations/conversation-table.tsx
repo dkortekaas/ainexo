@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, memo } from "react";
+import { useLocale } from "next-intl";
 import {
   Table,
   TableBody,
@@ -57,6 +58,7 @@ interface ConversationTableProps {
 const ConversationTableComponent = ({ conversations }: ConversationTableProps) => {
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
   const t = useTranslations();
+  const locale = useLocale();
 
   const toggleRow = (conversationId: string) => {
     const newExpanded = new Set(expandedRows);
@@ -70,7 +72,7 @@ const ConversationTableComponent = ({ conversations }: ConversationTableProps) =
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("nl-NL", {
+    return date.toLocaleDateString(locale, {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
@@ -148,6 +150,12 @@ const ConversationTableComponent = ({ conversations }: ConversationTableProps) =
                   size="sm"
                   onClick={() => toggleRow(conversation.id)}
                   className="ml-4"
+                  aria-expanded={isExpanded}
+                  aria-label={
+                    isExpanded
+                      ? t("conversations.collapse")
+                      : t("conversations.expand")
+                  }
                 >
                   {isExpanded ? (
                     <ChevronDown className="h-4 w-4" />

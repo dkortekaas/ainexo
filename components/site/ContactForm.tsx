@@ -38,9 +38,18 @@ export function ContactForm({
     setStatus('loading');
 
     try {
-      // TODO: Replace with your actual form submission endpoint
-      // For now, simulate a successful submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Call the actual form submission API endpoint
+      const response = await fetch('/api/forms/contact/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
 
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -48,6 +57,7 @@ export function ContactForm({
       // Reset success message after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
+      console.error('Contact form submission error:', error);
       setStatus('error');
       // Reset error message after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);

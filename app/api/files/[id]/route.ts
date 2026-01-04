@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { deleteFile } from "@/lib/blob-storage";
 import { db } from "@/lib/db";
+import { logger } from "@/lib/logger";
 
 // GET /api/files/[id] - Get a specific file
 export async function GET(
@@ -24,7 +25,7 @@ export async function GET(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -55,7 +56,7 @@ export async function GET(
 
     return NextResponse.json(file);
   } catch (error) {
-    console.error("Error fetching file:", error);
+    logger.error("Error fetching file:", error);
     return NextResponse.json(
       { error: "Failed to fetch file" },
       { status: 500 }
@@ -85,7 +86,7 @@ export async function PUT(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -125,7 +126,7 @@ export async function PUT(
 
     return NextResponse.json(file);
   } catch (error) {
-    console.error("Error updating file:", error);
+    logger.error("Error updating file:", error);
     return NextResponse.json(
       { error: "Failed to update file" },
       { status: 500 }
@@ -153,7 +154,7 @@ export async function DELETE(
     });
 
     if (!currentUser) {
-      console.error("User not found in database:", session.user.id);
+      logger.error("User not found in database:", session.user.id);
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
@@ -186,7 +187,7 @@ export async function DELETE(
     try {
       await deleteFile(existingFile.filePath);
     } catch (error) {
-      console.warn("Failed to delete file from storage:", error);
+      logger.warn("Failed to delete file from storage:", error);
       // Continue with database deletion even if file deletion fails
     }
 
@@ -197,7 +198,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: "File deleted successfully" });
   } catch (error) {
-    console.error("Error deleting file:", error);
+    logger.error("Error deleting file:", error);
     return NextResponse.json(
       { error: "Failed to delete file" },
       { status: 500 }

@@ -72,7 +72,10 @@ export async function POST(request: NextRequest) {
         },
       });
     } catch (dbError) {
-      logger.error("Database error:", dbError);
+      const errorMessage = dbError instanceof Error ? dbError.message : String(dbError);
+      logger.error("Database error:", {
+        message: errorMessage,
+      });
       return NextResponse.json(
         { success: false, error: "Database connection error" },
         { status: 500, headers: corsHeaders }
@@ -228,17 +231,17 @@ export async function POST(request: NextRequest) {
     });
 
     const questionLower = question.toLowerCase();
-    const triggeredForm = forms.find((form) => {
+    const triggeredForm = forms.find((form: { triggers: unknown }) => {
       if (!form.triggers || (form.triggers as string[]).length === 0)
         return false;
-      return (form.triggers as string[]).some((trigger) =>
+      return (form.triggers as string[]).some((trigger: string) =>
         questionLower.includes(trigger.toLowerCase())
       );
     });
 
     // If a form is triggered, return form data instead of regular response
     if (triggeredForm) {
-      logger.debug("📋 Form triggered:", triggeredForm.name);
+      logger.debug("📋 Form triggered:", { formName: triggeredForm.name });
 
       // Save user message
       await db.conversationMessage.create({
@@ -296,14 +299,14 @@ export async function POST(request: NextRequest) {
     let aiResponse: any = null;
 
     try {
-      logger.debug("🔍 Searching for question:", question);
-      logger.debug("🤖 Chatbot ID:", chatbotSettings.id);
+      logger.debug("🔍 Searching for question:", { question });
+      logger.debug("🤖 Chatbot ID:", { chatbotId: chatbotSettings.id });
 
       // Check if we have any FAQs for this assistant
       const totalFaqs = await db.fAQ.count({
         where: { assistantId: chatbotSettings.id },
       });
-      logger.debug("📊 Total FAQs in database for this assistant:", totalFaqs);
+      logger.debug("📊 Total FAQs in database for this assistant:", { totalFaqs });
 
       // If no FAQs exist, create some test data
       if (totalFaqs === 0) {
@@ -339,7 +342,10 @@ export async function POST(request: NextRequest) {
           });
           logger.debug("✅ Test FAQ data created");
         } catch (createError) {
-          logger.error("❌ Error creating test FAQ data:", createError);
+          const errorMessage = createError instanceof Error ? createError.message : String(createError);
+          logger.error("❌ Error creating test FAQ data:", {
+            message: errorMessage,
+          });
         }
       }
 
@@ -362,7 +368,7 @@ export async function POST(request: NextRequest) {
         }
       );
 
-      logger.debug("📚 Found knowledge base results:", knowledgeResults.length);
+      logger.debug("📚 Found knowledge base results:", { count: knowledgeResults.length });
       if (knowledgeResults.length > 0) {
         logger.debug("📋 Knowledge base results details:");
         knowledgeResults.forEach((result, index) => {

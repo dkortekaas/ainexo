@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { AuthProvider } from "@/components/providers/AuthProvider";
@@ -10,11 +10,12 @@ import { Toaster } from "@/components/ui/toaster";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import config from "@/config";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap", // Prevent invisible text during font load
-  preload: true,
-});
+// Temporarily disabled Google Fonts for offline build
+// const inter = Inter({
+//   subsets: ["latin"],
+//   display: "swap", // Prevent invisible text during font load
+//   preload: true,
+// });
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -101,7 +102,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans"
         suppressHydrationWarning
       >
         <ThemeProvider>

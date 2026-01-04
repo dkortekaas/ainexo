@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     const rateLimitKey = `register:${ip}`;
     const rateLimit = await checkRateLimit(rateLimitKey, 5, 3600); // 5 attempts per hour
 
-    if (!rateLimit.success) {
+    if (!rateLimit.allowed) {
       logger.warn(`[REGISTER_POST] Rate limit exceeded for IP: ${ip}`);
       return NextResponse.json(
         {

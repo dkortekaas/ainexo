@@ -173,7 +173,10 @@ export async function POST(request: NextRequest) {
       }
     );
   } catch (error) {
-    logger.error("Error in feedback endpoint:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logger.error("Error in feedback endpoint:", {
+      message: errorMessage,
+    });
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -236,7 +239,7 @@ async function analyzePoorResponse(
         messageId: messageId,
         sessionId: message.sessionId,
         originalQuestion:
-          conversationContext.find((m) => m.messageType === "USER")?.content ||
+          conversationContext.find((m: { messageType: string }) => m.messageType === "USER")?.content ||
           "",
         originalAnswer: message.content,
         userFeedback: userFeedback || null,
@@ -258,7 +261,10 @@ async function analyzePoorResponse(
       userFeedback
     );
   } catch (error) {
-    logger.error("Error analyzing poor response:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logger.error("Error analyzing poor response:", {
+      message: errorMessage,
+    });
   }
 }
 
@@ -375,7 +381,10 @@ async function generateImprovementSuggestions(
 
     logger.debug(`✅ Generated ${suggestions.length} improvement suggestions`);
   } catch (error) {
-    logger.error("Error generating improvement suggestions:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logger.error("Error generating improvement suggestions:", {
+      message: errorMessage,
+    });
 
     // Update analysis status to failed
     await db.poorResponseAnalysis.update({

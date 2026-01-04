@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import Stripe from "stripe";
-import { SubscriptionStatus } from "@prisma/client";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { stripe, getPlanByPriceId } from "@/lib/stripe";

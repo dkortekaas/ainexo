@@ -72,15 +72,15 @@ export async function POST(req: Request) {
         `[FORGOT_PASSWORD] Password reset email sent successfully to ${email}`
       );
     } catch (emailError) {
-      logger.error(
-        `[FORGOT_PASSWORD] Failed to send password reset email to ${email}:`,
-        emailError
-      );
       // Log the full error details
       if (emailError instanceof Error) {
-        logger.error(`[FORGOT_PASSWORD] Error details:`, {
+        logger.error(`[FORGOT_PASSWORD] Failed to send password reset email to ${email}:`, {
           message: emailError.message,
           stack: emailError.stack,
+        });
+      } else {
+        logger.error(`[FORGOT_PASSWORD] Failed to send password reset email to ${email}:`, {
+          error: String(emailError),
         });
       }
       // Still return success to prevent email enumeration, but log the error
@@ -95,11 +95,14 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
-    logger.error("Error in forgot password:", error);
-
     // Check if error message contains database connection keywords
     const errorMessage = error instanceof Error ? error.message : String(error);
     const errorName = error instanceof Error ? error.name : "";
+
+    logger.error("Error in forgot password:", {
+      message: errorMessage,
+      name: errorName,
+    });
 
     // Check if it's a Prisma database connection error
     if (
@@ -111,10 +114,9 @@ export async function POST(req: Request) {
       errorMessage.includes("ECONNREFUSED") ||
       errorMessage.includes("PrismaClient")
     ) {
-      logger.error(
-        "[FORGOT_PASSWORD] Database connection error:",
-        errorMessage
-      );
+      logger.error("[FORGOT_PASSWORD] Database connection error:", {
+        message: errorMessage,
+      });
       return NextResponse.json(
         {
           error:

@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
     const rateLimitKey = `chat:${apiKey}`;
     const rateLimit = await checkRateLimit(rateLimitKey, 60, 60);
 
-    if (!rateLimit.success) {
+    if (!rateLimit.allowed) {
       return NextResponse.json(
         { success: false, error: "Rate limit exceeded" },
         {
